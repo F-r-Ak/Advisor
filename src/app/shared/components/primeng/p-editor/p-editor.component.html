@@ -1,0 +1,11 @@
+@if(formGroup) {
+  <label for="inputId" class="label m-1">{{ label }}</label>
+  <div [formGroup]="formGroup">
+  <p-editor [formControlName]="controlName" [readonly]="readonly" inputId="inputId" />
+  @if (formGroup.get(controlName)?.errors) {
+  <small>
+    <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
+  </small>
+  }
+</div>
+}

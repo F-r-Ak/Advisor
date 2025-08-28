@@ -1,0 +1,23 @@
+::ng-deep .p-autocomplete-option {
+    direction: rtl;
+}
+
+:host ::ng-deep {
+    .p-autocomplete {
+        width: 100%;
+    }
+    .p-autocomplete-dropdown {
+        background: var(--light-color);
+    }
+}
+    :host ::ng-deep {
+        .p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
+            left: calc(var(--p-autocomplete-padding-x) + var(--p-autocomplete-dropdown-width));
+            right: unset !important;
+        }
+
+        .p-autocomplete-clear-icon {
+            left: var(--p-autocomplete-padding-x);
+            right: unset !important;
+        }
+    }

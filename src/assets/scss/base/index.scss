@@ -1,0 +1,30 @@
+@import 'variables';
+@import 'typography';
+
+:root {
+  --db-font-family-light: 'Cairo-Light', sans-serif;
+  --db-font-family-regular: 'Cairo', sans-serif;
+  --db-font-family-bold: 'Cairo-Bold', sans-serif;
+
+  --bs-navbar-height: 3rem;
+  --bs-font-size: #{$db-font-size};
+  --bs-body-text-align: start;
+  --bs-middle-rgb: #{to-rgb($middle)};
+  --bs-primary-light-rgb: #{to-rgb($primary-light)};
+
+  &[lang='ar'] {
+    --db-font-family-light: 'Cairo-Light', sans-serif;
+    --db-font-family-regular: 'Cairo', sans-serif;
+    --db-font-family-bold: 'Cairo-Bold', sans-serif;
+  }
+}
+
+[data-bs-theme='dark'] {
+  --bs-body-bg: var(--bs-black);
+  --bs-dark: var(--bs-middle);
+  --bs-dark-rgb: var(--bs-middle-rgb);
+  --bs-dark-gray: var(--bs-light);
+  --bs-dark-gray-rgb: var(--bs-light-rgb);
+  --bs-white: var(--bs-black);
+  --bs-white-rgb: var(--bs-black-rgb);
+}

@@ -1,0 +1,228 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+$font-size-base: $db-font-size;
+$font-family-base: $db-font-regular;
+$headings-color-dark: $body-emphasis-color-dark;
+
+// margins & paddings spaces override
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 2,
+  6: $spacer * 2.5,
+  7: $spacer * 3,
+  8: $spacer * 3.5,
+  9: $spacer * 4,
+  10: $spacer * 5,
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: $min-small,
+  md: $min-medium,
+  lg: $min-normal,
+  xl: $min-large,
+  xxl: $min-xLarge,
+);
+
+// override theme colors
+$my-theme-colors: (
+  primary: $primary,
+  primary-light: $primary-light,
+  primary-dark: $primary-dark,
+  secondary: $secondary,
+  secondary-light: $secondary-light,
+  danger: $danger,
+  warning: $warning,
+  light: $light,
+  green: $green,
+  page: $page-bg,
+  title-bg: $title-bg,
+  purple: $purple,
+  white: $white,
+  black: $black,
+  dark: $dark,
+  gray: $gray,
+  dark-gray: $dark-gray,
+  middle: $middle,
+  orange: $orange,
+
+  success: $success,
+  success-light: $success-light,
+
+  error: $error,
+  error-light: $error-light,
+
+  pending: $pending,
+  pending-light: $pending-light,
+
+  dark-blue: $dark-blue,
+
+  box-shadow: $box-shadow,
+  btn-disable: #e3e5ee,
+  border-default: #a1a1a5,
+);
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $my-theme-colors);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "margin-start":
+      map-merge(
+        map-get($utilities, "margin-start"),
+        (
+          property: margin-inline-start,
+        )
+      ),
+    "margin-end":
+      map-merge(
+        map-get($utilities, "margin-end"),
+        (
+          property: margin-inline-end,
+        )
+      ),
+    "padding-start":
+      map-merge(
+        map-get($utilities, "padding-start"),
+        (
+          property: padding-inline-start,
+        )
+      ),
+    "padding-end":
+      map-merge(
+        map-get($utilities, "padding-end"),
+        (
+          property: padding-inline-end,
+        )
+      ),
+    "cursor": (
+      property: cursor,
+      class: cursor,
+      responsive: true,
+      values: auto pointer grab,
+    ),
+    "z-index": (
+      property: z-index,
+      class: zi,
+      responsive: true,
+      values: (
+        0: 0,
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5,
+      ),
+    ),
+    "border-radius": (
+      property: border-radius,
+      class: border-radius,
+      responsive: true,
+      values: (
+        0: 0rem,
+        4: 0.25rem,
+        8: 0.5rem,
+        16: 1rem,
+        24: 1.5rem,
+        32: 2rem,
+        50: 50%,
+      ),
+    ),
+    "box-shadow": (
+      property: box-shadow,
+      class: box,
+      responsive: true,
+      values: (
+        "shadow": 0 2px 20px 0 $box-shadow,
+        "shadow-card": 0 0 10px rgba(0, 0, 0, 0.1),
+      ),
+    ),
+    "text-align": (
+      responsive: true,
+      property: text-align,
+      class: text,
+      values: (
+        start: start,
+        end: end,
+        center: center,
+      ),
+    ),
+    "min-height": (
+      property: min-height,
+      class: h,
+      responsive: true,
+      values: (
+        30: 30px,
+        40: 40px,
+        48: 48px,
+      ),
+    ),
+    "height":
+      map-merge(
+        map-get($utilities, "height"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "height"), "values"),
+              (
+                2: 2px,
+                30: 30px,
+                35: 35px,
+                40: 40px,
+                48: 48px,
+                60: 60px,
+              )
+            ),
+        )
+      ),
+    "min-width": (
+      property: min-width,
+      class: w,
+      responsive: true,
+      values: (
+        70: 70px,
+        max: max-content,
+      ),
+    ),
+    "width":
+      map-merge(
+        map-get($utilities, "width"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "width"), "values"),
+              (
+                80: 80%,
+                70: 70px,
+                20: 20%,
+                max: max-content,
+              )
+            ),
+        )
+      ),
+    "display":
+      map-merge(
+        map-get($utilities, "display"),
+        (
+          responsive: true,
+          values: inline inline-block block grid inline-grid table table-row table-cell flex inline-flex none list-item,
+        )
+      ),
+  )
+);
+
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";

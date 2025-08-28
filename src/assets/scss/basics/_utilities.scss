@@ -1,0 +1,272 @@
+.text-dark {
+    color: $dark !important;
+}
+
+.text-primary {
+    color: $primary !important;
+}
+
+.text-primary-light {
+    color: $primary-light;
+}
+
+.text-secondary {
+    color: $secondary !important;
+}
+
+.text-middle {
+    color: var(--datatable-header-color) !important;
+}
+
+.text-light {
+    color: $light !important;
+}
+
+.text-success {
+    color: $success !important;
+}
+
+.text-error {
+    color: $error !important;
+}
+
+.text-pending {
+    color: $pending !important;
+}
+
+.text-blue {
+    color: $dark-blue !important;
+}
+
+.text-start {
+    text-align: start !important;
+}
+
+// bg
+.bg-primary {
+    background-color: $primary !important;
+}
+
+.bg-primary-light {
+    background-color: $primary-light;
+}
+
+.bg-primary-light-2 {
+    background-color: rgba($color: $primary-light, $alpha: 0.023);
+}
+
+.bg-secondary {
+    background-color: $secondary !important;
+}
+
+.bg-middle {
+    background-color: $middle !important;
+}
+
+.bg-light {
+    background-color: $light !important;
+}
+
+.bg-success {
+    background-color: $success-light !important;
+}
+
+.bg-error {
+    background-color: $error !important;
+}
+
+.bg-error-light {
+    background-color: $error-light !important;
+}
+
+.bg-purple {
+    background-color: $purple !important;
+}
+
+.bg-blue {
+    background-color: $blue-light !important;
+}
+
+.border-purple {
+    border: 1px solid $purple;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.h-40 {
+    height: 40px;
+}
+
+.w-85 {
+    width: 85%;
+}
+
+.bottom-0 {
+    bottom: 0;
+}
+
+.mTop {
+    margin-top: 2rem !important;
+}
+
+.border-thin {
+    border-width: 0.5px !important;
+}
+
+.title-border-bottom {
+    border-bottom: 2px solid #dde0e2;
+}
+
+.border-primary {
+    border-color: $primary !important;
+}
+
+.border-primary-light {
+    border-color: rgba($color: $primary, $alpha: 0.5) !important;
+}
+
+.border-error {
+    border-color: $error !important;
+}
+
+.border {
+    border: 1px solid #dde0e2 !important;
+    border-radius: 1px;
+}
+
+.border-radius-0 {
+    border-radius: 0;
+}
+
+.border-radius-2 {
+    border-radius: 2px !important;
+}
+
+.border-radius-4 {
+    border-radius: 4px !important;
+}
+
+.border-radius-8 {
+    border-radius: 8px;
+}
+
+.border-radius-50 {
+    border-radius: 50%;
+}
+
+.box-shadow {
+    box-shadow: 0 0 10px 0 rgb(52 58 64 / 40%);
+}
+
+// margin
+.m-inline-start-1 {
+    margin-inline-start: 0.25rem !important;
+}
+
+.m-inline-start-2 {
+    margin-inline-start: 0.5rem !important;
+}
+
+.m-inline-start-3 {
+    margin-inline-start: 1rem !important;
+}
+
+.m-inline-start-4 {
+    margin-inline-start: 1.5rem !important;
+}
+
+.m-inline-end-1 {
+    margin-inline-end: 0.25rem !important;
+}
+
+.m-inline-end-2 {
+    margin-inline-end: 0.5rem !important;
+}
+
+.m-inline-end-3 {
+    margin-inline-end: 1rem !important;
+}
+
+.m-inline-end-4 {
+    margin-inline-end: 1.5rem !important;
+}
+
+// padding
+.p-inline-start-1 {
+    padding-inline-start: 0.25rem !important;
+}
+
+.p-inline-start-2 {
+    padding-inline-start: 0.5rem !important;
+}
+
+.p-inline-start-3 {
+    padding-inline-start: 1rem !important;
+}
+
+.p-inline-start-4 {
+    padding-inline-start: 2rem !important;
+}
+
+.p-inline-start-5 {
+    padding-inline-start: 4rem !important;
+}
+
+.p-inline-end-1 {
+    padding-inline-end: 0.25rem !important;
+}
+
+.p-inline-end-2 {
+    padding-inline-end: 0.5rem !important;
+}
+
+.p-inline-end-3 {
+    padding-inline-end: 1rem !important;
+}
+
+.p-inline-end-4 {
+    padding-inline-end: 2rem !important;
+}
+
+.p-inline-end-5 {
+    padding-inline-end: 4rem !important;
+}
+
+.w-max {
+    width: auto;
+    min-width: max-content;
+}
+
+.justify-self-end {
+    justify-self: end;
+}
+
+.page-wrapper {
+    padding: 0.2rem 1vw 1.5rem !important;
+    .p-card {
+        border: 2px solid rgb(170, 125, 67);
+        border-radius: 11.48px;
+        margin: 0 auto;
+        overflow-y: scroll;
+        width: 75%;
+    }
+}
+
+.p-x {
+    padding-inline: clamp(1rem, 5vw, 2.5rem) !important;
+}
+
+.page-title {
+    font-size: clamp(1.2rem, 1.9vw, 2.5rem) !important;
+}
+
+.text-truncate-3 {
+    display: -webkit-box;
+    display: -moz-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

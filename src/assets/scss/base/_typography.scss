@@ -1,0 +1,138 @@
+@import 'mixins';
+
+/* Oman Type Face Fonts */
+@font-face {
+  font-family: 'Cairo-Light';
+  font-display: swap;
+  src: url('../../fonts/Cairo-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Cairo-Bold';
+  font-display: swap;
+  src: url('../../fonts/Cairo-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Cairo';
+  font-display: swap;
+  src: url('../../fonts/Cairo-Regular.ttf') format('truetype');
+}
+
+
+
+/* Project Fonts */
+
+@include responsive-font-size();
+
+/* Project Fonts */
+$db-font-light: var(--db-font-family-light);
+$db-font-regular: var(--db-font-family-regular);
+$db-font-bold: var(--db-font-family-bold);
+$db-font-size: clamp(0.875rem, 1vw, 1.125rem);
+
+body {
+  font-family: $db-font-regular;
+  @extend .font-16;
+
+  * {
+    font-family: $db-font-regular;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &:not(.regular) {
+    font-family: $db-font-bold;
+  }
+
+  &.regular {
+    font-family: $db-font-regular;
+  }
+}
+
+.fw-bold {
+  font-weight: 400 !important;
+  font-family: $db-font-bold !important;
+}
+
+.font-toggle {
+  font-family: 'Cairo', sans-serif !important;
+
+  &:dir(rtl) {
+    font-family: 'Cairo', sans-serif !important;
+  }
+}
+@import 'mixins';
+
+/* Oman Type Face Fonts */
+@font-face {
+  font-family: 'Cairo-Light';
+  font-display: swap;
+  src: url('../../fonts/Cairo-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Cairo-Bold';
+  font-display: swap;
+  src: url('../../fonts/Cairo-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Cairo';
+  font-display: swap;
+  src: url('../../fonts/Cairo-Regular.ttf') format('truetype');
+}
+
+
+
+/* Project Fonts */
+
+@include responsive-font-size();
+
+/* Project Fonts */
+$db-font-light: var(--db-font-family-light);
+$db-font-regular: var(--db-font-family-regular);
+$db-font-bold: var(--db-font-family-bold);
+$db-font-size: clamp(0.875rem, 1vw, 1.125rem);
+
+body {
+  font-family: $db-font-regular;
+  @extend .font-16;
+
+  * {
+    font-family: $db-font-regular;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &:not(.regular) {
+    font-family: $db-font-bold;
+  }
+
+  &.regular {
+    font-family: $db-font-regular;
+  }
+}
+
+.fw-bold {
+  font-weight: 400 !important;
+  font-family: $db-font-bold !important;
+}
+
+.font-toggle {
+  font-family: 'Cairo', sans-serif !important;
+
+  &:dir(rtl) {
+    font-family: 'Cairo', sans-serif !important;
+  }
+}

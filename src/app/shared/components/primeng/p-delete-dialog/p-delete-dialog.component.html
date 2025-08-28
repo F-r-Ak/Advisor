@@ -1,0 +1,28 @@
+<p-dialog
+  [(visible)]="deleteMainDialog"
+  (onHide)="closeDeleteConfirmationDialog()"
+  header="Header"
+  [breakpoints]="{ '1199px': '90vw', '575px': '90vw' }"
+  [modal]="true"
+  class="p-fluid">
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <h1 class="m-0 font-24 regular text-primary text-white" dialog-title>{{ "تأكيد الحذف" }}</h1>
+    </div>
+  </ng-template>
+  <div class="flex flex-column align-items-center justify-content-center mt-3">
+    <p>{{ "هل أنت متأكد أنك تريد حذفه؟" }}</p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="dialogAction">
+      <button class="main-btn cancel font-14 text-white px-4" (click)="confirmDelete()">
+        <label>{{ "تأكيد" }}</label>
+      </button>
+
+      <button class="main-btn main font-14 text-white px-4 m-inline-start-3" (click)="closeDeleteConfirmationDialog()">
+        <label>{{ "إلغاء" }}</label>
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

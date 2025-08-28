@@ -1,0 +1,15 @@
+input{
+  padding-bottom: 24px;
+  padding-top: 14px;
+}
+.p-inputtext.ng-dirty.ng-invalid {
+  border-color: #f44336;
+}
+
+.p-inputtext:enabled:hover{
+  border-color: var(--primary-color);
+}
+// .p-inputtext:enabled:focus{
+//   border-color: var(--primary-color) !important;
+// }
+

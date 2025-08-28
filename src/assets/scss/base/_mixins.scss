@@ -1,0 +1,43 @@
+/* Screen Sizes */
+$min-small: 540px;
+$min-medium: 720px;
+$min-normal: 960px;
+$min-large: 1140px;
+$min-xLarge: 1320px;
+
+@mixin min-width-screen($value) {
+  @media only screen and (min-width: $value) {
+    @content;
+  }
+}
+
+@mixin max-width-screen($value) {
+  @media only screen and (max-width: #{$value - 1}) {
+    @content;
+  }
+}
+
+@mixin dark-mode() {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+/*
+ * How to use
+
+  .some-div{
+    @include min-width-screen($min-small) {
+      width: 100%;
+    }
+  }
+*/
+
+// ------------------------------------------------
+@mixin responsive-font-size() {
+  @for $value from 10 through 60 {
+    .font-#{$value} {
+      font-size: clamp(#{calc($value / 16) - 0.125}rem, #{calc(calc($value / 16) + 0.125)}vw, #{calc($value / 16) + 0.125}rem) !important;
+    }
+  }
+}

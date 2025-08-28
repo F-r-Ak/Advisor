@@ -1,0 +1,29 @@
+@if (formGroup) {
+    <label for="inputId" class="m-1">{{ label }}</label>
+    <div [formGroup]="formGroup">
+        <p-datePicker
+            [ngClass]="timeOnlyMode ? '' : 'datePickerWithoutTime'"
+            [timeOnly]="timeOnlyMode"
+            [dateFormat]="dateFormat"
+            [showIcon]="showIcon"
+            [showTime]="showTimePicker"
+            [hourFormat]="'12'"
+            [formControlName]="controlName"
+            [minDate]="minDate"
+            [maxDate]="maxDate"
+            [showButtonBar]="showButtonBar"
+            [readonlyInput]="true"
+            [id]="controlName + '_input'"
+            dateRangeValidator
+            [referenceControlName]="referenceControlName"
+            appendTo="body"
+            [(ngModel)]="currentValue"
+            (onSelect)="onDateSelect($event)"
+        ></p-datePicker>
+    </div>
+    @if (formGroup.get(controlName)?.errors) {
+        <small>
+            <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
+        </small>
+    }
+}

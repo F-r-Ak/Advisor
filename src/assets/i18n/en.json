@@ -1,0 +1,150 @@
+{
+  "TITLE": {
+    "PART_ONE": "Sono Tracker",
+    "PART_TWO": ""
+  },
+  "PAGES": {
+    "HOME": {
+      "TITLE": "Home"
+    },
+    "DASHBOARD": {
+      "TITLE": "Dashboard"
+    },
+    "SETTINGS": {
+      "TITLE": "Settings"
+    }
+  },
+  "COMMON": {
+    "ENGLISH_NAME": "English Name",
+    "ARABIC_NAME": "Arabic Name",
+    "FROM": "From",
+    "TO": "To",
+    "CREATED_DATE": "Created Date",
+    "MODIFIED_DATE": "Modified Date",
+    "DESCRIPTION": "Description",
+    "DETAILS": "Details",
+    "CODE": "Code",
+    "RESULT": "Results",
+    "NOTES": "Notes"
+  },
+  "ENUM": {},
+  "ACTIONS": {
+    "TITLE": "Actions",
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+    "RESEND": "Resend",
+    "SUBMIT": "Submit",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "EDIT": "Edit",
+    "VIEW": "View",
+    "DELETE": "Delete",
+    "CONFIRM": "Confirm",
+    "ASSIGN": "Assign",
+    "ADD": "Add",
+    "CLOSE": "Close",
+    "NEXT": "Next",
+    "BACK": "Back",
+    "EXPORT_PDF": "Export PDF",
+    "EXPORT_EXCEL": "Export Excel",
+    "SEARCH": "Search",
+    "PRINT": "Print",
+    "PRINT_PAYMENT_VOUCHER": "Print Payment Voucher",
+    "EXPORT": "Export",
+    "CHECKOUT": "Checkout",
+    "ADD_TO_CART": "Add to Cart",
+    "DOWNLOAD": "Download",
+    "UPLOAD": "Upload",
+    "GENERATE": "Generate",
+    "SELECT": "Select",
+    "ADD_URGENT": "Add Urgent",
+    "SEND_EMAIL": "Send to E-mail",
+    "CHOOSE_IMAGE": "Choose an Image",
+    "REMOVE_IMAGE": "Remove Image",
+    "ADD_POSITION": "Add Position"
+  },
+  "ERRORS": {
+    "404": "PAGE NOT FOUND",
+    "401": "UNAUTHORIZED"
+  },
+  "EMPTY": {
+    "NO_ITEMS": "There's no options",
+    "NO_DEFAULT_VALUES": "There's' no Document Type Field Default Values"
+  },
+  "VALIDATION": {
+    "REQUIRED": "Required Field",
+    "ARABIC_WORD": "Arabic Letters Only",
+    "ENGLISH_WORD": "English Letters Only",
+    "LOGIN_SUCCESS": "Login Success",
+    "INVALID_ENGLISH_NAME": "Name Should Be English Characters Only And More Than 3 And Less Than 100",
+    "INVALID_ARABIC_NAME": "Name Should Be Arabic Characters Only And More Than 3 And Less Than 100",
+    "USERNAME_TAKEN": "User Name Already Taken",
+    "EMAIL_TAKEN": "Email Already Taken",
+    "DELETE_CONFIRMATION": "Delete Confirmation",
+    "DELETE_MESSAGE": "Are you sure that you want to delete it?",
+    "DELETE_SUCCESS": "Deleted Successfully",
+    "DELETE_ERROR": "Error In Deleting",
+    "ADD_SUCCESS": "Added Successfully",
+    "VALIDATION_ERROR": "Validation Error",
+    "PASSPORT_NUMBER_ALREADY_EXISTS": "؛Passport Number Already Exists",
+    "CIVIL_NUMBER_ALREADY_EXISTS": "Civil Number Already Exists",
+    "FILE_NUMBER_ALREADY_EXISTS": "File Number Already Exists",
+    "ADD_ERROR": "Error In Adding",
+    "UPDATE_SUCCESS": "Updated Successfully",
+    "UPDATE_ERROR": "Error In Updating",
+    "GET_ERROR": "Error getting Data From Server",
+    "GET_BY_ID_ERROR": "Error getting Data by Id",
+    "INTERNAL_SERVER_ERROR": "Internal Server Error",
+    "PASSWORD_STRENGTH": "Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number",
+    "PASSWORD_MISMATCH": "New Password Value Is Not Matched",
+    "PASSWORD_CHANGED_SUCCESS": "Password Changed Successfully",
+    "SERVER_ERROR": "Server Error",
+    "UPLOAD_SUCCESS": "Image Updated Successfully",
+    "UPLOAD_ERROR": "Error Updating Image",
+    "WRONG_USER_OR_PASSWORD": "Wrong Username Or Password",
+    "INVALID_OTP": "Invalid Or Expired Otp",
+    "PHONE_EXIST": "Phone Number  Already Exist",
+    "EMAIL_EXIST": "Email Already Exist",
+    "ACTION_MESSAGE": "Are you sure that you want to this action?",
+    "INVALID_DATE": "This date is invalid, should change it",
+    "SEARCH_RESULTS_NOT_FOUND": "Search Results not found",
+    "EMPLOYEE_IS_ALREADY_IN_THIS_SENT": "This employee is already in this sent"
+  },
+  "FIELDS": {
+    "NAME": "Name",
+    "TITLE": "Title",
+    "ARABIC_NAME": "Arabic Name",
+    "ENGLISH_NAME": "English Name",
+    "CODE": "Code",
+    "DESCRIPTION": "Description",
+    "EN": " (English)",
+    "AR": " (Arabic)",
+    "COMMENTS": "Comments",
+    "NOTES": "Notes"
+  },
+  "ATTACHMENT": {
+    "ATTACHMENT": "Attachment",
+    "ATTACHMENTS": "Attachments",
+    "ATTACHMENT_NAME": "Attachment Name",
+    "BROWSE": "Add",
+    "ATTACHMENT_SIZE": "Attachment Size",
+    "APPOINTMENT_DATA": "Appointment Data",
+    "CURRENT_JOB": "Current Job",
+    "VIEW_FILE": "View File",
+    "ATTACHMENT_VALIDATION": {
+      "MAXIMUM_FILES": "The maximum files are ",
+      "MAXIMUM_FILE": "The maximum files is ",
+      "MAXIMUM_SIZE": "The maximum size of file is",
+      "FILE_SELECTED": "You already uploaded this file before",
+      "REQUIRED": "Attachment file is required",
+      "ALLOWED_TYPES": "The allowed types are ",
+      "ALLOWED_TYPE": "The allowed types is ",
+      "MB": "MB"
+    },
+    "FAILED": "Failed to upload the attachment",
+    "Msg": "Drag your file here, or",
+    "SUB_MSG": "Supports:",
+    "MaxFilesMsg": "Max number of files: "
+  },
+  "PAGINATION": "Showing {first} to {last} of {totalRecords} entries"
+}

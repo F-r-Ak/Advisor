@@ -1,0 +1,31 @@
+:host ::ng-deep .p-editor {
+  height: 150px;
+}
+.rtl {
+  :host ::ng-deep .ql-snow {
+    .ql-picker {
+      float: left;
+    }
+    .ql-picker-label {
+      padding-left: 8px;
+      padding-right: 2px;
+    }
+    .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+      left: 0;
+      right: unset;
+    }
+  }
+  :host ::ng-deep .ql-snow.ql-toolbar {
+    .ql-formats {
+      margin-left: 7px;
+      margin-right: unset;
+    }
+  }
+  :host ::ng-deep .p-editor-container {
+    .p-editor-content {
+      .ql-editor {
+        text-align: right;
+      }
+    }
+  }
+}

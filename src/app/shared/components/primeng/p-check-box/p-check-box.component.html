@@ -1,0 +1,12 @@
+@if (formGroup) {
+    <label class="m-1">{{ label }}</label>
+    <div [formGroup]="formGroup">
+        <p-checkbox [formControlName]="controlName" [binary]="binary" [value]="value" [name]="groupName" (onChange)="onChange($event)" />
+    </div>
+
+    @if (formGroup.get(controlName)?.errors) {
+        <small>
+            <span class="font-12">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
+        </small>
+    }
+}

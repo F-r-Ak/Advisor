@@ -1,0 +1,37 @@
+:host ::ng-deep .p-dialog {
+  width: 450px;
+}
+.dialogAction {
+  display: flex;
+  justify-content: center;
+}
+
+.previousStepFormBtn {
+  background-color: rgba(217, 217, 217, 1);
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Cairo';
+  font-style: normal;
+  color: black;
+  padding: 1% 5% 1% 5%;
+  border: none;
+  border-radius: 11.48px;
+  cursor: pointer;
+}
+
+.submitBtn {
+  background-color: rgba(170, 125, 67, 1);
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Cairo';
+  font-style: normal;
+  color: white;
+  padding: 1% 7% 1% 7%;
+  border: none;
+  border-radius: 11.48px;
+  cursor: pointer;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,10 @@
+.datePickerWithoutTime {
+  width: 100%;
+  display: grid;
+}
+:host ::ng-deep {
+  .p-datepicker {
+    width: 100%;
+  }
+}
+

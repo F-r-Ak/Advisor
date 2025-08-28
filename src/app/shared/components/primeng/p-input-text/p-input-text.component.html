@@ -1,0 +1,26 @@
+@if (formGroup) {
+    <div class="form-group d-flex flex-column m-0" [formGroup]="formGroup" [ngClass]="{ 'mb-3': formGroup.get(controlName)?.errors && formGroup.get(controlName)?.touched }">
+        <label [attr.for]="controlName" class="py-1">{{ label }}</label>
+        @if (inputType === 'textbox') {
+            <input
+                pInputText
+                [id]="controlName"
+                [formControlName]="controlName"
+                [type]="contentType"
+                min="0"
+                style="height: 20px"
+                (keydown)="formGroup.get(controlName)?.markAsTouched()"
+                [specificLanguage]="validatorLanguageType"
+                [readonly]="readonly"
+            />
+        }
+        @if (inputType === 'textarea') {
+            <textarea pInputText [id]="controlName" [formControlName]="controlName" [specificLanguage]="validatorLanguageType" [readonly]="readonly" (keydown)="formGroup.get(controlName)?.markAsTouched()"> </textarea>
+        }
+        @if (formGroup.get(controlName)?.errors) {
+            <small>
+                <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
+            </small>
+        }
+    </div>
+}
