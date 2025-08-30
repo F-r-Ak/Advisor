@@ -1,25 +1,25 @@
 import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BaseListComponent } from '../../../../../base/components/base-list-component';
-import { PrimeDataTableComponent, PrimeTitleToolBarComponent, PositionsService, IsEnglishDirective } from '../../../../../shared';
 import { CardModule } from 'primeng/card';
-import { takeUntil } from 'rxjs';
+import { IsEnglishDirective, ItemPricingService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
 import { TableOptions } from '../../../../../shared/interfaces';
-import { AddEditPositionComponent } from '../../components/add-edit-position/add-edit-position.component';
+import { BaseListComponent } from '../../../../../base/components/base-list-component';
+import { takeUntil } from 'rxjs';
+import { AddEditItemPricingComponent } from '../../components/add-edit-item-pricing/add-edit-item-pricing.component';
 
 @Component({
-    selector: 'app-positions',
+    selector: 'app-item-pricing',
     standalone: true,
     imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent, IsEnglishDirective],
-    templateUrl: './positions.component.html',
-    styleUrl: './positions.component.scss'
+    templateUrl: './item-pricing.component.html',
+    styleUrl: './item-pricing.component.scss'
 })
-export class PositionsComponent extends BaseListComponent {
+export class ItemPricingComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
     tableOptions!: TableOptions;
-    service = inject(PositionsService);
+    service = inject(ItemPricingService);
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
@@ -30,15 +30,14 @@ export class PositionsComponent extends BaseListComponent {
             this.language = lang;
             this.initializeTableOptions();
         });
-        super.ngOnInit();
     }
 
     initializeTableOptions() {
         this.tableOptions = {
             inputUrl: {
-                getAll: 'v1/position/getPaged',
+                getAll: 'v1/itempricing/getPaged',
                 getAllMethod: 'POST',
-                delete: 'v1/position/deletesoft'
+                delete: 'v1/itempricing/deletesoft'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -64,7 +63,7 @@ export class PositionsComponent extends BaseListComponent {
             },
             {
                 field: this.language === 'ar' ? 'nameAr' : 'nameEn',
-                header: 'المسمى الوظيفي',
+                header: 'مسمي تسعير البيع',
                 filter: true,
                 filterMode: 'text'
             }
@@ -94,13 +93,13 @@ export class PositionsComponent extends BaseListComponent {
     }
 
     openAdd() {
-        this.openDialog(AddEditPositionComponent, this.localize.translate.instant('اضافة مسمى وظيفي'), {
+        this.openDialog(AddEditItemPricingComponent, this.localize.translate.instant('اضافة تسعير البيع'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditPositionComponent, this.localize.translate.instant('تعديل مسمى وظيفي'), {
+        this.openDialog(AddEditItemPricingComponent, this.localize.translate.instant('تعديل تسعير البيع'), {
             pageType: 'edit',
             row: { rowData }
         });
