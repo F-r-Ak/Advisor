@@ -1,14 +1,11 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { TranslationService } from '../../../services';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { debounceTime, distinctUntilChanged, Observable, Subject } from 'rxjs';
 import { ValidationHandlerPipe } from '../../../pipes/validation-handler.pipe';
-
 @Component({
     selector: 'app-prime-autocomplete',
-    imports: [TranslateModule, AutoCompleteModule, FormsModule, ReactiveFormsModule, ValidationHandlerPipe],
+    imports: [AutoCompleteModule, FormsModule, ReactiveFormsModule, ValidationHandlerPipe],
     templateUrl: './p-autocomplete.component.html',
     styleUrl: './p-autocomplete.component.scss'
 })
@@ -39,7 +36,6 @@ export class PrimeAutoCompleteComponent {
     isFirstLoad: boolean = true;
     query: string = '';
     searchSubject = new Subject<string>();
-    localize = inject(TranslationService);
 
     ngOnInit(): void {
         this.searchSubject.pipe(debounceTime(500), distinctUntilChanged()).subscribe((query) => {
@@ -50,7 +46,7 @@ export class PrimeAutoCompleteComponent {
 
     get getBindLabel() {
         if (!this.field) {
-            return this.language == 'ar' ? 'nameAr' : 'nameEn';
+            return 'name';
         }
         return this.field;
     }

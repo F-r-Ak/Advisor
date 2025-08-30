@@ -1,12 +1,12 @@
-@if (formGroup) {
-    <label class="m-1">{{ label }}</label>
-    <div [formGroup]="formGroup">
-        <p-checkbox [formControlName]="controlName" [binary]="binary" [value]="value" [name]="groupName" (onChange)="onChange($event)" />
-    </div>
-
-    @if (formGroup.get(controlName)?.errors) {
-        <small>
-            <span class="font-12">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
-        </small>
-    }
-}
+@if(formGroup) {
+  <div class="d-flex">
+  <div [formGroup]="formGroup">
+    <p-checkbox [formControlName]="controlName" [binary]="binary" [value]="value" [name]="groupName" />
+  </div>
+  <label class="m-1">{{ label }}</label>
+</div>
+@if (formGroup.get(controlName)?.errors) {
+<small>
+  <span class="font-12">{{ formGroup.get(controlName)?.errors }}</span>
+</small>
+} }

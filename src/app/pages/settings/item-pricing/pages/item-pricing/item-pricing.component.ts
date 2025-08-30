@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
-import { IsEnglishDirective, ItemPricingService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
+import { ItemPricingService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
 import { TableOptions } from '../../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
 import { takeUntil } from 'rxjs';
@@ -11,7 +11,7 @@ import { AddEditItemPricingComponent } from '../../components/add-edit-item-pric
 @Component({
     selector: 'app-item-pricing',
     standalone: true,
-    imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent, IsEnglishDirective],
+    imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
     templateUrl: './item-pricing.component.html',
     styleUrl: './item-pricing.component.scss'
 })

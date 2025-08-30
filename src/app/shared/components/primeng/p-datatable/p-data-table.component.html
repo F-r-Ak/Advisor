@@ -1,191 +1,205 @@
-@if (checkbox && selected && selected.length > 0) {
-    <button class="main-btn cancel deleteSelected font-14 px-4" type="button" (click)="deleteSelected()" [disabled]="!selected || !selected.length" flat-button>
-        <div class="d-flex align-items-center">
-            <i class="pi pi-trash m-inline-end-1 font-18"></i>
+@if(checkbox && selected && selected.length > 0) {
+<button
+  class="main-btn cancel deleteSelected font-14 px-4"
+  type="button"
+  (click)="deleteSelected()"
+  [disabled]="!selected || !selected.length"
+  flat-button>
+  <div class="d-flex align-items-center">
+    <i class="pi pi-trash m-inline-end-1 font-18"></i>
 
-            <span class="p-inline-end-1">{{ 'ACTIONS.DELETE' | translate }}</span>
-        </div>
-    </button>
+    <span class="p-inline-end-1">{{ 'حذف' }}</span>
+  </div>
+</button>
 }
 
 <p-table
-    #table
-    [columns]="tableOptions.inputCols"
-    [value]="data"
-    [sortField]="'id'"
-    [sortOrder]="1"
-    [lazy]="true"
-    [showCurrentPageReport]="true"
-    [paginatorLocale]="language == 'ar' ? 'ar-EG' : 'en-US'"
-    [currentPageReportTemplate]="'PAGINATION' | translate"
-    [paginator]="true"
-    [rowsPerPageOptions]="[5, 10, 15, 20]"
-    [rows]="pageSize"
-    [totalRecords]="totalCount"
-    (onLazyLoad)="loadLazyLoadedData($event)"
-    [(selection)]="selected"
->
-    <ng-template pTemplate="header" let-columns>
-        <!-- Table Headers-->
-        <tr class="table-header">
-            @if (checkbox) {
-                <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
-            }
-            @for (col of columns; track $index) {
-                <th [pSortableColumn]="col.field">
-                    {{ col.header | translate }}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                </th>
-            }
+  #table
+  [columns]="tableOptions.inputCols"
+  [value]="data"
+  [sortField]="'id'"
+  [sortOrder]="1"
+  [lazy]="true"
+  [showCurrentPageReport]="true"
+  [paginatorLocale]="language == 'ar' ? 'ar-EG' : 'en-US'"
+  [currentPageReportTemplate]="'PAGINATION'"
+  [paginator]="true"
+  [rowsPerPageOptions]="[5, 10, 15, 20]"
+  [rows]="pageSize"
+  [totalRecords]="totalCount"
+  (onLazyLoad)="loadLazyLoadedData($event)"
+  [(selection)]="selected">
+  <ng-template pTemplate="header" let-columns>
+    <!-- Table Headers-->
+    <tr class="table-header">
+      @if (checkbox) {
+      <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+      } @for (col of columns; track $index) {
+      <th [pSortableColumn]="col.field">
+        {{ col.header }}
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+      }
 
-            <!-- Show Action In Header Row-->
-            @if ((tableOptions.inputActions && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.View') > -1) || permissions.allowAll) {
-                <th style="width: 10em">
-                    {{ 'ACTIONS.TITLE' | translate }}
-                </th>
-            }
-        </tr>
-        <!-- Filter Controls-->
-        <tr class="table-search-controls">
-            @if (checkbox) {
-                <th style="width: 4rem"></th>
-            }
-            @for (col of columns; track $index) {
-                @if (col.filter) {
-                    <th>
-                        @switch (col.filterMode) {
-                            @case ('text') {
-                                <ng-container>
-                                    <div class="form-group has-search">
-                                        <input class="form-control search-box" type="text" (input)="filter($event, col.field)" placeholder="{{ col.header | translate }}" />
-                                    </div>
-                                </ng-container>
-                            }
-                            @case ('boolean') {
-                                <ng-container>
-                                    <div class="form-group has-search">
-                                        <input class="form-control search-box" type="text" (input)="filter($event, col.field)" placeholder="{{ col.header | translate }}" />
-                                    </div>
-                                </ng-container>
-                            }
-                            @case ('link') {
-                                <ng-container>
-                                    <div class="form-group has-search">
-                                        <input class="form-control search-box" type="text" (input)="filter($event, col.field)" placeholder="{{ col.header | translate }}" />
-                                    </div>
-                                </ng-container>
-                            }
-                            @case ('date') {
-                                <ng-container>
-                                    <div class="form-group has-search">
-                                        <input class="form-control search-box" type="date" (input)="filter($event, col.field)" placeholder="{{ col.header | translate }}" />
-                                    </div>
-                                </ng-container>
-                            }
-                        }
-                    </th>
-                } @else {
-                    <th></th>
-                }
-            }
+      <!-- Show Action In Header Row-->
+      @if ( (tableOptions.inputActions && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.View') > -1)
+      || permissions.allowAll) {
+      <th style="width: 10em">
+        {{ 'الاجراءات' }}
+      </th>
+      }
+    </tr>
+    <!-- Filter Controls-->
+    <tr class="table-search-controls">
+      @if (checkbox) {
+      <th style="width: 4rem"></th>
+      } @for (col of columns; track $index) { @if (col.filter) {
+      <th>
+        @switch(col.filterMode) { @case('text') {
+        <ng-container>
+          <div class="form-group has-search">
+            <input
+              class="form-control search-box"
+              type="text"
+              (input)="filter($event, col.field)"
+              placeholder="{{ col.header }}" />
+          </div>
+        </ng-container>
+        } @case('boolean') {
+        <ng-container>
+          <div class="form-group has-search">
+            <input
+              class="form-control search-box"
+              type="text"
+              (input)="filter($event, col.field)"
+              placeholder="{{ col.header }}" />
+          </div>
+        </ng-container>
+        } @case ('link') {
+        <ng-container>
+          <div class="form-group has-search">
+            <input
+              class="form-control search-box"
+              type="text"
+              (input)="filter($event, col.field)"
+              placeholder="{{ col.header }}" />
+          </div>
+        </ng-container>
+        } @case ('date') {
+        <ng-container>
+          <div class="form-group has-search">
+            <input
+              class="form-control search-box"
+              type="date"
+              (input)="filter($event, col.field)"
+              placeholder="{{ col.header }}" />
+          </div>
+        </ng-container>
+        } }
+      </th>
+      } @else {
+      <th></th>
+      } }
 
-            <!-- Show Action In Filter Controls Row-->
-            @if ((tableOptions.inputActions && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.View') > -1) || permissions.allowAll) {
-                <th></th>
-            }
-        </tr>
-    </ng-template>
+      <!-- Show Action In Filter Controls Row-->
+      @if ((tableOptions.inputActions && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.View') > -1) ||
+      permissions.allowAll) {
+      <th></th>
+      }
+    </tr>
+  </ng-template>
 
-    <ng-template pTemplate="body" let-row let-columns="columns">
-        <!-- Table Rows-->
-        <tr class="tr-body" [ngClass]="{ 'tr-body-background': getCellData(row, { field: 'isLate' }) }">
-            @if (checkbox) {
-                <td>
-                    <p-tableCheckbox [value]="row" />
-                </td>
-            }
+  <ng-template pTemplate="body" let-row let-columns="columns">
+    <!-- Table Rows-->
+    <tr class="tr-body" [ngClass]="{ 'tr-body-background': getCellData(row, { field: 'isLate' }) }">
+      @if (checkbox) {
+      <td>
+        <p-tableCheckbox [value]="row" />
+      </td>
+      }
 
-            <!-- Display Data-->
-            @for (col of columns; track $index) {
-                <td>
-                    <ng-container>
-                        @switch (col.filterMode) {
-                            @case ('link') {
-                                <span>
-                                    <a [routerLink]="['edit', row.id]">{{ getCellData(row, col) }}</a>
-                                </span>
-                            }
-                            @case ('text') {
-                                <span [ngClass]="{ cell: getCellData(row, { field: 'isLate' }) }">{{ getCellData(row, col) }}</span>
-                            }
-                            @case ('date') {
-                                <span>{{ getCellData(row, col) | date: 'dd/MM/yyyy' }}</span>
-                            }
-                            @case ('time') {
-                                <span>{{ getCellData(row, col) | date: 'hh:mm aa' }}</span>
-                            }
-                            @case ('boolean') {
-                                <span>
-                                    @if (getCellData(row, col) === true) {
-                                        <div class="trueValue">
-                                            <i [ngClass]="'pi pi-check mr-2'"></i>
-                                        </div>
-                                    }
-                                    @if (getCellData(row, col) === false) {
-                                        <div class="falseValue">
-                                            <i [ngClass]="'pi pi-times mr-2'"></i>
-                                        </div>
-                                    }
-                                </span>
-                            }
-                            @case ('none') {
-                                <span>{{ getCellData(row, col) }}</span>
-                            }
-                        }
-                    </ng-container>
-                </td>
+      <!-- Display Data-->
+      @for (col of columns; track $index) {
+      <td>
+        <ng-container>
+          @switch(col.filterMode) { @case('link') {
+          <span>
+            <a [routerLink]="['edit', row.id]">{{ getCellData(row, col) }}</a>
+          </span>
+          } @case('text') {
+          <span [ngClass]="{ cell: getCellData(row, { field: 'isLate' }) }">{{ getCellData(row, col) }}</span>
+          } @case('date') {
+          <span>{{ getCellData(row, col) | date : 'dd/MM/yyyy' }}</span>
+          } @case('time') {
+          <span>{{ getCellData(row, col) | date : 'hh:mm aa' }}</span>
+          } @case('boolean') {
+          <span>
+            @if (getCellData(row, col) === true) {
+            <div class="trueValue">
+              <i [ngClass]="'pi pi-check mr-2'"></i>
+            </div>
+            } @if (getCellData(row, col) === false) {
+            <div class="falseValue">
+              <i [ngClass]="'pi pi-times mr-2'"></i>
+            </div>
             }
+          </span>
+          } @case('none') {
+          <span>{{ getCellData(row, col) }}</span>
+          } }
+        </ng-container>
+      </td>
+      }
 
-            <!-- Display Actions-->
-            @if ((tableOptions.inputActions && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.View') > -1) || permissions.allowAll) {
-                <td class="actions">
-                    @for (action of tableOptions.inputActions; track $index) {
-                        <span>
-                            @if ((action.isEdit && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.Edit') > -1) || (action.isEdit && action.allowAll)) {
-                                <span>
-                                    <a [routerLink]="action.route + row.id" class="icon-btn">
-                                        <i class="{{ action.icon }} icon" [title]="'ACTIONS.' + action.name | translate"></i>
-                                    </a>
-                                </span>
-                            }
-                            @if ((action.isDelete && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.Delete') > -1) || (action.isDelete && action.allowAll)) {
-                                <span>
-                                    <a class="icon-btn">
-                                        <i class="{{ action.icon }} icon" (click)="delete(row.id)" [title]="'ACTIONS.' + action.name | translate"></i>
-                                    </a>
-                                </span>
-                            }
-                            @if ((action.isView && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.View') > -1) || (action.isView && action.allowAll)) {
-                                <span>
-                                    <a [routerLink]="action.route + row.id" class="icon-btn">
-                                        <i class="{{ action.icon }} icon {{ action.color }}" [title]="'ACTIONS.' + action.name | translate"></i>
-                                    </a>
-                                </span>
-                            }
-                            @if (action.isCallBack && (permissions.listOfPermissions.indexOf(action.permission) > -1 || action.allowAll)) {
-                                <span>
-                                    <a class="icon-btn">
-                                        <i class="{{ action.icon }} icon {{ action.color }}" (click)="action?.call(row)" [title]="'ACTIONS.' + action.name | translate"></i>
-                                    </a>
-                                </span>
-                            }
-                        </span>
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
+      <!-- Display Actions-->
+      @if ((tableOptions.inputActions && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.View') > -1) ||
+      permissions.allowAll) {
+
+      <td class="actions">
+        @for (action of tableOptions.inputActions; track $index) {
+        <span>
+          @if ((action.isEdit && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.Edit') > -1) ||
+          (action.isEdit && action.allowAll)) {
+          <span>
+            <a [routerLink]="action.route + row.id" class="icon-btn">
+              <!-- <i class="{{ action.icon }} icon" [title]="'ACTIONS.' + action.name "></i> -->
+              <i class="{{ action.icon }} icon" [title]="action.name"></i>
+            </a>
+          </span>
+          } @if ((action.isDelete && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.Delete') > -1) ||
+          (action.isDelete && action.allowAll)) {
+          <span>
+            <a class="icon-btn">
+              <!-- <i class="{{ action.icon }} icon" (click)="delete(row.id)" [title]="'ACTIONS.' + action.name"></i> -->
+              <i class="{{ action.icon }} icon" (click)="delete(row.id)" [title]="action.name"></i>
+            </a>
+          </span>
+          } @if ( (action.isView && permissions.listOfPermissions.indexOf('Permission.' + permissions.componentName + '.View') > -1) ||
+          (action.isView && action.allowAll)) {
+          <span>
+            <a [routerLink]="action.route + row.id" class="icon-btn">
+              <!-- <i class="{{ action.icon }} icon {{ action.color }}" [title]="'ACTIONS.' + action.name"></i> -->
+              <i class="{{ action.icon }} icon {{ action.color }}" [title]="action.name"></i>
+            </a>
+          </span>
+          } @if (action.isCallBack && (permissions.listOfPermissions.indexOf(action.permission) > -1 || action.allowAll)) {
+          <span>
+            <a class="icon-btn">
+              <i
+                class="{{ action.icon }} icon {{ action.color }}"
+                (click)="action?.call(row)"
+                [title]="action.name"></i>
+                <!-- [title]="'ACTIONS.' + action.name"></i> -->
+            </a>
+          </span>
+          }
+        </span>
+        }
+      </td>
+      }
+    </tr>
+  </ng-template>
 </p-table>
 @if (deleteDialog) {
-    <app-prime-delete-dialog (onClose)="modalClosed($event)"></app-prime-delete-dialog>
+<app-prime-delete-dialog (onClose)="modalClosed($event)"></app-prime-delete-dialog>
 }

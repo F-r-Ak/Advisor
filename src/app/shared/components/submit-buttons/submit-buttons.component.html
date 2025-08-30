@@ -1,10 +1,13 @@
-<div class="w-100 d-flex justify-content-center">
-    <button pRipple class="main-btn cancel font-14 px-4" type="button" (click)="onCancel()">
-        {{ 'ACTIONS.CANCEL' | translate }}
-    </button>
-    @if (!hideSubmitButton) {
-        <button pRipple class="main-btn main font-14 text-white px-4 m-inline-start-3" [disabled]="isSubmitDisabled" type="submit" (click)="onSubmit()">
-            {{ submitButtonText | translate }}
-        </button>
-    }
+<div class="w-100 d-flex justify-content-center mt-3">
+  <button pRipple class="main-btn main font-16 text-white px-4 m-inline-start-3 mx-3" [disabled]="isSubmitDisabled"
+    type="submit" (click)="onSubmit()">
+    {{ 'حفظ' }}
+  </button>
+
+  @if(viewCancelBtn){
+  <button pRipple class="main-btn cancel font-16 px-4" type="button" (click)="onCancel()">
+    {{ 'إلغاء' }}
+  </button>
+  }
+
 </div>

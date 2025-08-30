@@ -1,0 +1,28 @@
+<div [formGroup]="formGroup" class="form-group d-flex flex-column m-0">
+  <p-select
+    [options]="options"
+    [optionLabel]= "getBindLabel"
+    language="language"
+    (onChange)="onChangeEvent($event)"
+    [formControlName]="formControlName"
+    [filter]="true"
+    [showClear]="true"
+    (onFilter)="filterData.next($event.filter)"
+    [readonly]="isDisabled"
+    [loading]="loading"
+    [virtualScroll]="true"
+    [lazy]="true"
+    [virtualScrollItemSize]="6"
+    (onLazyLoad)="loadMoreData($event)"
+    (onClear)="onClear()"
+    [placeholder]="'اختر'"
+    emptyFilterMessage="لا توجد نتائج بحث"
+    appendTo="body">
+  </p-select>
+  @if (formGroup.get(formControlName)?.errors) {
+  <small >
+    <span class="font-12 text-danger">{{ formGroup.get(formControlName)?.errors }}</span>
+  </small>
+}
+</div>
+

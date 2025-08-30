@@ -6,4 +6,3 @@ export * from './specific-language.directive';
 export * from './validateEmail.directive';
 export * from './validateNationalId.directive';
 export * from './date-range-validator.directive';
-export * from './is-english.directive';

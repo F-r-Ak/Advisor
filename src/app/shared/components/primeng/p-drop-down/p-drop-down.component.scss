@@ -1,0 +1,13 @@
+:host ::ng-deep .p-dropdown {
+  width: 100%;
+}
+.rtl {
+  :host ::ng-deep .p-dropdown {
+    .p-dropdown-clear-icon {
+      left: 2.357rem;
+      right: unset;
+    }
+  }
+}
+
+

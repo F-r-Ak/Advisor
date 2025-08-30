@@ -2,124 +2,130 @@
 @import '_variables';
 /**we are using important because prime ng styles rules are coming first */
 .p-paginator {
-    box-shadow: 0px 2px 6.3px rgba(0, 0, 0, 0.43);
-    margin: 0 auto;
-    border-bottom-left-radius: 11.48px !important;
-    border-bottom-right-radius: 11.48px !important;
-    border-top-left-radius: unset !important;
-    border-top-right-radius: unset !important;
-    // border: 2px solid var(--primary-color);
-    border-top: none;
+  box-shadow: 0px 2px 6.3px rgba(0, 0, 0, 0.43);
+  margin: 0 auto;
+  border-bottom-left-radius: 11.48px !important;
+  border-bottom-right-radius: 11.48px !important;
+  border-top-left-radius: unset !important;
+  border-top-right-radius: unset !important;
+  // border: 2px solid var(--primary-color);
+  border-top: none;
+  color: #6b7280;
+  padding: 0.5rem 1rem;
+  .p-paginator-first,
+  .p-paginator-prev,
+  .p-paginator-next,
+  .p-paginator-last {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--primary-color);
+    min-width: 3rem;
+    height: 3rem;
+    transition: box-shadow 0.2s;
+    margin: 0 0.2rem !important;
+    border-radius: 50% !important;
+  }
+  .p-paginator-first:not(.p-disabled):not(.p-highlight):hover,
+  .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
+  .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
+  .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--primary-color);
+  }
+  .p-paginator-first {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+
+  .p-paginator-last {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+  }
+
+  .p-paginator-page-input {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    .p-inputtext {
+      max-width: 3rem;
+    }
+  }
+
+  .p-paginator-current {
+    background-color: transparent;
+    border: 0 none;
     color: #6b7280;
-    padding: 0.5rem 1rem;
-    .p-paginator-first,
-    .p-paginator-prev,
-    .p-paginator-next,
-    .p-paginator-last {
-        background: var(--secondary-color);
-        border-color: var(--secondary-color);
-        color: var(--primary-color);
-        min-width: 3rem;
-        height: 3rem;
-        transition: box-shadow 0.2s;
-        margin: 0 0.2rem !important;
-        border-radius: 50% !important;
-    }
-    .p-paginator-first:not(.p-disabled):not(.p-highlight):hover,
-    .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
-    .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
-    .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
-        background: var(--secondary-color);
-        border-color: var(--secondary-color);
-        color: var(--primary-color);
-    }
-    .p-paginator-first {
-        border-top-left-radius: 50%;
-        border-bottom-left-radius: 50%;
-    }
+    min-width: 3rem;
+    height: 3rem;
+    margin: 0.143rem;
+    padding: 0 0.5rem;
+    font-size: 14px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .p-paginator-last {
-        border-top-right-radius: 50%;
-        border-bottom-right-radius: 50%;
+  .p-paginator-pages {
+    .p-paginator-page {
+      margin: 0 0.2rem !important;
+      border-radius: 50% !important;
+      border: 1px solid rgba(0, 0, 0, 1);
+      transition: box-shadow 0.2s;
+      background-color: transparent;
     }
+    .p-paginator-page.p-highlight,
+    .p-paginator-page:not(.p-highlight):hover {
+      background: var(--secondary-color);
+      border-color: var(--secondary-color);
+      color: var(--primary-color);
+    }
+  }
+  .p-paginator-first,
+  .p-paginator-prev,
+  .p-paginator-next,
+  .p-paginator-last {
+    background-color: transparent;
+    border: 1px solid black;
+    color: black;
+    min-width: 3rem;
+    height: 3rem;
+    margin: 0.143rem;
+    transition: box-shadow 0.2s;
+    border-radius: 11.48px;
+  }
 
-    .p-paginator-page-input {
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
-        .p-inputtext {
-            max-width: 3rem;
-        }
-    }
-
-    .p-paginator-current {
-        background-color: transparent;
-        border: 0 none;
-        color: #6b7280;
-        min-width: 3rem;
-        height: 3rem;
-        margin: 0.143rem;
-        padding: 0 0.5rem;
-        font-size: 14px !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .p-paginator-pages {
-        .p-paginator-page {
-            margin: 0 0.2rem !important;
-            border-radius: 50% !important;
-            border: 1px solid rgba(0, 0, 0, 1);
-            transition: box-shadow 0.2s;
-            background-color: transparent;
-        }
-        .p-paginator-page.p-highlight,
-        .p-paginator-page:not(.p-highlight):hover {
-            background: var(--secondary-color);
-            border-color: var(--secondary-color);
-            color: var(--primary-color);
-        }
-    }
-    .p-paginator-first,
-    .p-paginator-prev,
-    .p-paginator-next,
-    .p-paginator-last {
-        background-color: transparent;
-        border: 1px solid black;
-        color: black;
-        min-width: 3rem;
-        height: 3rem;
-        margin: 0.143rem;
-        transition: box-shadow 0.2s;
-        border-radius: 11.48px;
-    }
-
-    &.rtl {
-        direction: rtl;
-    }
+  &.rtl {
+    direction: rtl;
+  }
 }
 /** new paginator selectors in angular v19+ to set the current active page background and color */
 .p-paginator-page.p-paginator-page-selected {
-    background: $primary !important;
-    color: $white !important;
-    border-color: $primary !important;
+  background: $primary !important;
+  color: $white !important;
+  border-color: $primary !important;
 }
 
 .p-select-option.p-select-option-selected {
-    background: $primary !important;
-    color: $white !important;
+  background: $primary !important;
+  color: $white !important;
 }
 .p-select:not(.p-disabled).p-focus {
-    border-color: $primary !important;
-    box-shadow: $primary !important;
-    outline: $primary !important;
-    outline-offset: $primary !important;
+  border-color: $primary !important;
+  box-shadow: $primary !important;
+  outline: $primary !important;
+  outline-offset: $primary !important;
 }
 
 // datatable && add button
 
 .dataBox {
-    .addLink {
-        align-self: end;
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 20px;
+  .addLink {
+    align-self: end;
+  }
 }

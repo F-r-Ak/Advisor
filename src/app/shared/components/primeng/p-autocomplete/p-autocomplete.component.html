@@ -2,8 +2,8 @@
     <p-autoComplete
         [(ngModel)]="selectedOption"
         [ngModelOptions]="{ standalone: true }"
-        [field]="getBindLabel | translate"
-        placeholder="{{ 'ACTIONS.SELECT' | translate }}"
+        [field]="getBindLabel"
+        placeholder="اختر"
         [suggestions]="suggestions"
         [dropdown]="dropdown"
         [forceSelection]="forceSelection"
@@ -20,7 +20,7 @@
         [multiple]="multiple"
         [optionDisabled]="optionDisabled"
         appendTo="body"
-        [emptyMessage]="'VALIDATION.SEARCH_RESULTS_NOT_FOUND' | translate"
+        [emptyMessage]="'لا توجد نتائج بحث'"
     >
         <ng-template let-item pTemplate="item">
             <div [class.disabled-option]="optionDisabled && item[optionDisabled]">

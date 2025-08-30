@@ -1,4 +1,14 @@
-
+.dataBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 20px;
+    .addLink {
+        align-self: end;
+    }
+}
 .advancedSearch {
     display: flex;
     margin: 0 auto;

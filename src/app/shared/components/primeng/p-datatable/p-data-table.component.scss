@@ -17,13 +17,19 @@
     .p-component {
         font-size: unset !important;
     }
+    /**Setting Table Container Border */
     .p-datatable > .p-datatable-table-container {
         border-top-left-radius: 11.48px;
         border-top-right-radius: 11.48px;
+        // border: 2px solid rgba(6, 3, 75, 0.5);
     }
     .p-datatable {
-        box-shadow: 0px 0px 10px var(--primary-color);
+        box-shadow: 1px 2px 10px var(--primary-color);
         border-radius: 11.48px;
+
+        // border-top-left-radius: 11.48px;
+        // border-top-right-radius: 11.48px;
+        /**Setting Table Header Row Styles */
         .p-datatable-thead {
             .table-header {
                 background-color: white;
@@ -31,12 +37,14 @@
             .table-header > th {
                 text-align: center;
                 font-size: 14px !important;
+                // border-bottom: 2px solid #0884ed;
+                // background-color: var(--secondary-color);
                 &:hover,
-                &:focus,
+                 &:focus,
                 &:active {
                     background-color: #0000000a;
                     // color:  #0884ed;
-                    color: black;
+                    color:  black;
                 }
             }
             .table-search-controls > th {
@@ -78,7 +86,7 @@
     }
 
     .search-box {
-        border: 1px solid var(--primary-color) !important;
+        border: 1px solid  var(--primary-color) !important;
         text-align: center;
     }
     .search-box::placeholder {

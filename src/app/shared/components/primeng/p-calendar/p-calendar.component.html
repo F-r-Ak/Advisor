@@ -1,0 +1,22 @@
+<div class="form-group d-flex flex-column m-0" [formGroup]="formGroup" *ngIf="formGroup">
+  <p-calendar
+    [ngClass]="timeOnly ? '' : 'datePickerWithoutTime'"
+    [timeOnly]="timeOnly"
+    dateFormat="dd/mm/yy"
+    [showIcon]="true"
+    [showTime]="true"
+    [formControlName]="controlName"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    [showButtonBar]="true"
+    [readonlyInput]="true"
+    [hourFormat]="'12'"
+    appendTo="body"
+    [placeholder]="placeHolderValue ? placeHolderValue : 'اختر'"></p-calendar>
+
+  @if (formGroup.get(controlName)?.errors) {
+  <small>
+    <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors }}</span>
+  </small>
+  }
+</div>

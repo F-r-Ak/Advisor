@@ -20,10 +20,10 @@ export class PrimeInputTextComponent implements OnInit {
   @Input() contentType = 'text';
   @Input() appearance = 'outline';
   @Input() readonly = false;
+  @Input() disabled = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log('enter pInputText');
   }
 }

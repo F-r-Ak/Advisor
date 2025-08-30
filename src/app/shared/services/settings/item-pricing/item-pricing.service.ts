@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Lookup, GetPagedBody } from '../../../interfaces';
 import { Observable } from 'rxjs';
-import { HttpService } from '../../../../core';
+import { HttpService } from '../../../../core/services';
 
 @Injectable({
     providedIn: 'root'

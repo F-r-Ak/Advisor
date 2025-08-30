@@ -33,6 +33,11 @@ export class AppMenu {
                         label: 'المسميات الوظيفية',
                         icon: 'pi pi-fw pi-cog',
                         routerLink: ['/pages/settings/positions']
+                    },
+                    {
+                        label: 'تسعير العناصر',
+                        icon: 'pi pi-fw pi-tag',
+                        routerLink: ['/pages/settings/item-pricing']
                     }
                 ]
             }

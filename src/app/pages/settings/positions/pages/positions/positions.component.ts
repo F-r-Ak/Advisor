@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
-import { PrimeDataTableComponent, PrimeTitleToolBarComponent, PositionsService, IsEnglishDirective } from '../../../../../shared';
+import { PrimeDataTableComponent, PrimeTitleToolBarComponent, PositionsService } from '../../../../../shared';
 import { CardModule } from 'primeng/card';
 import { takeUntil } from 'rxjs';
 import { TableOptions } from '../../../../../shared/interfaces';
@@ -11,7 +11,7 @@ import { AddEditPositionComponent } from '../../components/add-edit-position/add
 @Component({
     selector: 'app-positions',
     standalone: true,
-    imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent, IsEnglishDirective],
+    imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
     templateUrl: './positions.component.html',
     styleUrl: './positions.component.scss'
 })
