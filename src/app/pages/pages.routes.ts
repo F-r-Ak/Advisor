@@ -14,7 +14,7 @@ export default [
                 loadChildren: () => import('./settings/item-pricing/item-pricing.routes').then((m) => m.ItemPricingRoutes)
             },
             {
-                path: 'units',
+                 path: 'units',
                 loadChildren: () => import('./settings/units/units.routes').then((m) => m.unitsRoutes)
             },
             {
