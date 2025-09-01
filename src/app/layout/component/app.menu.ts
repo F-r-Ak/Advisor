@@ -38,6 +38,16 @@ export class AppMenu {
                         label: 'تسعير العناصر',
                         icon: 'pi pi-fw pi-tag',
                         routerLink: ['/pages/settings/item-pricing']
+                    },
+                    {
+                        label: 'الوحدات ',
+                        icon: 'pi pi-fw pi-cog',
+                        routerLink: ['/pages/settings/units']
+                    },
+                    {
+                        label: 'الشركة المصنعة ',
+                        icon: 'pi pi-fw pi-cog',
+                        routerLink: ['/pages/settings/vendor']
                     }
                 ]
             }
