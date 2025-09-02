@@ -47,9 +47,9 @@ export class AddEditItemPricingComponent extends BaseEditComponent implements On
     }
 
     getEditItemPricing = () => {
-        this.itemPricingService.getEditItemPricing(this.id).subscribe((position: any) => {
+        this.itemPricingService.getEditItemPricing(this.id).subscribe((itempPricing: any) => {
             this.initFormGroup();
-            this.form.patchValue(position);
+            this.form.patchValue(itempPricing);
         });
     };
 

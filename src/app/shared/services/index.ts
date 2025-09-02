@@ -3,3 +3,8 @@ export * from './translation/translation.service';
 export * from './validation/custom-validation.service';
 export * from './settings/positions/positions.service';
 export * from './settings/item-pricing/item-pricing.service';
+export * from './settings/branchs/branchs.service';
+export * from './settings/regions/regions.service';
+export * from './settings/user-role/user-role.service';
+export * from './settings/client-category/client-category.service';
+export * from './settings/saller-category/saller-category.service';
