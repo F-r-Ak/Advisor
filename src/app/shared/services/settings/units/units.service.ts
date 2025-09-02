@@ -19,8 +19,8 @@ export class UnitsService extends HttpService {
         return this.get<Lookup>({ apiName: `getedit/${id}` });
     }
 
-    getAllUnits() {
-        return this.get<Lookup[]>({ apiName: 'getall' });
+    get unit() {
+        return this.get<Lookup[]>({ apiName: 'getAll' });
     }
 
     getDropDown(body: GetPagedBody<any>): Observable<any> {

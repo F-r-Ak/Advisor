@@ -16,17 +16,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
     styleUrl: './units.component.scss'
 })
 export class UnitsComponent extends BaseListComponent implements OnInit {
-    unitsService: UnitsService = inject(UnitsService);
     isEnglish = false;
     tableOptions!: TableOptions;
+    service = inject(UnitsService);
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
-    }
-
-    override get service(): HttpService {
-        // Return the unitsService as the HttpService implementation
-        return this.unitsService;
     }
 
     override ngOnInit(): void {
@@ -43,7 +38,7 @@ export class UnitsComponent extends BaseListComponent implements OnInit {
             inputUrl: {
                 getAll: 'v1/itemunit/getpaged',
                 getAllMethod: 'POST',
-                delete: 'v1/item/deletesoft'
+                delete: 'v1/itemunit/deletesoft'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -69,13 +64,13 @@ export class UnitsComponent extends BaseListComponent implements OnInit {
             },
             {
                 field: this.language === 'ar' ? 'nameAr' : 'nameEn',
-                header: 'المسمى بالعربى',
+                header: 'مسمي الوحدة بالعربى',
                 filter: true,
                 filterMode: 'text'
             },
             {
                 field: this.language === 'en' ? 'nameEn' : 'nameAr',
-                header: 'المسمى بالانجليزى',
+                header: 'مسمي الوحدة بالانجليزى',
                 filter: true,
                 filterMode: 'text'
             }
@@ -105,13 +100,13 @@ export class UnitsComponent extends BaseListComponent implements OnInit {
     }
 
     openAdd() {
-        this.openDialog(AddEditUnitComponent, this.localize.translate.instant('اضافة وحدة جديدة '), {
+        this.openDialog(AddEditUnitComponent, this.localize.translate.instant('اضافة وحدة'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditUnitComponent, this.localize.translate.instant('تعديل  وحدة'), {
+        this.openDialog(AddEditUnitComponent, this.localize.translate.instant('تعديل وحدة'), {
             pageType: 'edit',
             row: { rowData }
         });
@@ -121,4 +116,4 @@ export class UnitsComponent extends BaseListComponent implements OnInit {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
     }
-} 
+}

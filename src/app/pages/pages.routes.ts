@@ -11,7 +11,7 @@ export default [
             },
             {
                 path: 'item-pricing',
-                loadChildren: () => import('./settings/item-pricing/item-pricing.routes').then((m) => m.ItemPricingRoutes)
+                loadChildren: () => import('./settings/item-pricing/item-pricing.routes').then((m) => m.itemPricingRoutes)
             },
             {
                 path: 'units',
@@ -23,19 +23,19 @@ export default [
             },
             {
                 path: 'branchs',
-                loadChildren: () => import('./settings/branchs/branchs.routes').then((m) => m.BranchsRoutes)
+                loadChildren: () => import('./settings/branchs/branchs.routes').then((m) => m.branchsRoutes)
             },
             {
                 path: 'regions',
-                loadChildren: () => import('./settings/regions/regions.routes').then((m) => m.RegionsRoutes)
+                loadChildren: () => import('./settings/regions/regions.routes').then((m) => m.regionsRoutes)
             },
             {
                 path: 'client-category',
-                loadChildren: () => import('./settings/client-category/client-category.routes').then((m) => m.ClientCategoryRoutes)
+                loadChildren: () => import('./settings/client-category/client-category.routes').then((m) => m.clientCategoryRoutes)
             },
             {
                 path: 'saller-category',
-                loadChildren: () => import('./settings/saller-category/saller-category.routes').then((m) => m.SallerCategoryRoutes)
+                loadChildren: () => import('./settings/saller-category/saller-category.routes').then((m) => m.sallerCategoryRoutes)
             }
         ]
     },

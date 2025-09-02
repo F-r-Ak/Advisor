@@ -2,24 +2,23 @@ import { Injectable } from '@angular/core';
 import { Lookup, GetPagedBody } from '../../../interfaces';
 import { Observable } from 'rxjs';
 import { HttpService } from '../../../../core/services';
-
 @Injectable({
     providedIn: 'root'
 })
-export class ItemPricingService extends HttpService {
+export class SallerCategoryService extends HttpService {
     protected get baseUrl(): string {
-        return 'v1/itempricing/';
+        return 'v1/sellercategory/';
     }
 
-    getItemPricing(id: string) {
+    getSallerCategory(id: string) {
         return this.get<Lookup>({ apiName: `get/${id}` });
     }
 
-    getEditItemPricing(id: string) {
+    getEditSallerCategory(id: string) {
         return this.get<Lookup>({ apiName: `getEdit/${id}` });
     }
 
-    get itemPricing() {
+    get sallerCategory() {
         return this.get<Lookup[]>({ apiName: 'getAll' });
     }
 

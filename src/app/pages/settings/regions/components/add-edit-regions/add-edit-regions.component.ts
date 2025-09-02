@@ -1,19 +1,21 @@
-import { VendorService } from '../../../../../shared/services/settings/vendor/vendor.service';
 import { Component, inject, OnInit } from '@angular/core';
-import { CardModule } from 'primeng/card';
-import { PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
 import { BaseEditComponent } from '../../../../../base/components/base-edit-component';
+import { TranslateModule } from '@ngx-translate/core';
+import { CardModule } from 'primeng/card';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RegionsService, PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
-import { Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @Component({
-    selector: 'app-add-edit-vendor',
-    imports: [PrimeInputTextComponent, SubmitButtonsComponent, FormsModule, ReactiveFormsModule, CardModule],
-    templateUrl: './add-edit-vendor.component.html',
-    styleUrl: './add-edit-vendor.component.scss'
+    selector: 'app-add-edit-regions',
+    standalone: true,
+    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
+    templateUrl: './add-edit-regions.component.html',
+    styleUrl: './add-edit-regions.component.scss'
 })
-export class AddEditVendorComponent extends BaseEditComponent implements OnInit {
-    vendorService: VendorService = inject(VendorService);
+export class AddEditRegionsComponent extends BaseEditComponent implements OnInit {
+    _regionsService: RegionsService = inject(RegionsService);
     dialogService: DialogService = inject(DialogService);
 
     constructor(override activatedRoute: ActivatedRoute) {
@@ -22,7 +24,6 @@ export class AddEditVendorComponent extends BaseEditComponent implements OnInit 
 
     override ngOnInit(): void {
         super.ngOnInit();
-
         this.dialogService.dialogComponentRefMap.forEach((element) => {
             this.pageType = element.instance.ddconfig.data.pageType;
             if (this.pageType === 'edit') {
@@ -30,7 +31,7 @@ export class AddEditVendorComponent extends BaseEditComponent implements OnInit 
             }
         });
         if (this.pageType === 'edit') {
-            this.getEditVendor();
+            this.getEditRegions();
         } else {
             this.initFormGroup();
         }
@@ -45,20 +46,20 @@ export class AddEditVendorComponent extends BaseEditComponent implements OnInit 
         });
     }
 
-    getEditVendor = () => {
-        this.vendorService.getEditVendor(this.id).subscribe((vendor: any) => {
+    getEditRegions = () => {
+        this._regionsService.getEditRegions(this.id).subscribe((region: any) => {
             this.initFormGroup();
-            this.form.patchValue(vendor);
+            this.form.patchValue(region);
         });
     };
 
     submit() {
         if (this.pageType === 'add')
-            this.vendorService.add(this.form.value).subscribe(() => {
+            this._regionsService.add(this.form.value).subscribe(() => {
                 this.closeDialog();
             });
         if (this.pageType === 'edit')
-            this.vendorService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+            this._regionsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
                 this.closeDialog();
             });
     }

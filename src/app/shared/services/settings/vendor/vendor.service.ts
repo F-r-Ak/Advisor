@@ -19,7 +19,7 @@ export class VendorService extends HttpService {
         return this.get<Lookup>({ apiName: `getedit/${id}` });
     }
 
-    getAllVendors() {
+    get Vendors() {
         return this.get<Lookup[]>({ apiName: 'getall' });
     }
 

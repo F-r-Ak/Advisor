@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const ItemPricingRoutes: Routes = [
+export const itemPricingRoutes: Routes = [
     {
         path: '',
         loadComponent: () => import('./pages/item-pricing/item-pricing.component').then((c) => c.ItemPricingComponent),

@@ -31,23 +31,44 @@ export class AppMenu {
                 items: [
                     {
                         label: 'المسميات الوظيفية',
-                        icon: 'pi pi-fw pi-cog',
+                        icon: 'pi pi-spin pi-cog',
                         routerLink: ['/pages/settings/positions']
                     },
                     {
                         label: 'تسعير العناصر',
-                        icon: 'pi pi-fw pi-tag',
+                        icon: 'pi pi-tag',
                         routerLink: ['/pages/settings/item-pricing']
                     },
                     {
                         label: 'الوحدات ',
-                        icon: 'pi pi-fw pi-cog',
+                        icon: 'pi pi-box',
                         routerLink: ['/pages/settings/units']
                     },
                     {
                         label: 'الشركة المصنعة ',
-                        icon: 'pi pi-fw pi-cog',
+                        icon: 'pi pi-building',
                         routerLink: ['/pages/settings/vendor']
+                    },
+
+                    {
+                        label: 'مسميات الفروع',
+                        icon: 'pi pi-sitemap',
+                        routerLink: ['/pages/settings/branchs']
+                    },
+                    {
+                        label: 'مسميات المناطق',
+                        icon: 'pi pi-warehouse',
+                        routerLink: ['/pages/settings/regions']
+                    },
+                    {
+                        label: 'تصنيفات العملاء',
+                        icon: 'pi pi-cart-minus',
+                        routerLink: ['/pages/settings/client-category']
+                    },
+                    {
+                        label: 'تصنيفات الموردين',
+                        icon: 'pi pi-cart-arrow-down',
+                        routerLink: ['/pages/settings/saller-category']
                     }
                 ]
             }
