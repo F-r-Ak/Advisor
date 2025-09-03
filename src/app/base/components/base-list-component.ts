@@ -109,7 +109,9 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
     loadDataFromServer(): void {
         this.dataTableService.loadData(this.tableOptions.inputUrl.getAll).subscribe({
             next: (res) => {
-                this.data = res.data;
+                console.log('data from baselist com', res.data.data);
+
+                this.data = res.data.data;
                 this.totalCount = res.totalCount;
             },
             error: (err) => {

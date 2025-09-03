@@ -28,6 +28,7 @@
         "export-xlsx": "^0.1.4",
         "google-maps": "^4.3.3",
         "ngx-filesaver": "^19.0.0",
+        "ngx-spinner": "^19.0.0",
         "ngx-toastr": "^19.0.0",
         "primeclt": "^0.1.5",
         "primeicons": "^7.0.0",

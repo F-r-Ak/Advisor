@@ -1,21 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
-import { TableOptions } from '../../../../../shared/interfaces';
-import { BaseListComponent } from '../../../../../base/components/base-list-component';
-import { HttpService } from '../../../../../core';
-import { TranslateModule } from '@ngx-translate/core';
-import { takeUntil } from 'rxjs';
+import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { VendorService } from '../../../../../shared/services/settings/vendor/vendor.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { BaseListComponent } from '../../../../../base/components/base-list-component';
+import { PrimeDataTableComponent, PrimeTitleToolBarComponent, VendorService } from '../../../../../shared';
+import { CardModule } from 'primeng/card';
+import { takeUntil } from 'rxjs';
+import { TableOptions } from '../../../../../shared/interfaces';
 import { AddEditVendorComponent } from '../../components/add-edit-vendor/add-edit-vendor.component';
 
 @Component({
     selector: 'app-vendor',
-    imports: [PrimeTitleToolBarComponent, PrimeDataTableComponent, TranslateModule, RouterModule],
+    standalone: true,
+    imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
     templateUrl: './vendor.component.html',
     styleUrl: './vendor.component.scss'
 })
-export class VendorComponent extends BaseListComponent implements OnInit {
+export class VendorComponent extends BaseListComponent {
+    @Input() employeeId: string = '';
     isEnglish = false;
     tableOptions!: TableOptions;
     service = inject(VendorService);
@@ -27,7 +28,6 @@ export class VendorComponent extends BaseListComponent implements OnInit {
     override ngOnInit(): void {
         this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
             this.language = lang;
-            this.isEnglish = lang === 'en';
             this.initializeTableOptions();
         });
         super.ngOnInit();
@@ -38,7 +38,7 @@ export class VendorComponent extends BaseListComponent implements OnInit {
             inputUrl: {
                 getAll: 'v1/itemvendor/getpaged',
                 getAllMethod: 'POST',
-                delete: 'v1/itemvendor/deletesoft'
+                delete: 'v1/itemvendor/delete'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -64,13 +64,7 @@ export class VendorComponent extends BaseListComponent implements OnInit {
             },
             {
                 field: this.language === 'ar' ? 'nameAr' : 'nameEn',
-                header: 'مسمي الشركة المصنعة بالعربى',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: this.language === 'en' ? 'nameEn' : 'nameAr',
-                header: 'مسمي الشركة المصنعة بالانجليزى',
+                header: 'مسمي الشركة المصنعة',
                 filter: true,
                 filterMode: 'text'
             }
@@ -100,19 +94,22 @@ export class VendorComponent extends BaseListComponent implements OnInit {
     }
 
     openAdd() {
-        this.openDialog(AddEditVendorComponent, this.localize.translate.instant('اضافة الشركة المصنعة'), {
+        this.openDialog(AddEditVendorComponent, this.localize.translate.instant('اضافة شركة مصنعة'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditVendorComponent, this.localize.translate.instant('تعديل الشركة المصنعة'), {
+        this.openDialog(AddEditVendorComponent, this.localize.translate.instant('تعديل شركة مصنعة'), {
             pageType: 'edit',
             row: { rowData }
         });
     }
 
+    /* when leaving the component */
     override ngOnDestroy() {
+        //Called once, before the instance is destroyed.
+        //Add 'implements OnDestroy' to the class.
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
     }

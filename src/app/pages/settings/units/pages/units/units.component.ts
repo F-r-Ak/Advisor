@@ -1,21 +1,21 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
-import { TableOptions } from '../../../../../shared/interfaces';
-import { BaseListComponent } from '../../../../../base/components/base-list-component';
-import { HttpService } from '../../../../../core';
-import { TranslateModule } from '@ngx-translate/core';
-import { takeUntil } from 'rxjs';
-import { UnitsService } from '../../../../../shared/services/settings/units/units.service';
-import { AddEditUnitComponent } from '../../components/add-edit-unit/add-edit-unit.component';
+import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { BaseListComponent } from '../../../../../base/components/base-list-component';
+import { PrimeDataTableComponent, PrimeTitleToolBarComponent, UnitsService } from '../../../../../shared';
+import { CardModule } from 'primeng/card';
+import { takeUntil } from 'rxjs';
+import { TableOptions } from '../../../../../shared/interfaces';
+import { AddEditUnitComponent } from '../../components/add-edit-unit/add-edit-unit.component';
 
 @Component({
     selector: 'app-units',
-    imports: [PrimeTitleToolBarComponent, PrimeDataTableComponent, TranslateModule, RouterModule],
+    imports: [PrimeTitleToolBarComponent, PrimeDataTableComponent, TranslateModule, RouterModule, CardModule],
     templateUrl: './units.component.html',
     styleUrl: './units.component.scss'
 })
-export class UnitsComponent extends BaseListComponent implements OnInit {
+export class UnitsComponent extends BaseListComponent {
+    @Input() employeeId: string = '';
     isEnglish = false;
     tableOptions!: TableOptions;
     service = inject(UnitsService);
@@ -27,7 +27,6 @@ export class UnitsComponent extends BaseListComponent implements OnInit {
     override ngOnInit(): void {
         this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
             this.language = lang;
-            this.isEnglish = lang === 'en';
             this.initializeTableOptions();
         });
         super.ngOnInit();

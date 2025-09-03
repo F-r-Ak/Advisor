@@ -1,14 +1,16 @@
-import { VendorService } from '../../../../../shared/services/settings/vendor/vendor.service';
 import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
-import { PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
+import { SubmitButtonsComponent, PrimeInputTextComponent, VendorService } from '../../../../../shared';
 import { BaseEditComponent } from '../../../../../base/components/base-edit-component';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ActivatedRoute } from '@angular/router';
-import { Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @Component({
     selector: 'app-add-edit-vendor',
-    imports: [PrimeInputTextComponent, SubmitButtonsComponent, FormsModule, ReactiveFormsModule, CardModule],
+    standalone: true,
+    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
     templateUrl: './add-edit-vendor.component.html',
     styleUrl: './add-edit-vendor.component.scss'
 })
@@ -22,7 +24,6 @@ export class AddEditVendorComponent extends BaseEditComponent implements OnInit 
 
     override ngOnInit(): void {
         super.ngOnInit();
-
         this.dialogService.dialogComponentRefMap.forEach((element) => {
             this.pageType = element.instance.ddconfig.data.pageType;
             if (this.pageType === 'edit') {
