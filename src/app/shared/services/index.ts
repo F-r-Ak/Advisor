@@ -7,6 +7,7 @@ export * from './settings/branchs/branchs.service';
 export * from './settings/regions/regions.service';
 export * from './settings/user-role/user-role.service';
 export * from './settings/client-category/client-category.service';
-export * from './settings/saller-category/saller-category.service';
+export * from './settings/seller-category/seller-category.service';
 export * from './settings/vendor/vendor.service';
 export * from './settings/units/units.service';
+export * from './settings/treasury/treasury.service';

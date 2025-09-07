@@ -25,50 +25,65 @@ export class AppMenu {
                 items: [{ label: 'لوحة التحكم', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
             },
             {
-                label: 'الاعدادات',
-                icon: 'pi pi-fw pi-briefcase',
-                // routerLink: ['/pages'],
+                label: '',
                 items: [
                     {
-                        label: 'المسميات الوظيفية',
-                        icon: 'pi pi-spin pi-cog',
-                        routerLink: ['/pages/settings/positions']
-                    },
-                    {
-                        label: 'تسعير العناصر',
-                        icon: 'pi pi-tag',
-                        routerLink: ['/pages/settings/item-pricing']
-                    },
-                    {
-                        label: 'الوحدات ',
-                        icon: 'pi pi-box',
-                        routerLink: ['/pages/settings/units']
-                    },
-                    {
-                        label: 'الشركة المصنعة ',
-                        icon: 'pi pi-building',
-                        routerLink: ['/pages/settings/vendor']
-                    },
+                        label: 'الاعدادات',
+                        icon: 'pi pi-fw pi-spin pi-cog',
+                        // routerLink: ['/pages'],
+                        items: [
+                            {
+                                label: 'المسميات الوظيفية',
+                                icon: 'pi pi-briefcase',
+                                routerLink: ['/pages/settings/positions']
+                            },
+                            {
+                                label: 'تسعير العناصر',
+                                icon: 'pi pi-tag',
+                                routerLink: ['/pages/settings/item-pricing']
+                            },
+                            {
+                                label: 'الوحدات ',
+                                icon: 'pi pi-box',
+                                routerLink: ['/pages/settings/units']
+                            },
+                            {
+                                label: 'الشركة المصنعة ',
+                                icon: 'pi pi-building',
+                                routerLink: ['/pages/settings/vendor']
+                            },
 
-                    {
-                        label: 'مسميات الفروع',
-                        icon: 'pi pi-sitemap',
-                        routerLink: ['/pages/settings/branchs']
-                    },
-                    {
-                        label: 'مسميات المناطق',
-                        icon: 'pi pi-warehouse',
-                        routerLink: ['/pages/settings/regions']
-                    },
-                    {
-                        label: 'تصنيفات العملاء',
-                        icon: 'pi pi-cart-minus',
-                        routerLink: ['/pages/settings/client-category']
-                    },
-                    {
-                        label: 'تصنيفات الموردين',
-                        icon: 'pi pi-cart-arrow-down',
-                        routerLink: ['/pages/settings/saller-category']
+                            {
+                                label: 'مسميات الفروع',
+                                icon: 'pi pi-sitemap',
+                                routerLink: ['/pages/settings/branchs']
+                            },
+                            {
+                                label: 'مسميات المناطق',
+                                icon: 'pi pi-warehouse',
+                                routerLink: ['/pages/settings/regions']
+                            },
+                            {
+                                label: 'الخزن',
+                                icon: 'pi pi-server',
+                                routerLink: ['/pages/settings/treasury']
+                            },
+                            {
+                                label: 'تصنيفات العملاء',
+                                icon: 'pi pi-cart-minus',
+                                routerLink: ['/pages/settings/client-category']
+                            },
+                            {
+                                label: 'تصنيفات الموردين',
+                                icon: 'pi pi-cart-arrow-down',
+                                routerLink: ['/pages/settings/seller-category']
+                            },
+                            {
+                                label: 'صلاحيات المستخدم',
+                                icon: 'pi pi-shield',
+                                routerLink: ['/pages/settings/user-role']
+                            }
+                        ]
                     }
                 ]
             }

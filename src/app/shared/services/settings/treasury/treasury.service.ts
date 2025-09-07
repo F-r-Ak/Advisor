@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
+import { HttpService } from '../../../../core';
 import { Lookup, GetPagedBody } from '../../../interfaces';
 import { Observable } from 'rxjs';
-import { HttpService } from '../../../../core/services';
+
 @Injectable({
     providedIn: 'root'
 })
-export class SallerCategoryService extends HttpService {
+export class TreasuryService extends HttpService {
     protected get baseUrl(): string {
-        return 'v1/sellercategory/';
+        return 'v1/treasury/';
     }
 
-    getSallerCategory(id: string) {
+    getTreasury(id: string) {
         return this.get<Lookup>({ apiName: `get/${id}` });
     }
 
-    getEditSallerCategory(id: string) {
-        return this.get<Lookup>({ apiName: `getEdit/${id}` });
+    getEditTreasury(id: string) {
+        return this.get<Lookup>({ apiName: `getedit/${id}` });
     }
 
-    get sallerCategory() {
+    get treasury() {
         return this.get<Lookup[]>({ apiName: 'getAll' });
     }
 

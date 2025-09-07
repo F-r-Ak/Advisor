@@ -3,19 +3,19 @@ import { BaseEditComponent } from '../../../../../base/components/base-edit-comp
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SallerCategoryService, PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
+import { TreasuryService, PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'app-add-edit-saller-category',
+    selector: 'app-add-edit-treasury',
     standalone: true,
     imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
-    templateUrl: './add-edit-saller-category.component.html',
-    styleUrl: './add-edit-saller-category.component.scss'
+    templateUrl: './add-edit-treasury.component.html',
+    styleUrl: './add-edit-treasury.component.scss'
 })
-export class AddEditSallerCategoryComponent extends BaseEditComponent implements OnInit {
-    _sallerCategoryService: SallerCategoryService = inject(SallerCategoryService);
+export class AddEditTreasuryComponent extends BaseEditComponent implements OnInit {
+    _treasuryService: TreasuryService = inject(TreasuryService);
     dialogService: DialogService = inject(DialogService);
 
     constructor(override activatedRoute: ActivatedRoute) {
@@ -31,7 +31,7 @@ export class AddEditSallerCategoryComponent extends BaseEditComponent implements
             }
         });
         if (this.pageType === 'edit') {
-            this.getEditSallerCategory();
+            this.getEditTreasury();
         } else {
             this.initFormGroup();
         }
@@ -46,8 +46,8 @@ export class AddEditSallerCategoryComponent extends BaseEditComponent implements
         });
     }
 
-    getEditSallerCategory = () => {
-        this._sallerCategoryService.getEditSallerCategory(this.id).subscribe((itempPricing: any) => {
+    getEditTreasury = () => {
+        this._treasuryService.getEditTreasury(this.id).subscribe((itempPricing: any) => {
             this.initFormGroup();
             this.form.patchValue(itempPricing);
         });
@@ -55,11 +55,11 @@ export class AddEditSallerCategoryComponent extends BaseEditComponent implements
 
     submit() {
         if (this.pageType === 'add')
-            this._sallerCategoryService.add(this.form.value).subscribe(() => {
+            this._treasuryService.add(this.form.value).subscribe(() => {
                 this.closeDialog();
             });
         if (this.pageType === 'edit')
-            this._sallerCategoryService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+            this._treasuryService.update({ id: this.id, ...this.form.value }).subscribe(() => {
                 this.closeDialog();
             });
     }

@@ -2,24 +2,24 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
-import { SallerCategoryService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
+import { SellerCategoryService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
 import { TableOptions } from '../../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
 import { takeUntil } from 'rxjs';
-import { AddEditSallerCategoryComponent } from '../../components/add-edit-saller-category/add-edit-saller-category.component';
+import { AddEditSellerCategoryComponent } from '../../components/add-edit-seller-category/add-edit-seller-category.component';
 
 @Component({
-    selector: 'app-saller-category',
+    selector: 'app-seller-category',
     standalone: true,
     imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
-    templateUrl: './saller-category.component.html',
-    styleUrl: './saller-category.component.scss'
+    templateUrl: './seller-category.component.html',
+    styleUrl: './seller-category.component.scss'
 })
-export class SallerCategoryComponent extends BaseListComponent {
+export class SellerCategoryComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
     tableOptions!: TableOptions;
-    service = inject(SallerCategoryService);
+    service = inject(SellerCategoryService);
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
@@ -35,9 +35,9 @@ export class SallerCategoryComponent extends BaseListComponent {
     initializeTableOptions() {
         this.tableOptions = {
             inputUrl: {
-                getAll: 'v1/sallercategory/getPaged',
+                getAll: 'v1/sellercategory/getpaged',
                 getAllMethod: 'POST',
-                delete: 'v1/sallercategory/deletesoft'
+                delete: 'v1/sellercategory/delete'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -93,13 +93,13 @@ export class SallerCategoryComponent extends BaseListComponent {
     }
 
     openAdd() {
-        this.openDialog(AddEditSallerCategoryComponent, this.localize.translate.instant('اضافة تصنيف مورد'), {
+        this.openDialog(AddEditSellerCategoryComponent, this.localize.translate.instant('اضافة تصنيف مورد'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditSallerCategoryComponent, this.localize.translate.instant('تعديل تصنيف مورد'), {
+        this.openDialog(AddEditSellerCategoryComponent, this.localize.translate.instant('تعديل تصنيف مورد'), {
             pageType: 'edit',
             row: { rowData }
         });

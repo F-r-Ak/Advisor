@@ -34,8 +34,16 @@ export default [
                 loadChildren: () => import('./settings/client-category/client-category.routes').then((m) => m.clientCategoryRoutes)
             },
             {
-                path: 'saller-category',
-                loadChildren: () => import('./settings/saller-category/saller-category.routes').then((m) => m.sallerCategoryRoutes)
+                path: 'seller-category',
+                loadChildren: () => import('./settings/seller-category/seller-category.routes').then((m) => m.sellerCategoryRoutes)
+            },
+            {
+                path: 'treasury',
+                loadChildren: () => import('./settings/treasury/treasury.routes').then((m) => m.treasuryRoutes)
+            },
+            {
+                path: 'user-role',
+                loadChildren: () => import('./settings/user-role/user-role.routes').then((m) => m.userRoleRoutes)
             }
         ]
     },
