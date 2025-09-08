@@ -1,0 +1,72 @@
+<p-tabs value="ItemTabs.General">
+    <p-tablist>
+        <p-tab value="ItemTabs.General">{{ 'البيانات الأساسية' }}</p-tab>
+        @if (pageType === 'edit' || showItemTabs) {
+            <p-tab value="ItemTabs.MarinaOrganization">{{ 'بيانات الملكية والتأجير' }}</p-tab>
+        }
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="ItemTabs.General">
+            <div class="page-wrapper">
+                <p-card class="px-4 pt-2 pb-4 m-0">
+                    @if (form) {
+                        <form method="post" class="row" [formGroup]="form">
+                 
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="name"  [label]="'اسم المرسي'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label class="mb-2">{{ 'المدينة' }}</label>
+                                <!-- <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedTown"
+                                    [suggestions]="filteredTowns"
+                                    [formGroup]="form"
+                                    (onSelect)="onTownSelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getTowns($event)"
+                                ></app-prime-autocomplete> -->
+                            </div>
+                             <div class="col-lg-8">
+                                <app-prime-input-text [formGroup]="form" controlName="url"  [label]="'موقع المرسي'"> </app-prime-input-text>
+                            </div>
+                               <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="length"  contentType="number" [label]="'الطول'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="northSide"  [label]="'الحد البحري'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="southSide"   [label]="'الحد القبلي'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="mb-2">{{ 'الاحداثيات' }}</label>
+                                <!-- <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedGeoPoint"
+                                    [suggestions]="filteredGeoPoints"
+                                    [formGroup]="form"
+                                    (onSelect)="onGeoPointSelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getGeoPoints($event)"
+                                ></app-prime-autocomplete>
+                            </div> -->
+                             <div class="col-lg-12">
+                                <app-prime-input-text [formGroup]="form" controlName="note" inputType="textarea"   [label]="'ملاحظات'"> </app-prime-input-text>
+                            </div>
+                            </div>
+                        </form>
+                    }
+                </p-card>
+                @if (form) {
+                    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="redirect()"> </app-submit-buttons>
+                }
+            </div>
+        </p-tabpanel>
+        <!-- <p-tabpanel value="ItemTabs.MarinaOrganization">
+            <app-marina-organization [touristMarinaId]="touristMarinaId"></app-marina-organization>
+            
+        </p-tabpanel> -->
+    </p-tabpanels>
+</p-tabs>
