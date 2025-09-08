@@ -87,7 +87,7 @@ export class AppMenu {
                     }
                 ]
             },
-             {
+            {
                 label: 'الشاشات',
                 icon: 'pi pi-fw pi-briefcase',
                 items: [
@@ -96,41 +96,9 @@ export class AppMenu {
                         icon: 'pi pi-fw pi-tags',
                         routerLink: ['/pages/items']
                     },
-                    {
-                        label: 'بيانات الجهات',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/pages/org-info']
-                    },
-                    {
-                        label: ' الحوادث',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/pages/accident']
-                    },
-                    {
-                        label: 'الشركات المالكة',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/pages/org-owner-companies']
-                    },
-                    {
-                        label: 'شركات التشغيل',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/pages/org-operator-companies']
-                    },
-                    {
-                        label: 'بيانات الوحدة العائمة',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/pages/floating-units']
-                    },
-                    {
-                        label: 'بيانات الرحلة العائمة',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/pages/trip-information']
-                    },
-                    {
-                        label: 'بيانات المراسي السياحية',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/pages/tourist-marina']
-                    }
+
+
+
                 ]
             },
         ];
