@@ -11,3 +11,7 @@ export * from './settings/seller-category/seller-category.service';
 export * from './settings/vendor/vendor.service';
 export * from './settings/units/units.service';
 export * from './settings/treasury/treasury.service';
+export * from './items/items.service';
+export * from './item-item-units/item-item-units.service';
+
+

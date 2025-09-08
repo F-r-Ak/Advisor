@@ -86,7 +86,21 @@ export class AppMenu {
                         ]
                     }
                 ]
-            }
+            },
+            {
+                label: 'الشاشات',
+                icon: 'pi pi-fw pi-briefcase',
+                items: [
+                    {
+                        label: 'الاصناف',
+                        icon: 'pi pi-fw pi-tags',
+                        routerLink: ['/pages/items']
+                    },
+
+
+
+                ]
+            },
         ];
     }
 }

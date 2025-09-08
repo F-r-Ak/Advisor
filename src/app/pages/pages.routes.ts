@@ -47,6 +47,10 @@ export default [
             }
         ]
     },
+    {
+        path: 'items',
+        loadChildren: () => import('./items/items.routes').then(m => m.ItemsRoutes)
+    },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }
 ] as Routes;

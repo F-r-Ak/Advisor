@@ -1,0 +1,28 @@
+<div class="page-wrapper d-flex flex-column h-100">
+  <app-prime-title-toolbar [pageTitle]="pageTitle"></app-prime-title-toolbar>
+
+  <div class="dataBox">
+    <a [routerLink]="['add']" class="addLink">
+      <button class="main-btn align-self-center font-14 main border-radius-2 py-1 px-2 mt-2 mt-sm-0" type="button" pButton pRipple>
+        <div class="d-flex align-items-center">
+          <i class="bx bx-plus m-inline-end-1 font-18"></i>
+          <span class="p-inline-end-1">{{ 'اضافة'}}</span>
+        </div>
+      </button>
+    </a>
+
+    @if (tableOptions) {
+    <div class="mt-4">
+      <app-prime-data-table
+        (event)="handleEvent($event)"
+        [tableOptions]="tableOptions"
+        [data]="data"
+        [totalCount]="totalCount"
+        [pageSize]="dataTableService.opt.pageSize">
+      </app-prime-data-table>
+    </div>
+    }
+  </div>
+</div>
+
+
