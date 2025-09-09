@@ -13,8 +13,8 @@ import { AddEditItemItemUnitComponent } from '../add-edit-item-item-unit/add-edi
   templateUrl: './item-item-units.component.html',
   styleUrl: './item-item-units.component.scss'
 })
-export class MarinaOrganizationComponent extends BaseListComponent {
-  @Input() touristMarinaId: string = '';
+export class ItemItemUnitsComponent extends BaseListComponent {
+  @Input() itemId: string = '';
   isEnglish = false;
   tableOptions!: TableOptions;
   service = inject(ItemItemUnitsService);
@@ -44,7 +44,7 @@ export class MarinaOrganizationComponent extends BaseListComponent {
       },
       bodyOptions: {
         filter: {
-          "touristMarinaId": this.touristMarinaId
+          "itemId": this.itemId
         }
       },
       responsiveDisplayedProperties: ['identity', 'idType', 'name', 'nationalityNameAr', 'job', 'mobile', 'email']
@@ -112,7 +112,7 @@ export class MarinaOrganizationComponent extends BaseListComponent {
   openAdd() {
     this.openDialog(AddEditItemItemUnitComponent, 'إضافة بيان ملكية', {
       pageType: 'add',
-      row: { touristMarinaId: this.touristMarinaId }
+      row: { itemId: this.itemId }
     });
   }
 

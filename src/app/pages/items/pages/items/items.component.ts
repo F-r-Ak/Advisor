@@ -42,7 +42,7 @@ export class ItemsComponent extends BaseListComponent {
             bodyOptions: {
                 filter: {}
             },
-            responsiveDisplayedProperties: ['code', 'name','url','length','northSide','southSide','note']
+            responsiveDisplayedProperties: ['code', 'itemVendorNameAr','itemVendorNameEn','itemCategoryNameAr','itemCategoryNameEn','checkRest','stopSell','expireDays','orderLimit','idleLimit','maxSellDiscount','sellsList','isActive'],
         };
     }
 
@@ -55,35 +55,66 @@ export class ItemsComponent extends BaseListComponent {
                 filterMode: 'text'
             },
             {
-                field: 'name',
-                header: 'اسم المرسي',
-                filter: true,
-                filterMode: 'text'
-            },
-            // {
-            //     field: 'url',
-            //     header: 'موقع المرسي',
-            //     filter: true,
-            //     filterMode: 'text'
-            // },
-            {
-                field: 'length',
-                header: 'الطول',
+                field: 'itemVendorNameAr',
+                header: 'المورد',
                 filter: true,
                 filterMode: 'text'
             },
             {
-                field: 'northSide',
-                header: 'الحد البحري',
+                field: 'itemCategoryNameAr',
+                header: 'الفئة',
                 filter: true,
                 filterMode: 'text'
             },
             {
-                field: 'southSide',
-                header: 'الحد القبلي',
+                field: 'checkRest',
+                header: 'التحقق من الرصيد',
                 filter: true,
                 filterMode: 'text'
+            },
+            {
+                field: 'stopSell',
+                header: 'ايقاف البيع',
+                filter: true,
+                filterMode: 'text'
+            },
+             {
+                field: 'expireDays',
+                header: 'ايام الانتهاء',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'orderLimit',
+                header: 'حد الطلب',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'idleLimit',
+                header: 'حد التوقف',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'maxSellDiscount',
+                header: 'اقصى خصم للبيع',
+                filter: true,   
+                filterMode: 'text'
+            },
+            {
+                field: 'sellsList',
+                header: 'قائمة البيع',
+                filter: true,   
+                filterMode: 'text'
+            },
+            {
+                field: 'isActive',
+                header: 'نشط',
+                filter: true,
+                filterMode: 'boolean'
             }
+
         ];
     }
 
@@ -94,7 +125,7 @@ export class ItemsComponent extends BaseListComponent {
                 icon: 'pi pi-file-edit',
                 color: 'text-middle',
                 isEdit: true,
-                route: '/pages/tourist-marina/edit/',
+                route: '/pages/items/edit/',
                 allowAll: true
             },
             {
