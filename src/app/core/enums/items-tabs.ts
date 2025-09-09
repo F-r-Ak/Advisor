@@ -1,4 +1,4 @@
 export enum ItemTabs {
   General = 'General',
-  MarinaOrganization = 'MarinaOrganization'
+  ItemItemUnit = 'ItemItemUnit'
 }

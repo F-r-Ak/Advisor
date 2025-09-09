@@ -13,6 +13,7 @@ export interface ItemDto extends Lookup, Partial<SharedProperties> {
   statusType: string;
   canCheck: boolean;
   leaveTypeId: string;
+  
 }
 
 export interface AddItemDto extends Lookup, Partial<SharedProperties> {
