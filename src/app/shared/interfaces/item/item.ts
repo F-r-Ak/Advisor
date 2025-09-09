@@ -2,46 +2,46 @@ import { Lookup, SharedProperties } from '../shared/shared';
 
 export interface ItemDto extends Lookup, Partial<SharedProperties> {
   id: string;
-  categoryTypeId: string;
-  class: string;
-  nameAr: string;
-  nameEn: string;
-  messageAr: string;
-  messageEn: string;
-  fromDate: string;
-  thruDate: string;
-  statusType: string;
-  canCheck: boolean;
-  leaveTypeId: string;
-  
+  code: string,
+  itemVendorId: string,
+  itemCategoryId: string,
+  checkRest: boolean,
+  stopSell: boolean,
+  expireDays: number,
+  orderLimit: number,
+  idleLimit: number,
+  maxSellDiscount: number,
+  sellsList: string,
+  isActive: boolean
 }
 
 export interface AddItemDto extends Lookup, Partial<SharedProperties> {
   id: string;
-  categoryTypeId: string;
-  class: string;
-  nameAr: string;
-  nameEn: string;
-  messageAr: string;
-  messageEn: string;
-  fromDate: string;
-  thruDate: string;
-  statusType: string;
-  canCheck: boolean;
-  leaveTypeId: string;
+  code: string,
+  itemVendorId: string,
+  itemCategoryId: string,
+  checkRest: boolean,
+  stopSell: boolean,
+  expireDays: number,
+  orderLimit: number,
+  idleLimit: number,
+  maxSellDiscount: number,
+  sellsList: string,
+  isActive: boolean
 }
 
 export interface UpdateItemDto extends Lookup, Partial<SharedProperties> {
   id: string;
-  categoryTypeId: string;
-  class: string;
-  nameAr: string;
-  nameEn: string;
-  messageAr: string;
-  messageEn: string;
-  fromDate: string;
-  thruDate: string;
-  statusType: string;
-  canCheck: boolean;
+  code: string,
+  itemVendorId: string,
+  itemCategoryId: string,
+  checkRest: boolean,
+  stopSell: boolean,
+  expireDays: number,
+  orderLimit: number,
+  idleLimit: number,
+  maxSellDiscount: number,
+  sellsList: string,
+  isActive: boolean
   leaveTypeId: string;
 }
