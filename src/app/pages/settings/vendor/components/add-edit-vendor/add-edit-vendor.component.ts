@@ -42,7 +42,7 @@ export class AddEditVendorComponent extends BaseEditComponent implements OnInit 
             id: [''],
             code: ['', Validators.required],
             nameAr: ['', Validators.required],
-            nameEn: ['', Validators.required]
+            nameEn: ['']
         });
     }
 

@@ -110,7 +110,7 @@ export class ItemsComponent extends BaseListComponent {
             },
             {
                 field: 'isActive',
-                header: 'نشط',
+                header: 'ايقاف الصنف',
                 filter: true,
                 filterMode: 'boolean'
             }
