@@ -56,13 +56,13 @@ export class ItemsComponent extends BaseListComponent {
             },
             {
                 field: 'itemVendorNameAr',
-                header: 'المورد',
+                header: 'المصنع',
                 filter: true,
                 filterMode: 'text'
             },
             {
                 field: 'itemCategoryNameAr',
-                header: 'الفئة',
+                header: 'التصنيف',
                 filter: true,
                 filterMode: 'text'
             },
@@ -80,7 +80,7 @@ export class ItemsComponent extends BaseListComponent {
             },
              {
                 field: 'expireDays',
-                header: 'ايام الانتهاء',
+                header: 'عدد ايام الصلاحية',
                 filter: true,
                 filterMode: 'text'
             },
@@ -92,7 +92,7 @@ export class ItemsComponent extends BaseListComponent {
             },
             {
                 field: 'idleLimit',
-                header: 'حد التوقف',
+                header: 'حد الركود الشهري',
                 filter: true,
                 filterMode: 'text'
             },
@@ -104,13 +104,13 @@ export class ItemsComponent extends BaseListComponent {
             },
             {
                 field: 'sellsList',
-                header: 'قائمة البيع',
+                header: 'العرض في قائمة البيع',
                 filter: true,   
                 filterMode: 'text'
             },
             {
                 field: 'isActive',
-                header: 'نشط',
+                header: 'ايقاف الصنف',
                 filter: true,
                 filterMode: 'boolean'
             }

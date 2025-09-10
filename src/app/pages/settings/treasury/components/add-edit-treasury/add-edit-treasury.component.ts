@@ -42,7 +42,7 @@ export class AddEditTreasuryComponent extends BaseEditComponent implements OnIni
             id: [''],
             code: ['', Validators.required],
             nameAr: ['', Validators.required],
-            nameEn: ['', Validators.required]
+            nameEn: ['']
         });
     }
 

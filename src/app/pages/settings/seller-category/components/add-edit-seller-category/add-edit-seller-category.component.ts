@@ -42,7 +42,7 @@ export class AddEditSellerCategoryComponent extends BaseEditComponent implements
             id: [''],
             code: ['', Validators.required],
             nameAr: ['', Validators.required],
-            nameEn: ['', Validators.required]
+            nameEn: ['']
         });
     }
 

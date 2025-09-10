@@ -44,7 +44,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
         this.form = this.fb.group({
             id: [],
             code: ['', Validators.required],
-            itemVendorId: [0, Validators.required],
+            itemVendorId: [null, Validators.required],
             url:['',Validators.required],
             northSide: ['', Validators.required],
             southSide: ['', Validators.required],        

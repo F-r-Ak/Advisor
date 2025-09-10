@@ -42,7 +42,7 @@ export class AddEditItemPricingComponent extends BaseEditComponent implements On
             id: [''],
             code: ['', Validators.required],
             nameAr: ['', Validators.required],
-            nameEn: ['', Validators.required]
+            nameEn: ['']
         });
     }
 
