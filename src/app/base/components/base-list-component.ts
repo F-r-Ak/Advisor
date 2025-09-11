@@ -109,10 +109,9 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
     loadDataFromServer(): void {
         this.dataTableService.loadData(this.tableOptions.inputUrl.getAll).subscribe({
             next: (res) => {
-                console.log('data from baselist com', res.data.data);
-
                 this.data = res.data.data;
-                this.totalCount = res.totalCount;
+                this.totalCount = res.data.totalCount;
+                console.log('res ::', res);
             },
             error: (err) => {
                 this.alert.error(this.localize.translate.instant('VALIDATION.GET_ERROR'));
@@ -172,8 +171,8 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
         this.dataTableService.deleteRange(this.tableOptions.inputUrl.delete, id).subscribe({
             next: (res) => {
                 this.alert.success(this.localize.translate.instant('VALIDATION.DELETE_SUCCESS'));
-                this.data = res.data;
-                this.totalCount = res.totalCount;
+                this.data = res.data.data;
+                this.totalCount = res.data.totalCount;
                 this.loadDataFromServer();
             },
             error: (err) => {

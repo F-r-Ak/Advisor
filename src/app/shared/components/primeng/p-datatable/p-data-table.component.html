@@ -194,6 +194,16 @@
             }
         </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">
+                <div class="p-4 text-center text-gray-500">
+                    <i class="mb-3 !text-4xl pi pi-inbox"></i>
+                    <div class="text-3xl font-bold text-red-500">لا توجد بيانات لعرضها</div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
 </p-table>
 @if (deleteDialog) {
     <app-prime-delete-dialog (onClose)="modalClosed($event)"></app-prime-delete-dialog>

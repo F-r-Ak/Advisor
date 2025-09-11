@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    width: 80%;
+    width: 95%;
     margin-top: 20px;
     .addLink {
         align-self: end;
@@ -37,7 +37,6 @@
 .p-button-text.p-button-secondary {
     color: var(--white-color) !important;
     border-radius: 0.5rem !important;
-
 }
 .p-button-text.p-button-secondary:hover {
     background-color: var(--secondary-color) !important;
@@ -49,7 +48,6 @@
     border-radius: 1rem !important;
     height: 1.5rem !important;
 }
-
 
 .p-formgrid.grid {
     display: flex;

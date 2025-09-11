@@ -9,7 +9,6 @@ import { DatePipe, NgClass } from '@angular/common';
 import { PrimeDeleteDialogComponent } from '../p-delete-dialog/p-delete-dialog.component';
 import { Toolbar } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
-
 @Component({
     selector: 'app-prime-data-table',
     imports: [TableModule, NgClass, RouterModule, PrimeDeleteDialogComponent, DatePipe, Toolbar, ButtonModule],
@@ -25,7 +24,6 @@ export class PrimeDataTableComponent implements OnInit, OnDestroy {
     @Input() set data(value) {
         this._data.next(value);
     }
-
     get data() {
         return this._data.getValue();
     }
@@ -57,6 +55,8 @@ export class PrimeDataTableComponent implements OnInit, OnDestroy {
         this.permissions = this.tableOptions.permissions;
         this._data.subscribe((x) => {
             this.finalData = this.data;
+            console.log(x);
+
             console.log('data at datatable at ngOnInit', this.finalData);
         });
     }
