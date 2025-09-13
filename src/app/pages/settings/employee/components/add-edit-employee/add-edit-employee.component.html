@@ -1,0 +1,64 @@
+<p-card class="p-2 m-0">
+    @if (form) {
+        <form method="post" class="row" [formGroup]="form">
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="fullName" [label]="'الاسم بالكامل'"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'اسم الموظف بالعربية'"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="nameEn" [label]="'اسم الموظف بالإنجليزية'"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="phone" [label]="'رقم التليفون'"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="address" [label]="' العنوان'"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="email" [label]="'البريد الالكترونى'"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="nationalId" [label]="'الرقم القومى'"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-datepicker [formGroup]="form" controlName="hireDate" [label]="'تاريخ التوظيف'"></app-prime-datepicker>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-datepicker [formGroup]="form" controlName="birthDate" [label]="'تاريخ الميلاد'"></app-prime-datepicker>
+            </div>
+            <div class="col-lg-6">
+                <label class="mb-2">{{ 'المؤسسة' }}</label>
+                <!-- <app-prime-autocomplete
+                    [field]="'nameAr'"
+                    [selectedOption]="selectedOrgStructure"
+                    [suggestions]="filteredOrgStructure"
+                    [formGroup]="form"
+                    (onSelect)="onOrgStructureSelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getOrgStructure($event)"
+                ></app-prime-autocomplete> -->
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="jobTitleId" [label]="' كود الوظيفة '"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="branchId" [label]="' كود الفرع '"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="departmentId" [label]="' كود القسم '"> </app-prime-input-text>
+            </div>
+            <div class="col-lg-6">
+                <label class="mb-2">{{ 'المستخدم' }}</label>
+                <app-prime-autocomplete [field]="'nameAr'" [selectedOption]="selectedUser" [suggestions]="filteredUser" [formGroup]="form" (onSelect)="onUserSelect($event)" [lazy]="false" (handleMethod)="getUser($event)"></app-prime-autocomplete>
+            </div>
+        </form>
+    }
+</p-card>
+@if (form) {
+    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+}

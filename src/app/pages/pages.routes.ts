@@ -44,12 +44,20 @@ export default [
             {
                 path: 'user-role',
                 loadChildren: () => import('./settings/user-role/user-role.routes').then((m) => m.userRoleRoutes)
+            },
+            {
+                path: 'user',
+                loadChildren: () => import('./settings/user/user.routes').then((m) => m.userRoutes)
+            },
+            {
+                path: 'employee',
+                loadChildren: () => import('./settings/employee/employee.routes').then((m) => m.employeeRoutes)
             }
         ]
     },
     {
         path: 'items',
-        loadChildren: () => import('./items/items.routes').then(m => m.ItemsRoutes)
+        loadChildren: () => import('./items/items.routes').then((m) => m.ItemsRoutes)
     },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }

@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../../../../core';
 import { Lookup, GetPagedBody } from '../../../interfaces';
 import { Observable } from 'rxjs';
+import { HttpService } from '../../../../core/services';
 
 @Injectable({
     providedIn: 'root'
 })
-export class UnitsService extends HttpService {
+export class EmployeeService extends HttpService{
     protected get baseUrl(): string {
-        return 'v1/itemunit/';
+        return 'v1/employee/';
     }
 
-    getUnit(id: string) {
+    getEmployee(id: string) {
         return this.get<Lookup>({ apiName: `get/${id}` });
     }
 
-    getEditUnit(id: string) {
+    getEditEmployee(id: string) {
         return this.get<Lookup>({ apiName: `getedit/${id}` });
     }
 
-    get unit() {
+    get Employees() {
         return this.get<Lookup[]>({ apiName: 'getall' });
     }
 
-    getDropDown(body: GetPagedBody<any>): Observable<any> {
-        return this.dropdownPost<any, any>({ apiName: `getdropdown`, showAlert: true }, body);
+    getPaged(body: GetPagedBody<any>): Observable<any> {
+        return this.post<any, any>({ apiName: `getpaged`, showAlert: true }, body);
     }
 
     add(body: Lookup) {

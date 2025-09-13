@@ -79,9 +79,19 @@ export class AppMenu {
                                 routerLink: ['/pages/settings/seller-category']
                             },
                             {
+                                label: ' المستخدم',
+                                icon: 'pi pi-user',
+                                routerLink: ['/pages/settings/user']
+                            },
+                            {
                                 label: 'صلاحيات المستخدم',
                                 icon: 'pi pi-shield',
                                 routerLink: ['/pages/settings/user-role']
+                            },
+                            {
+                                label: ' الموظف',
+                                icon: 'pi pi-user',
+                                routerLink: ['/pages/settings/employee']
                             }
                         ]
                     }
@@ -95,12 +105,9 @@ export class AppMenu {
                         label: 'الاصناف',
                         icon: 'pi pi-fw pi-tags',
                         routerLink: ['/pages/items']
-                    },
-
-
-
+                    }
                 ]
-            },
+            }
         ];
     }
 }

@@ -13,5 +13,5 @@ export * from './settings/units/units.service';
 export * from './settings/treasury/treasury.service';
 export * from './items/items.service';
 export * from './item-item-units/item-item-units.service';
-
+export * from './settings/user/user.service'
 
