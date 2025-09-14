@@ -54,7 +54,7 @@
             </div>
             <div class="col-lg-6">
                 <label class="mb-2">{{ 'المستخدم' }}</label>
-                <app-prime-autocomplete [field]="'nameAr'" [selectedOption]="selectedUser" [suggestions]="filteredUser" [formGroup]="form" (onSelect)="onUserSelect($event)" [lazy]="false" (handleMethod)="getUser($event)"></app-prime-autocomplete>
+                <app-prime-autocomplete [field]="'name'" [selectedOption]="selectedUser" [suggestions]="filteredUser" [formGroup]="form" (onSelect)="onUserSelect($event)" [lazy]="false" (handleMethod)="getUsers($event)"></app-prime-autocomplete>
             </div>
         </form>
     }

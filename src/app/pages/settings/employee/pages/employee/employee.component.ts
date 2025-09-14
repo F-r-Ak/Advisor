@@ -37,7 +37,7 @@ export class EmployeeComponent extends BaseListComponent {
             inputUrl: {
                 getAll: 'v1/employee/getpaged',
                 getAllMethod: 'POST',
-                delete: 'v1/user/delete'
+                delete: 'v1/employee/delete'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),

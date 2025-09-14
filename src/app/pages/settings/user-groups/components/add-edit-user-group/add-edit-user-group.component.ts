@@ -3,19 +3,19 @@ import { BaseEditComponent } from '../../../../../base/components/base-edit-comp
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
+import { UserGroupsService, PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
-import { UsersService } from '../../../../../shared/services/settings/user/user.service';
 
 @Component({
-    selector: 'app-add-edit-user',
+    selector: 'app-add-edit-user-group',
+    standalone: true,
     imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
-    templateUrl: './add-edit-user.component.html',
-    styleUrl: './add-edit-user.component.scss'
+    templateUrl: './add-edit-user-group.component.html',
+    styleUrl: './add-edit-user-group.component.scss'
 })
-export class AddEditUserComponent extends BaseEditComponent implements OnInit {
-    _usersService: UsersService = inject(UsersService);
+export class AddEditUserGroupComponent extends BaseEditComponent implements OnInit {
+    userGroupsService: UserGroupsService = inject(UserGroupsService);
     dialogService: DialogService = inject(DialogService);
 
     constructor(override activatedRoute: ActivatedRoute) {
@@ -31,7 +31,7 @@ export class AddEditUserComponent extends BaseEditComponent implements OnInit {
             }
         });
         if (this.pageType === 'edit') {
-            this.getEditUser();
+            this.getEditUserGroup();
         } else {
             this.initFormGroup();
         }
@@ -41,26 +41,25 @@ export class AddEditUserComponent extends BaseEditComponent implements OnInit {
         this.form = this.fb.group({
             id: [''],
             code: ['', Validators.required],
-            name: ['', Validators.required],
-            userName: ['', Validators.required],
-            password: ['', Validators.required]
+            nameAr: ['', Validators.required],
+            nameEn: ['']
         });
     }
 
-    getEditUser = () => {
-        this._usersService.getEditUser(this.id).subscribe((res: any) => {
+    getEditUserGroup = () => {
+        this.userGroupsService.getEditUserGroup(this.id).subscribe((branch: any) => {
             this.initFormGroup();
-            this.form.patchValue(res);
+            this.form.patchValue(branch);
         });
     };
 
     submit() {
         if (this.pageType === 'add')
-            this._usersService.add(this.form.value).subscribe(() => {
+            this.userGroupsService.add(this.form.value).subscribe(() => {
                 this.closeDialog();
             });
         if (this.pageType === 'edit')
-            this._usersService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+            this.userGroupsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
                 this.closeDialog();
             });
     }

@@ -2,24 +2,24 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
-import { UserRoleService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
+import { BranchsService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
 import { TableOptions } from '../../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
 import { takeUntil } from 'rxjs';
-import { AddEditUserComponent } from '../../components/add-edit-user/add-edit-user.component';
-import { UsersService } from '../../../../../shared/services/settings/user/user.service';
+import { AddEditUserGroupComponent } from '../../components/add-edit-user-group/add-edit-user-group.component';
 
 @Component({
-    selector: 'app-user',
+    selector: 'app-user-groups',
+    standalone: true,
     imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
-    templateUrl: './user.component.html',
-    styleUrl: './user.component.scss'
+    templateUrl: './user-groups.component.html',
+    styleUrl: './user-groups.component.scss'
 })
-export class UserComponent extends BaseListComponent {
+export class UserGroupsComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
     tableOptions!: TableOptions;
-    service = inject(UsersService);
+    service = inject(BranchsService);
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
@@ -35,9 +35,9 @@ export class UserComponent extends BaseListComponent {
     initializeTableOptions() {
         this.tableOptions = {
             inputUrl: {
-                getAll: 'v1/user/getpaged',
+                getAll: 'v1/usergroup/getPaged',
                 getAllMethod: 'POST',
-                delete: 'v1/user/delete'
+                delete: 'v1/usergroup/deletesoft'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -62,8 +62,8 @@ export class UserComponent extends BaseListComponent {
                 filterMode: 'text'
             },
             {
-                field: this.language === 'ar' ? 'name' : 'userName',
-                header: 'اسم المستخدم',
+                field: this.language === 'ar' ? 'nameAr' : 'nameEn',
+                header: 'مسمي المجموعة الوظيفية',
                 filter: true,
                 filterMode: 'text'
             }
@@ -93,13 +93,13 @@ export class UserComponent extends BaseListComponent {
     }
 
     openAdd() {
-        this.openDialog(AddEditUserComponent, this.localize.translate.instant('اضافة مستخدم'), {
+        this.openDialog(AddEditUserGroupComponent, this.localize.translate.instant('اضافة مجموعة وظيفية'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditUserComponent, this.localize.translate.instant('تعديل مستخدم'), {
+        this.openDialog(AddEditUserGroupComponent, this.localize.translate.instant('تعديل مجموعة وظيفية'), {
             pageType: 'edit',
             row: { rowData }
         });

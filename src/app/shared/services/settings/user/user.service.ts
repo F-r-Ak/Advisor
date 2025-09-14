@@ -6,32 +6,32 @@ import { HttpService } from '../../../../core/services';
 @Injectable({
     providedIn: 'root'
 })
-export class UserService extends HttpService {
+export class UsersService extends HttpService {
     protected get baseUrl(): string {
         return 'v1/user/';
     }
 
     getUser(id: string) {
-        return this.get<Lookup>({ apiName: `get/${id}` });
+        return this.get<any>({ apiName: `get/${id}` });
     }
 
     getEditUser(id: string) {
-        return this.get<Lookup>({ apiName: `getedit/${id}` });
+        return this.get<any>({ apiName: `getedit/${id}` });
     }
 
-    get Users() {
-        return this.get<Lookup[]>({ apiName: 'getall' });
+    get users() {
+        return this.get<any[]>({ apiName: 'getall' });
     }
 
     getPaged(body: GetPagedBody<any>): Observable<any> {
         return this.post<any, any>({ apiName: `getpaged`, showAlert: true }, body);
     }
 
-    add(body: Lookup) {
-        return this.post<Lookup, Lookup>({ apiName: 'add', showAlert: true }, body);
+    add(body: any) {
+        return this.post<any, any>({ apiName: 'add', showAlert: true }, body);
     }
 
-    update(body: Lookup) {
+    update(body: any) {
         return this.put({ apiName: 'update', showAlert: true }, body);
     }
 

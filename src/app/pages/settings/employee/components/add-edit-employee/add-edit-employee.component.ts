@@ -3,7 +3,7 @@ import { BaseEditComponent } from '../../../../../base/components/base-edit-comp
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PrimeInputTextComponent, SubmitButtonsComponent, PrimeDatepickerComponent, PrimeAutoCompleteComponent, UserService } from '../../../../../shared';
+import { PrimeInputTextComponent, SubmitButtonsComponent, PrimeDatepickerComponent, PrimeAutoCompleteComponent, UsersService } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../../../../../shared/services/settings/employee/employee.service';
@@ -16,11 +16,11 @@ import { EmployeeService } from '../../../../../shared/services/settings/employe
 })
 export class AddEditEmployeeComponent extends BaseEditComponent implements OnInit {
     employeeService: EmployeeService = inject(EmployeeService);
-    userService: UserService = inject(UserService);
+    usersService: UsersService = inject(UsersService);
     selectedOrgStructure: any;
     selectedUser: any;
-    filteredOrgStructure: any;
-    filteredUser: any;
+    filteredUser: any[] = [];
+    filteredOrgStructure: any[] = [];
     dialogService: DialogService = inject(DialogService);
     employeeId: string = '';
 
@@ -60,16 +60,22 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         });
     }
 
-    getUser(event: any) {
+    getUsers(event: any) {
         const query = event.query.toLowerCase();
-        this.userService.Users.subscribe({
+        this.usersService.users.subscribe({
             next: (res: any) => {
-                this.filteredUser = res.filter((user: any) => user.nameAr?.toLowerCase().includes(query) || user.nameEn?.toLowerCase().includes(query));
+                this.filteredUser = res.filter((user: any) => user.name.toLowerCase().includes(query) || user.userName.toLowerCase().includes(query));
             },
             error: (err) => {
-                this.alert.error('خطأ فى جلب بيانات المستخدم');
+                this.alert.error('خطأ فى جلب بيانات المستخدمين');
             }
         });
+    }
+
+    onUserSelect(event: any) {
+        this.selectedUser = event.value;
+        this.form.get('userId')?.setValue(this.selectedUser.id);
+        console.log('this.selectedUser.id', this.selectedUser.id);
     }
 
     getEditEmployee = () => {
@@ -80,13 +86,8 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         });
     };
 
-    onUserSelect(event: any) {
-        this.selectedUser = event.value;
-        this.form.get('userId')?.setValue(this.selectedUser.id);
-    }
-
     fetchUserDetails(item: any) {
-        this.userService.Users.subscribe((response: any) => {
+        this.usersService.users.subscribe((response: any) => {
             this.filteredUser = Array.isArray(response) ? response : response.data || [];
             this.selectedUser = this.filteredUser.find((user: any) => user.id === user.userId);
             this.form.get('userId')?.setValue(this.selectedUser?.id);
