@@ -92,6 +92,11 @@ export class AppMenu {
                                 label: ' الموظف',
                                 icon: 'pi pi-user',
                                 routerLink: ['/pages/settings/employee']
+                            },
+                            {
+                                label: 'المجموعات الوظيفية',
+                                icon: 'pi pi-users',
+                                routerLink: ['/pages/settings/user-groups']
                             }
                         ]
                     }
@@ -105,6 +110,11 @@ export class AppMenu {
                         label: 'الاصناف',
                         icon: 'pi pi-fw pi-tags',
                         routerLink: ['/pages/items']
+                    },
+                    {
+                        label: 'العملاء',
+                        icon: 'pi pi-user',
+                        routerLink: ['/pages/clients']
                     }
                 ]
             }

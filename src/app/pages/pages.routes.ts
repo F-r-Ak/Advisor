@@ -52,12 +52,20 @@ export default [
             {
                 path: 'employee',
                 loadChildren: () => import('./settings/employee/employee.routes').then((m) => m.employeeRoutes)
+            },
+            {
+                path: 'user-groups',
+                loadChildren: () => import('./settings/user-groups/user-groups.routes').then((m) => m.userGroupsRoutes)
             }
         ]
     },
     {
         path: 'items',
         loadChildren: () => import('./items/items.routes').then((m) => m.ItemsRoutes)
+    },
+    {
+        path: 'clients',
+        loadChildren: () => import('./clients/clients.routes').then((m) => m.ClientsRoutes)
     },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }

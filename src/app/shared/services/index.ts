@@ -11,13 +11,10 @@ export * from './settings/seller-category/seller-category.service';
 export * from './settings/vendor/vendor.service';
 export * from './settings/units/units.service';
 export * from './settings/treasury/treasury.service';
-export * from './items/items.service';
-export * from './item-item-units/item-item-units.service';
-export * from './settings/user/user.service'
-export * from './settings/item-categories/item-categories.service'
-export * from './sells-list/sells-list.service'
-
-
-
-
-
+export * from './settings/user/user.service';
+export * from './settings/item-categories/item-categories.service';
+export * from './sells-list/sells-list.service';
+export * from './settings/user-groups/user-groups.service';
+export * from './pages/items/items.service';
+export * from './pages/item-item-units/item-item-units.service';
+export * from './pages/clients/clients.service';
