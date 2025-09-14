@@ -14,4 +14,10 @@ export * from './settings/treasury/treasury.service';
 export * from './items/items.service';
 export * from './item-item-units/item-item-units.service';
 export * from './settings/user/user.service'
+export * from './settings/item-categories/item-categories.service'
+export * from './sells-list/sells-list.service'
+
+
+
+
 
