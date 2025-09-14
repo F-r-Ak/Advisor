@@ -5,10 +5,11 @@ import { BaseListComponent } from '../../../../base/components/base-list-compone
 import { CardModule } from 'primeng/card';
 import { TableOptions } from '../../../../shared/interfaces';
 import { ItemsService, PrimeDataTableComponent, PrimeTitleToolBarComponent} from '../../../../shared';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-items',
-    imports: [RouterModule, FormsModule, ReactiveFormsModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
+    imports: [TranslateModule,RouterModule, FormsModule, ReactiveFormsModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
     templateUrl: './items.component.html',
     styleUrl: './items.component.scss'
 })
