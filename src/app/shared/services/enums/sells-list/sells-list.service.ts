@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../../../core';
-import { EnumDto } from '../../interfaces';
+import { HttpService } from '../../../../core';
+import { EnumDto } from '../../../interfaces';
 
 @Injectable({
   providedIn: 'root'
