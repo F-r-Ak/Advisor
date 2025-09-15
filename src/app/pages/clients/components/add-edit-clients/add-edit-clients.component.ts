@@ -3,15 +3,17 @@ import { BaseEditComponent } from '../../../../base/components/base-edit-compone
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ClientCategoryService, ClientsService, ItemPricingService, PrimeAutoCompleteComponent, PrimeCheckBoxComponent, PrimeInputTextComponent, RegionsService, SubmitButtonsComponent } from '../../../../shared';
+import { ClientCategoryService, ClientsService, DealerTypesService, ItemPricingService, PaymentTermsService, PrimeAutoCompleteComponent, PrimeCheckBoxComponent, PrimeInputTextComponent, PrimeRadioButtonComponent, RegionsService, SubmitButtonsComponent } from '../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
+import { EnumDto } from '../../../../shared/interfaces';
+import { JsonPipe } from '@angular/common';
 
 @Component({
     selector: 'app-add-edit-clients',
     standalone: true,
-    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent, PrimeAutoCompleteComponent, PrimeCheckBoxComponent],
-    templateUrl: './add-edit-clients.component.html',
+    imports: [JsonPipe,TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent, PrimeAutoCompleteComponent, PrimeCheckBoxComponent,PrimeRadioButtonComponent],
+templateUrl: './add-edit-clients.component.html',
     styleUrl: './add-edit-clients.component.scss'
 })
 export class AddEditClientsComponent extends BaseEditComponent implements OnInit {
@@ -21,16 +23,17 @@ export class AddEditClientsComponent extends BaseEditComponent implements OnInit
     filteredClientCategories: any[] = [];
     filteredRegions: any[] = [];
     filteredItemPricings: any[] = [];
+    dealerTypes:EnumDto[] = [];
+    paymentTerms:EnumDto[] = [];
     clientsService: ClientsService = inject(ClientsService);
     clientCategoriesService: ClientCategoryService = inject(ClientCategoryService);
     regionsService: RegionsService = inject(RegionsService);
+    dealerTypesService: DealerTypesService = inject(DealerTypesService);
+    paymentTermsService: PaymentTermsService = inject(PaymentTermsService);
     itemPricingsService: ItemPricingService = inject(ItemPricingService);
     dialogService: DialogService = inject(DialogService);
 
-    types: any[] = [
-        { nameAr: 'شخص', nameEn: 'Person', code: 'person' },
-        { nameAr: 'شركة', nameEn: 'Company', code: 'company' }
-    ];
+   
     filteredTypes: any[] = [];
     selectedType: any;
 
@@ -51,6 +54,8 @@ export class AddEditClientsComponent extends BaseEditComponent implements OnInit
         } else {
             this.initFormGroup();
         }
+        this.getDealerTypes();
+        this.getPaymentTerms();
     }
 
     initFormGroup() {
@@ -66,7 +71,7 @@ export class AddEditClientsComponent extends BaseEditComponent implements OnInit
             clientCategoryId: [null, Validators.required],
             regionId: [null, Validators.required],
             itemPricingId: [null, Validators.required],
-            type: ['', Validators.required],
+            type: [null, Validators.required],
             openingBalance: [0, Validators.required],
             paymentTerms: [null, Validators.required],
             maxDebt: [0, Validators.required],
@@ -89,6 +94,31 @@ export class AddEditClientsComponent extends BaseEditComponent implements OnInit
     onClientCategorySelect(event: any) {
         this.selectedClientCategory = event.value;
         this.form.get('clientCategoryId')?.setValue(this.selectedClientCategory.id);
+    }
+
+   
+
+     getDealerTypes() {
+        this.dealerTypesService.dealertypes.subscribe({
+            next: (res) => {
+                this.dealerTypes = res;
+                console.log("  this.dealerTypes",  this.dealerTypes)
+            },
+            error: (err) => {
+                this.alert.error(this.localize.translate.instant('خطأ في جلب البيانات'));
+            }
+        });
+    }
+
+      getPaymentTerms() {
+        this.paymentTermsService.paymentTerms.subscribe({
+            next: (res) => {
+                this.paymentTerms = res;
+            },
+            error: (err) => {
+                this.alert.error(this.localize.translate.instant('خطأ في جلب بيانات شروط الدفع'));
+            }
+        });
     }
 
     getRegions(event: any) {
@@ -123,14 +153,9 @@ export class AddEditClientsComponent extends BaseEditComponent implements OnInit
     onItemPricingSelect(event: any) {
         this.selectedItemPricing = event.value;
         this.form.get('itemPricingId')?.setValue(this.selectedItemPricing.id);
-        this.form.get('regionId')?.setValue(this.selectedItemPricing.id);
     }
 
-    getTypes(event: any) {
-        const query = event.query.toLowerCase();
-
-        this.filteredTypes = this.types.filter((type: any) => type.nameAr.toLowerCase().includes(query) || type.nameEn.toLowerCase().includes(query));
-    }
+ 
 
     onTypeSelect(event: any) {
         this.selectedType = event.value;

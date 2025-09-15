@@ -3,4 +3,8 @@
 <div [formGroup]="formGroup">
   <p-radioButton [formControlName]="controlName" [value]="value" [binary]="binary" [disabled]="disabled" inputId="inputId" />
 </div>
-}
+@if (formGroup.get(controlName)?.errors) {
+<!-- <small>
+  <span class="font-12">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
+</small> -->
+} }

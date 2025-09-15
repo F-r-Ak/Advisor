@@ -1,29 +1,29 @@
 <p-card class="p-2 m-0">
     @if (form) {
         <form method="post" class="row" [formGroup]="form">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <app-prime-input-text [formGroup]="form" controlName="name" validatorLanguageType="ar" [label]="'اسم العميل'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'مسمي العميل بالعربية'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <app-prime-input-text [formGroup]="form" controlName="nameEn" [label]="'مسمي العميل بالإنجليزية'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <app-prime-input-text [formGroup]="form" controlName="phone" [label]="'رقم الهاتف'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <app-prime-input-text [formGroup]="form" controlName="address" [label]="'العنوان'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <app-prime-input-text [formGroup]="form" controlName="email" [label]="'البريد الالكتروني'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'صنف العميل' }}</label>
+            <div class="col-lg-4">
+                <label class="mb-2 text-middle">{{ 'تصنيف العميل' }}</label>
                 <app-prime-autocomplete
                     [field]="'nameAr'"
                     [selectedOption]="selectedClientCategory"
@@ -34,8 +34,20 @@
                     (handleMethod)="getClientCategories($event)"
                 ></app-prime-autocomplete>
             </div>
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'المنطقة' }}</label>
+            <div class="col-lg-4">
+                <label class="mb-2 text-middle">{{ 'المنطقة' }}</label>
+                <app-prime-autocomplete
+                    [field]="'nameAr'"
+                    [selectedOption]="selectedRegion"
+                    [suggestions]="filteredRegions"
+                    [formGroup]="form"
+                    (onSelect)="onRegionSelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getRegions($event)"
+                ></app-prime-autocomplete>
+            </div>
+            <div class="col-lg-4">
+                <label class="mb-2 text-middle">{{ 'تسعير المنتج' }}</label>
                 <app-prime-autocomplete
                     [field]="'nameAr'"
                     [selectedOption]="selectedItemPricing"
@@ -46,41 +58,30 @@
                     (handleMethod)="getItemPricings($event)"
                 ></app-prime-autocomplete>
             </div>
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'تسعير المنتج' }}</label>
-                <app-prime-autocomplete
-                    [field]="'nameAr'"
-                    [selectedOption]="selectedItemPricing"
-                    [suggestions]="filteredItemPricings"
-                    [formGroup]="form"
-                    (onSelect)="onItemPricingSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getItemPricings($event)"
-                ></app-prime-autocomplete>
+            <div class="col-lg-4">
+                <app-prime-input-text [formGroup]="form" controlName="openingBalance" contentType="number" [label]="'الرصيد الافتتاحي'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'النوع' }}</label>
-                <app-prime-autocomplete [field]="'nameAr'" [selectedOption]="selectedType" [suggestions]="filteredTypes" [formGroup]="form" (onSelect)="onTypeSelect($event)" [lazy]="false" (handleMethod)="getTypes($event)"></app-prime-autocomplete>
+            <div class="col-lg-4">
+                <app-prime-input-text [formGroup]="form" controlName="maxDebt"  contentType="number" [label]="'الحد الأقصى للديون'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="openingBalance" [label]="'الرصيد الافتتاحي'"> </app-prime-input-text>
+            <div class="col-lg-4">
+                <label class="mb-2 text-middle">{{ 'النوع' }}</label>
+                <div class="field col d-flex justify-content-evenly" style="flex-grow: 8">
+                    @for (type of dealerTypes; track $index) {
+                        <app-prime-radio-button [formGroup]="form" controlName="type" [groupName]="'typeGroup'" class="check" [value]="type.nameEn" [label]="language == 'ar' ? type.nameAr : type.nameEn"> </app-prime-radio-button>
+                    }
+                </div>
             </div>
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'شروط الدفع' }}</label>
-                <app-prime-autocomplete
-                    [field]="'nameAr'"
-                    [selectedOption]="selectedItemPricing"
-                    [suggestions]="filteredItemPricings"
-                    [formGroup]="form"
-                    (onSelect)="onItemPricingSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getItemPricings($event)"
-                ></app-prime-autocomplete>
+            <div class="col-lg-4">
+                <label class="mb-2 text-middle">{{ 'شروط الدفع' }}</label>
+                <div class="field col d-flex justify-content-evenly" style="flex-grow: 8">
+                    @for (paymentTerms of paymentTerms; track $index) {
+                        <app-prime-radio-button [formGroup]="form" controlName="paymentTerms" [groupName]="'typeGroup'" class="check" [value]="paymentTerms.nameEn" [label]="language == 'ar' ? paymentTerms.nameAr : paymentTerms.nameEn">
+                        </app-prime-radio-button>
+                    }
+                </div>
             </div>
-            <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="maxDebt" [label]="'الحد الأقصى للديون'"> </app-prime-input-text>
-            </div>
-            <div class="col-lg-6 d-flex align-items-center">
+            <div class="col-lg-4 d-flex align-items-center">
                 <app-prime-check-box [formGroup]="form" controlName="isActive" groupName="showGroup" [binary]="true" [label]="'نشط'"> </app-prime-check-box>
             </div>
         </form>
