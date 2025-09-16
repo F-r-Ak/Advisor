@@ -14,6 +14,7 @@ export * from './settings/treasury/treasury.service';
 export * from './settings/user/user.service';
 export * from './settings/item-categories/item-categories.service';
 export * from './settings/user-groups/user-groups.service';
+export * from './settings/cities/cities.service';
 export * from './pages/items/items.service';
 export * from './pages/item-item-units/item-item-units.service';
 export * from './pages/clients/clients.service';

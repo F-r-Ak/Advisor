@@ -3,19 +3,22 @@ import { BaseEditComponent } from '../../../../../base/components/base-edit-comp
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RegionsService, PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
+import { RegionsService, PrimeInputTextComponent, SubmitButtonsComponent, PrimeAutoCompleteComponent, CitiesService } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-add-edit-regions',
     standalone: true,
-    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
+    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent, PrimeAutoCompleteComponent],
     templateUrl: './add-edit-regions.component.html',
     styleUrl: './add-edit-regions.component.scss'
 })
 export class AddEditRegionsComponent extends BaseEditComponent implements OnInit {
-    _regionsService: RegionsService = inject(RegionsService);
+    selectedCity: any;
+    filteredCities: any[] = [];
+    regionsService: RegionsService = inject(RegionsService);
+    citiesService: CitiesService = inject(CitiesService);
     dialogService: DialogService = inject(DialogService);
 
     constructor(override activatedRoute: ActivatedRoute) {
@@ -42,24 +45,52 @@ export class AddEditRegionsComponent extends BaseEditComponent implements OnInit
             id: [''],
             code: ['', Validators.required],
             nameAr: ['', Validators.required],
-            nameEn: ['']
+            nameEn: [''],
+            cityId: [null, Validators.required]
         });
     }
 
     getEditRegions = () => {
-        this._regionsService.getEditRegions(this.id).subscribe((region: any) => {
+        this.regionsService.getEditRegions(this.id).subscribe((region: any) => {
             this.initFormGroup();
             this.form.patchValue(region);
+            this.fetchCityDetails(region)
         });
     };
 
+    getCities(event: any) {
+        const query = event.query.toLowerCase();
+        this.citiesService.cities.subscribe({
+            next: (res: any) => {
+                this.filteredCities = res.filter((city: any) => city.nameAr.toLowerCase().includes(query) || city.nameEn.toLowerCase().includes(query));
+            },
+            error: (err) => {
+                this.alert.error('خطأ فى جلب بيانات المدينة');
+            }
+        });
+    }
+
+    onCitySelect(event: any) {
+        this.selectedCity = event.value;
+        this.form.get('cityId')?.setValue(this.selectedCity.id);
+    }
+
+
+    fetchCityDetails(region: any) {
+        this.citiesService.cities.subscribe((response: any) => {
+            this.filteredCities = Array.isArray(response) ? response : response.data || [];
+            console.log("")
+            this.selectedCity = this.filteredCities.find((city: any) => city.id === region.cityId);
+            this.form.get('cityId')?.setValue(this.selectedCity?.id);
+        });
+    }
     submit() {
         if (this.pageType === 'add')
-            this._regionsService.add(this.form.value).subscribe(() => {
+            this.regionsService.add(this.form.value).subscribe(() => {
                 this.closeDialog();
             });
         if (this.pageType === 'edit')
-            this._regionsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+            this.regionsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
                 this.closeDialog();
             });
     }
