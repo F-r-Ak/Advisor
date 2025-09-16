@@ -1,14 +1,26 @@
 <p-card class="p-2 m-0">
     @if (form) {
         <form method="post" class="row" [formGroup]="form">
+             <div class="col-lg-6">
+                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
+            </div>
             <div class="col-lg-6">
                 <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'مسمي المنقطة بالعربية'"> </app-prime-input-text>
             </div>
             <div class="col-lg-6">
                 <app-prime-input-text [formGroup]="form" controlName="nameEn"  [label]="'مسمي المنطقة بالإنجليزية'"> </app-prime-input-text>
             </div>
-            <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
+             <div class="col-lg-6">
+                <label class="mb-2 text-middle">{{ 'المدينة' }}</label>
+                <app-prime-autocomplete
+                    [field]="'nameAr'"
+                    [selectedOption]="selectedCity"
+                    [suggestions]="filteredCities"
+                    [formGroup]="form"
+                    (onSelect)="onCitySelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getCities($event)"
+                ></app-prime-autocomplete>
             </div>
         </form>
     }

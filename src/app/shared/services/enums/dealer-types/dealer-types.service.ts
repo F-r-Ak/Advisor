@@ -7,7 +7,7 @@ import { EnumDto } from '../../../interfaces';
 })
 export class DealerTypesService extends HttpService {
   protected get baseUrl(): string {
-    return 'v1/dealertype/';
+    return 'v1/dealertypes/';
   }
 
   get dealertypes() {

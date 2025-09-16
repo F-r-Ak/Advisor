@@ -37,12 +37,12 @@ export class RegionsComponent extends BaseListComponent {
             inputUrl: {
                 getAll: 'v1/regions/getPaged',
                 getAllMethod: 'POST',
-                delete: 'v1/regions/deletesoft'
+                delete: 'v1/regions/delete'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
             permissions: {
-                componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
+                componentName: 'ADVISOR-SYSTEM-REGIONS',
                 allowAll: true,
                 listOfPermissions: []
             },
