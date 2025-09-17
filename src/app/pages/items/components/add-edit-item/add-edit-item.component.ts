@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import {
     SubmitButtonsComponent,
@@ -12,17 +12,16 @@ import {
     PrimeCheckBoxComponent,
     ItemCategoriesService,
     SellsListService,
-    PrimeRadioButtonComponent
+    PrimeRadioButtonComponent,
 } from '../../../../shared';
 import { BaseEditComponent } from '../../../../base/components/base-edit-component';
 import { TabsModule } from 'primeng/tabs';
 import { ItemTabs } from '../../../../core/enums/items-tabs';
-import { ItemItemUnitsComponent } from '../item-item-units/item-item-units.component';
 import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AddEditItemItemUnitComponent } from '../add-edit-item-item-unit/add-edit-item-item-unit.component';
 import { EnumDto } from '../../../../shared/interfaces';
+import { AddEditItemItemUnitComponent } from '../add-edit-item-item-unit/add-edit-item-item-unit.component';
 
 @Component({
     selector: 'app-add-edit-item',
@@ -58,6 +57,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
     vendorService: VendorService = inject(VendorService);
     itemCategoriesService: ItemCategoriesService = inject(ItemCategoriesService);
     dialogService: DialogService = inject(DialogService);
+    itemForm: any;
 
     constructor(override activatedRoute: ActivatedRoute) {
         super(activatedRoute);
@@ -72,10 +72,11 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
         } else {
             this.initFormGroup();
         }
+        this.getSellsList();
     }
 
     initFormGroup() {
-        this.form = this.fb.group({
+        this.itemForm = this.fb.group({
             id: [],
             code: ['', Validators.required],
             nameAr: ['', Validators.required],
@@ -89,8 +90,24 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
             orderLimit: [0, Validators.required],
             idleLimit: [0, Validators.required],
             maxSellDiscount: [0, Validators.required],
-            sellsList: ['', Validators.required]
+            sellsList: ['', Validators.required],
+            displayOrder: [0] // Added missing control
         });
+    }
+
+    onStep1Submit(activateCallback: Function) {
+        if (this.itemForm.valid) {
+            // Mark all controls as touched to show validation errors
+            Object.keys(this.itemForm.controls).forEach(key => {
+                this.itemForm.get(key).markAsTouched();
+            });
+            
+            // Proceed to next step if form is valid
+            activateCallback(2);
+        } else {
+            // Form is invalid, show validation errors
+            this.itemForm.markAllAsTouched();
+        }
     }
 
     getSellsList() {
@@ -103,12 +120,15 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
             }
         });
     }
+    
     getItemVendors(event: any) {
         const query = event.query.toLowerCase();
         this.vendorService.Vendors.subscribe({
             next: (res: any) => {
-                this.filteredItemVendors = res.filter((itemVendor: any) => itemVendor.nameAr.toLowerCase().includes(query) || itemVendor.nameEn.toLowerCase().includes(query));
-                console.log('filteredItemVendors :::', this.filteredItemVendors);
+                this.filteredItemVendors = res.filter((itemVendor: any) => 
+                    itemVendor.nameAr.toLowerCase().includes(query) || 
+                    itemVendor.nameEn.toLowerCase().includes(query)
+                );
             },
             error: (err) => {
                 this.alert.error('خطأ فى جلب بيانات المصنع');
@@ -118,14 +138,17 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
 
     onItemVendorSelect(event: any) {
         this.selectedItemVendor = event.value;
-        this.form.get('itemVendorId')?.setValue(this.selectedItemVendor.id);
+        this.itemForm.get('itemVendorId')?.setValue(this.selectedItemVendor.id);
     }
 
     getItemCategorys(event: any) {
         const query = event.query.toLowerCase();
         this.itemCategoriesService.itemCategories.subscribe({
             next: (res: any) => {
-                this.filteredItemCategorys = res.filter((itemCategory: any) => itemCategory.nameAr.toLowerCase().includes(query) || itemCategory.nameEn.toLowerCase().includes(query));
+                this.filteredItemCategorys = res.filter((itemCategory: any) => 
+                    itemCategory.nameAr.toLowerCase().includes(query) || 
+                    itemCategory.nameEn.toLowerCase().includes(query)
+                );
             },
             error: (err) => {
                 this.alert.error('خطأ فى جلب بيانات تصنيفات العنصر');
@@ -135,8 +158,9 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
 
     onItemCategorySelect(event: any) {
         this.selectedItemCategory = event.value;
-        this.form.get('itemCategoryId')?.setValue(this.selectedItemCategory.id);
+        this.itemForm.get('itemCategoryId')?.setValue(this.selectedItemCategory.id);
     }
+    
     get itemEnum() {
         return ItemTabs;
     }
@@ -153,18 +177,18 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
             data: {
                 pageType: 'add',
                 row: {
-                    unitId: this.form.get('unitId')?.value,
-                    unitNameAr: this.form.get('unitNameAr')?.value,
-                    unitNameEn: this.form.get('unitNameEn')?.value
+                    unitId: this.itemForm.get('unitId')?.value,
+                    unitNameAr: this.itemForm.get('unitNameAr')?.value,
+                    unitNameEn: this.itemForm.get('unitNameEn')?.value
                 }
             }
         });
     }
+    
     getEditItem = () => {
         this.itemsService.getEditItem(this.id).subscribe((item: any) => {
-            console.log('item', item);
             this.initFormGroup();
-            this.form.patchValue(item);
+            this.itemForm.patchValue(item);
             this.fetchItemVendorDetails(item);
             this.fetchItemCategoryDetails(item);
         });
@@ -174,7 +198,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
         this.vendorService.Vendors.subscribe((response: any) => {
             this.filteredItemVendors = Array.isArray(response) ? response : response.data || [];
             this.selectedItemVendor = this.filteredItemVendors.find((itemVendor: any) => itemVendor.id === item.itemVendorId);
-            this.form.get('itemVendorId')?.setValue(this.selectedItemVendor?.id);
+            this.itemForm.get('itemVendorId')?.setValue(this.selectedItemVendor?.id);
         });
     }
 
@@ -182,22 +206,25 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
         this.itemCategoriesService.itemCategories.subscribe((response: any) => {
             this.filteredItemCategorys = Array.isArray(response) ? response : response.data || [];
             this.selectedItemCategory = this.filteredItemCategorys.find((itemCategory: any) => itemCategory.id === item.itemCategoryId);
-            this.form.get('itemCategoryId')?.setValue(this.selectedItemCategory?.id);
+            this.itemForm.get('itemCategoryId')?.setValue(this.selectedItemCategory?.id);
         });
     }
 
     submit() {
-        if (this.pageType === 'add') {
-            this.itemsService.add(this.form.value).subscribe((res: any) => {
-                this.itemId = res;
-                this.showItemTabs = true;
-                this.router.navigate(['/pages/items/edit/', res]);
-            });
-        }
-        if (this.pageType === 'edit') {
-            this.itemsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
-                this.redirect();
-            });
+        if (this.itemForm.valid) {
+            if (this.pageType === 'add') {
+                this.itemsService.add(this.itemForm.value).subscribe((res: any) => {
+                    this.itemId = res;
+                    this.showItemTabs = true;
+                    this.router.navigate(['/pages/items/edit/', res]);
+                });
+            } else if (this.pageType === 'edit') {
+                this.itemsService.update({ id: this.id, ...this.itemForm.value }).subscribe(() => {
+                    this.redirect();
+                });
+            }
+        } else {
+            this.itemForm.markAllAsTouched();
         }
     }
 
