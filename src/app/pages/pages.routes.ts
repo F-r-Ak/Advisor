@@ -68,6 +68,10 @@ export default [
             {
                 path: 'cities',
                 loadChildren: () => import('./settings/cities/cities.routes').then((m) => m.citiesRoutes)
+            },
+            {
+                path: 'job-titles',
+                loadChildren: () => import('./settings/job-titles/job-titles-routes').then((m) => m.jobTitlesRoutes)
             }
         ]
     },
@@ -82,6 +86,10 @@ export default [
     {
         path: 'shifts',
         loadChildren: () => import('./shift/shift.routes').then((m) => m.ShiftsRoutes)
+    },
+    {
+        path: 'user-user-group',
+        loadChildren: () => import('./user-user-group/user-user-group.routes').then((m) => m.UserUserGroupRoutes)
     },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }

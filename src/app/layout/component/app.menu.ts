@@ -99,6 +99,11 @@ export class AppMenu {
                                 routerLink: ['/pages/settings/user-groups']
                             },
                             {
+                                label: 'المسميات الوظيفية',
+                                icon: 'pi pi-users',
+                                routerLink: ['/pages/settings/job-titles']
+                            },
+                            {
                                 label: 'تصنيفات المنتج',
                                 icon: 'pi pi-box',
                                 routerLink: ['/pages/settings/item-categories']
@@ -135,6 +140,11 @@ export class AppMenu {
                         label: 'الشيفتات',
                         icon: 'pi pi-briefcase',
                         routerLink: ['/pages/shifts']
+                    },
+                    {
+                        label: 'عضوية المستخدم فى المجموعات',
+                        icon: 'pi pi-briefcase',
+                        routerLink: ['/pages/user-user-group']
                     }
                 ]
             }
