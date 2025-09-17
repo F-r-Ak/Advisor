@@ -3,22 +3,24 @@ import { BaseEditComponent } from '../../../../../base/components/base-edit-comp
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RegionsService, PrimeInputTextComponent, SubmitButtonsComponent, PrimeAutoCompleteComponent, CitiesService } from '../../../../../shared';
+import { CitiesService, CountriesService, PrimeAutoCompleteComponent, PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
+import { Lookup } from '../../../../../shared/interfaces';
 
 @Component({
-    selector: 'app-add-edit-regions',
+    selector: 'app-add-edit-cities',
     standalone: true,
     imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent, PrimeAutoCompleteComponent],
-    templateUrl: './add-edit-regions.component.html',
-    styleUrl: './add-edit-regions.component.scss'
+    templateUrl: './add-edit-cities.component.html',
+    styleUrl: './add-edit-cities.component.scss'
 })
-export class AddEditRegionsComponent extends BaseEditComponent implements OnInit {
-    selectedCity: any;
-    filteredCities: any[] = [];
-    regionsService: RegionsService = inject(RegionsService);
+export class AddEditCitiesComponent extends BaseEditComponent implements OnInit {
+    selectedCountry!: Lookup;
+    filteredCountries: Lookup[] = [];
+
     citiesService: CitiesService = inject(CitiesService);
+    countriesService: CountriesService = inject(CountriesService);
     dialogService: DialogService = inject(DialogService);
 
     constructor(override activatedRoute: ActivatedRoute) {
@@ -34,7 +36,7 @@ export class AddEditRegionsComponent extends BaseEditComponent implements OnInit
             }
         });
         if (this.pageType === 'edit') {
-            this.getEditRegions();
+            this.getEditCity();
         } else {
             this.initFormGroup();
         }
@@ -46,50 +48,41 @@ export class AddEditRegionsComponent extends BaseEditComponent implements OnInit
             code: ['', Validators.required],
             nameAr: ['', Validators.required],
             nameEn: [''],
-            cityId: [null, Validators.required]
+            countryId: ['', Validators.required]
         });
     }
 
-    getEditRegions = () => {
-        this.regionsService.getEditRegions(this.id).subscribe((region: any) => {
-            this.initFormGroup();
-            this.form.patchValue(region);
-            this.fetchCityDetails(region);
-        });
-    };
-
-    getCities(event: any) {
+    getCountries(event: any) {
         const query = event.query.toLowerCase();
-        this.citiesService.cities.subscribe({
+        this.countriesService.countries.subscribe({
             next: (res: any) => {
-                this.filteredCities = res.filter((city: any) => city.nameAr.toLowerCase().includes(query) || city.nameEn.toLowerCase().includes(query));
+                this.filteredCountries = res.filter((country: any) => country.nameAr.toLowerCase().includes(query) || country.nameEn.toLowerCase().includes(query));
             },
             error: (err) => {
-                this.alert.error('خطأ فى جلب بيانات المدينة');
+                this.alert.error('خطأ فى جلب بيانات الدول');
             }
         });
     }
 
-    onCitySelect(event: any) {
-        this.selectedCity = event.value;
-        this.form.get('cityId')?.setValue(this.selectedCity.id);
+    onCountrySelect(event: any) {
+        this.selectedCountry = event.value;
+        this.form.get('countryId')?.setValue(this.selectedCountry.id);
     }
 
-    fetchCityDetails(region: any) {
-        this.citiesService.cities.subscribe((response: any) => {
-            this.filteredCities = Array.isArray(response) ? response : response.data || [];
-            console.log('');
-            this.selectedCity = this.filteredCities.find((city: any) => city.id === region.cityId);
-            this.form.get('cityId')?.setValue(this.selectedCity?.id);
+    getEditCity = () => {
+        this.citiesService.getEditCity(this.id).subscribe((city: any) => {
+            this.initFormGroup();
+            this.form.patchValue(city);
         });
-    }
+    };
+
     submit() {
         if (this.pageType === 'add')
-            this.regionsService.add(this.form.value).subscribe(() => {
+            this.citiesService.add(this.form.value).subscribe(() => {
                 this.closeDialog();
             });
         if (this.pageType === 'edit')
-            this.regionsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+            this.citiesService.update({ id: this.id, ...this.form.value }).subscribe(() => {
                 this.closeDialog();
             });
     }

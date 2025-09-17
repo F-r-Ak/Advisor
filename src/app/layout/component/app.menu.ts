@@ -123,13 +123,18 @@ export class AppMenu {
                 items: [
                     {
                         label: 'الاصناف',
-                        icon: 'pi pi-fw pi-tags',
+                        icon: 'pi pi-tags',
                         routerLink: ['/pages/items']
                     },
                     {
                         label: 'العملاء',
                         icon: 'pi pi-user',
                         routerLink: ['/pages/clients']
+                    },
+                    {
+                        label: 'الشيفتات',
+                        icon: 'pi pi-briefcase',
+                        routerLink: ['/pages/shifts']
                     }
                 ]
             }
