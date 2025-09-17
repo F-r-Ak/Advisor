@@ -22,6 +22,8 @@
     [formControlName]="controlName"
     [specificLanguage]="validatorLanguageType"
     [readonly]="readonly"
+    [cols]="50"
+    [rows]="5"
     (keydown)="formGroup.get(controlName)?.markAsTouched()">
   </textarea>
 

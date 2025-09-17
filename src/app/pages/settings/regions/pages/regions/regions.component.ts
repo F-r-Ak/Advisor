@@ -67,8 +67,8 @@ export class RegionsComponent extends BaseListComponent {
                 filter: true,
                 filterMode: 'text'
             },
-            {
-                field: 'cityName',
+              {
+                field: this.language === 'ar' ? 'nameAr' : 'nameEn',
                 header: 'اسم المدينة',
                 filter: true,
                 filterMode: 'text'

@@ -56,13 +56,13 @@ export class ShiftsComponent extends BaseListComponent {
     initializeTableColumns(): TableOptions['inputCols'] {
         return [
             {
-                field: this.language === 'ar' ? 'UserNameAr' : 'UserNameEn',
+                field: 'user',
                 header: 'اسم المستخدم',
                 filter: true,
                 filterMode: 'text'
             },
             {
-                field: this.language === 'ar' ? 'branchNameAr' : 'branchNameEn',
+                field:  'branch',
                 header: 'اسم الفرع',
                 filter: true,
                 filterMode: 'text'
@@ -72,12 +72,14 @@ export class ShiftsComponent extends BaseListComponent {
                 header: 'وقت بداية الشيفت',
                 filter: true,
                 filterMode: 'text'
+                
             },
             {
                 field: 'startValue',
                 header: 'قيمة بداية الشيفت',
                 filter: true,
-                filterMode: 'text'
+                filterMode: 'text',
+                
             },
             {
                 field: 'endValue',
