@@ -62,21 +62,21 @@
                 <app-prime-input-text [formGroup]="form" controlName="openingBalance" contentType="number" [label]="'الرصيد الافتتاحي'"> </app-prime-input-text>
             </div>
             <div class="col-lg-4">
-                <app-prime-input-text [formGroup]="form" controlName="maxDebt"  contentType="number" [label]="'الحد الأقصى للديون'"> </app-prime-input-text>
+                <app-prime-input-text [formGroup]="form" controlName="maxDebt" contentType="number" [label]="'الحد الأقصى للديون'"> </app-prime-input-text>
             </div>
             <div class="col-lg-4">
                 <label class="mb-2 text-middle">{{ 'النوع' }}</label>
                 <div class="field col d-flex justify-content-evenly" style="flex-grow: 8">
-                    @for (type of dealerTypes; track $index) {
-                        <app-prime-radio-button [formGroup]="form" controlName="type" [groupName]="'typeGroup'" class="check" [value]="type.nameEn" [label]="language == 'ar' ? type.nameAr : type.nameEn"> </app-prime-radio-button>
+                    @for (dealerType of dealerTypes; track $index) {
+                        <app-prime-radio-button [formGroup]="form" controlName="dealerType" [groupName]="'typeGroup'" class="check" [value]="dealerType.id" [label]="language == 'ar' ? dealerType.nameAr : dealerType.nameEn"> </app-prime-radio-button>
                     }
                 </div>
             </div>
             <div class="col-lg-4">
                 <label class="mb-2 text-middle">{{ 'شروط الدفع' }}</label>
                 <div class="field col d-flex justify-content-evenly" style="flex-grow: 8">
-                    @for (paymentTerms of paymentTerms; track $index) {
-                        <app-prime-radio-button [formGroup]="form" controlName="paymentTerms" [groupName]="'typeGroup'" class="check" [value]="paymentTerms.nameEn" [label]="language == 'ar' ? paymentTerms.nameAr : paymentTerms.nameEn">
+                    @for (paymentTerm of paymentTerms; track $index) {
+                        <app-prime-radio-button [formGroup]="form" controlName="paymentTerms" [groupName]="'typeGroup'" class="check" [value]="paymentTerm.id" [label]="language == 'ar' ? paymentTerm.nameAr : paymentTerm.nameEn">
                         </app-prime-radio-button>
                     }
                 </div>

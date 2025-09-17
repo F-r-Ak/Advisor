@@ -1,0 +1,25 @@
+<p-card class="p-2 m-0">
+    @if (form) {
+        <form method="post" class="row" [formGroup]="form">
+            <div class="col-lg-4">
+                <label class="mb-2 text-middle">{{ ' المستخدم' }}</label>
+                <app-prime-autocomplete [field]="'userName'" [selectedOption]="selectedUser" [suggestions]="filteredUser" [formGroup]="form" (onSelect)="onUserSelect($event)" [lazy]="false" (handleMethod)="getUser($event)"></app-prime-autocomplete>
+            </div>
+            <div class="col-lg-4">
+                <label class="mb-2 text-middle">{{ 'الفرع' }}</label>
+                <app-prime-autocomplete
+                    [field]="'nameAr'"
+                    [selectedOption]="selectedBranch"
+                    [suggestions]="filteredBranch"
+                    [formGroup]="form"
+                    (onSelect)="onBranchSelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getBranch($event)"
+                ></app-prime-autocomplete>
+            </div>
+        </form>
+    }
+</p-card>
+@if (form) {
+    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+}

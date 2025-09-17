@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../../../core';
-import { Lookup, GetPagedBody } from '../../../interfaces';
+import { GetPagedBody, ItemCategoryDto, AddItemCategoryDto, UpdateItemCategoryDto } from '../../../interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,27 +11,27 @@ export class ItemCategoriesService extends HttpService {
         return 'v1/itemcategory/';
     }
 
-    getItemCategory(id: string) {
-        return this.get<Lookup>({ apiName: `get/${id}` });
+    getItemCategory(id: string): Observable<ItemCategoryDto> {
+        return this.get<ItemCategoryDto>({ apiName: `get/${id}` });
     }
 
-    getEditItemCategory(id: string) {
-        return this.get<Lookup>({ apiName: `getedit/${id}` });
+    getEditItemCategory(id: string): Observable<UpdateItemCategoryDto> {
+        return this.get<UpdateItemCategoryDto>({ apiName: `getedit/${id}` });
     }
 
     get itemCategories() {
-        return this.get<Lookup[]>({ apiName: 'getall' });
+        return this.get<ItemCategoryDto[]>({ apiName: 'getall' });
     }
 
     getDropDown(body: GetPagedBody<any>): Observable<any> {
         return this.dropdownPost<any, any>({ apiName: `getdropdown`, showAlert: true }, body);
     }
 
-    add(body: Lookup) {
-        return this.post<Lookup, Lookup>({ apiName: 'add', showAlert: true }, body);
+    add(body: AddItemCategoryDto) {
+        return this.post<AddItemCategoryDto, AddItemCategoryDto>({ apiName: 'add', showAlert: true }, body);
     }
 
-    update(body: Lookup) {
+    update(body: UpdateItemCategoryDto) {
         return this.put({ apiName: 'update', showAlert: true }, body);
     }
 

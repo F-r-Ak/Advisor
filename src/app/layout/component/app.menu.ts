@@ -97,6 +97,26 @@ export class AppMenu {
                                 label: 'المجموعات الوظيفية',
                                 icon: 'pi pi-users',
                                 routerLink: ['/pages/settings/user-groups']
+                            },
+                            {
+                                label: 'المسميات الوظيفية',
+                                icon: 'pi pi-users',
+                                routerLink: ['/pages/settings/job-titles']
+                            },
+                            {
+                                label: 'تصنيفات المنتج',
+                                icon: 'pi pi-box',
+                                routerLink: ['/pages/settings/item-categories']
+                            },
+                            {
+                                label: 'مسميات الدول',
+                                icon: 'pi pi-box',
+                                routerLink: ['/pages/settings/countries']
+                            },
+                            {
+                                label: 'تصنيفات المدن',
+                                icon: 'pi pi-box',
+                                routerLink: ['/pages/settings/cities']
                             }
                         ]
                     }
@@ -108,13 +128,23 @@ export class AppMenu {
                 items: [
                     {
                         label: 'الاصناف',
-                        icon: 'pi pi-fw pi-tags',
+                        icon: 'pi pi-tags',
                         routerLink: ['/pages/items']
                     },
                     {
                         label: 'العملاء',
                         icon: 'pi pi-user',
                         routerLink: ['/pages/clients']
+                    },
+                    {
+                        label: 'الشيفتات',
+                        icon: 'pi pi-briefcase',
+                        routerLink: ['/pages/shifts']
+                    },
+                    {
+                        label: 'عضوية المستخدم فى المجموعات',
+                        icon: 'pi pi-briefcase',
+                        routerLink: ['/pages/user-user-group']
                     }
                 ]
             }

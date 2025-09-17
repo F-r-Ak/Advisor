@@ -1,5 +1,5 @@
 @if (formGroup) {
-    <label for="inputId" class="m-1">{{ label }}</label>
+    <label for="inputId" class="m-1 text-primary">{{ label }}</label>
     <div [formGroup]="formGroup">
         <p-datePicker
             [ngClass]="timeOnlyMode ? '' : 'datePickerWithoutTime'"

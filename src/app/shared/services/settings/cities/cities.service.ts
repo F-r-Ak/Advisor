@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Lookup, GetPagedBody } from '../../../interfaces';
+import { GetPagedBody, CityDto, AddCityDto, UpdateCityDto } from '../../../interfaces';
 import { Observable } from 'rxjs';
 import { HttpService } from '../../../../core/services';
 
@@ -12,26 +12,26 @@ export class CitiesService extends HttpService {
     }
 
     getCity(id: string) {
-        return this.get<Lookup>({ apiName: `get/${id}` });
+        return this.get<CityDto>({ apiName: `get/${id}` });
     }
 
     getEditCity(id: string) {
-        return this.get<Lookup>({ apiName: `getEdit/${id}` });
+        return this.get<CityDto>({ apiName: `getEdit/${id}` });
     }
 
     get cities() {
-        return this.get<Lookup[]>({ apiName: 'getAll' });
+        return this.get<CityDto[]>({ apiName: 'getAll' });
     }
 
     getDropDown(body: GetPagedBody<any>): Observable<any> {
         return this.dropdownPost<any, any>({ apiName: `getdropdown`, showAlert: true }, body);
     }
 
-    add(body: Lookup) {
-        return this.post<Lookup, Lookup>({ apiName: 'add', showAlert: true }, body);
+    add(body: AddCityDto) {
+        return this.post<AddCityDto, AddCityDto>({ apiName: 'add', showAlert: true }, body);
     }
 
-    update(body: Lookup) {
+    update(body: UpdateCityDto) {
         return this.put({ apiName: 'update', showAlert: true }, body);
     }
 

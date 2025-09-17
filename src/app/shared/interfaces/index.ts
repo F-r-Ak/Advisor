@@ -4,4 +4,6 @@ export * from './table/table';
 export * from './enum/enum';
 export * from './item/item';
 export * from './item-item-unit/item-item-unit';
-
+export * from './item-category/item-category';
+export * from './regions/regions';
+export * from './cities/cities';

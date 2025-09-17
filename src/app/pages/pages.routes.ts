@@ -56,6 +56,22 @@ export default [
             {
                 path: 'user-groups',
                 loadChildren: () => import('./settings/user-groups/user-groups.routes').then((m) => m.userGroupsRoutes)
+            },
+            {
+                path: 'item-categories',
+                loadChildren: () => import('./settings/item-categories/item-category.routes').then((m) => m.itemCategoryRoutes)
+            },
+            {
+                path: 'countries',
+                loadChildren: () => import('./settings/countries/countries.routes').then((m) => m.countriesRoutes)
+            },
+            {
+                path: 'cities',
+                loadChildren: () => import('./settings/cities/cities.routes').then((m) => m.citiesRoutes)
+            },
+            {
+                path: 'job-titles',
+                loadChildren: () => import('./settings/job-titles/job-titles-routes').then((m) => m.jobTitlesRoutes)
             }
         ]
     },
@@ -66,6 +82,14 @@ export default [
     {
         path: 'clients',
         loadChildren: () => import('./clients/clients.routes').then((m) => m.ClientsRoutes)
+    },
+    {
+        path: 'shifts',
+        loadChildren: () => import('./shift/shift.routes').then((m) => m.ShiftsRoutes)
+    },
+    {
+        path: 'user-user-group',
+        loadChildren: () => import('./user-user-group/user-user-group.routes').then((m) => m.UserUserGroupRoutes)
     },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }

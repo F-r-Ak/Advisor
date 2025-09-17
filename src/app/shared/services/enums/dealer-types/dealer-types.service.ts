@@ -3,15 +3,14 @@ import { HttpService } from '../../../../core';
 import { EnumDto } from '../../../interfaces';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class DealerTypesService extends HttpService {
-  protected get baseUrl(): string {
-    return 'v1/dealertypes/';
-  }
+    protected get baseUrl(): string {
+        return 'v1/dealertypes/';
+    }
 
-  get dealertypes() {
-    return this.get<EnumDto[]>({ apiName: 'getAll' });
-  }
+    get dealerTypes() {
+        return this.get<EnumDto[]>({ apiName: 'getAll' });
+    }
 }
-

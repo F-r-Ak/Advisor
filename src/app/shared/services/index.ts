@@ -21,6 +21,7 @@ export * from './pages/clients/clients.service';
 export * from './enums/dealer-types/dealer-types.service';
 export * from './enums/payment-terms/payment-terms.service';
 export * from './enums/sells-list/sells-list.service';
-
-
-
+export * from './enums/category-types/category-types.service';
+export * from './settings/cities/cities.service';
+export * from './settings/countries/countries.service';
+export * from './pages/shifts/shifts.service';

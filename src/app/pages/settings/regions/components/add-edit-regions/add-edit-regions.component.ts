@@ -54,7 +54,7 @@ export class AddEditRegionsComponent extends BaseEditComponent implements OnInit
         this.regionsService.getEditRegions(this.id).subscribe((region: any) => {
             this.initFormGroup();
             this.form.patchValue(region);
-            this.fetchCityDetails(region)
+            this.fetchCityDetails(region);
         });
     };
 
@@ -75,11 +75,10 @@ export class AddEditRegionsComponent extends BaseEditComponent implements OnInit
         this.form.get('cityId')?.setValue(this.selectedCity.id);
     }
 
-
     fetchCityDetails(region: any) {
         this.citiesService.cities.subscribe((response: any) => {
             this.filteredCities = Array.isArray(response) ? response : response.data || [];
-            console.log("")
+            console.log('');
             this.selectedCity = this.filteredCities.find((city: any) => city.id === region.cityId);
             this.form.get('cityId')?.setValue(this.selectedCity?.id);
         });
