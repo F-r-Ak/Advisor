@@ -97,6 +97,21 @@ export class AppMenu {
                                 label: 'المجموعات الوظيفية',
                                 icon: 'pi pi-users',
                                 routerLink: ['/pages/settings/user-groups']
+                            },
+                            {
+                                label: 'تصنيفات المنتج',
+                                icon: 'pi pi-box',
+                                routerLink: ['/pages/settings/item-categories']
+                            },
+                            {
+                                label: 'مسميات الدول',
+                                icon: 'pi pi-box',
+                                routerLink: ['/pages/settings/countries']
+                            },
+                            {
+                                label: 'تصنيفات المدن',
+                                icon: 'pi pi-box',
+                                routerLink: ['/pages/settings/cities']
                             }
                         ]
                     }

@@ -161,7 +161,7 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
 
     deleteData(id: string) {
         this.dataTableService.delete(this.tableOptions.inputUrl.delete, id).subscribe((res: any) => {
-            this.data = res.data;
+            this.data = res.data.data;
             this.totalCount = res.totalCount;
             this.loadDataFromServer();
         });

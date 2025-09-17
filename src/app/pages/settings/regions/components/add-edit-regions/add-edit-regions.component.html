@@ -8,7 +8,7 @@
                 <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'مسمي المنقطة بالعربية'"> </app-prime-input-text>
             </div>
             <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="nameEn"  [label]="'مسمي المنطقة بالإنجليزية'"> </app-prime-input-text>
+                <app-prime-input-text [formGroup]="form" controlName="nameEn" [label]="'مسمي المنطقة بالإنجليزية'"> </app-prime-input-text>
             </div>
              <div class="col-lg-6">
                 <label class="mb-2 text-middle">{{ 'المدينة' }}</label>
@@ -21,6 +21,10 @@
                     [lazy]="false"
                     (handleMethod)="getCities($event)"
                 ></app-prime-autocomplete>
+            </div>
+            <div class="col-lg-6">
+                <label class="mb-2 text-middle">{{ 'المدينة' }}</label>
+                <app-prime-autocomplete [field]="'nameAr'" [selectedOption]="selectedCity" [suggestions]="filteredCities" [formGroup]="form" (onSelect)="onCitySelect($event)" [lazy]="false" (handleMethod)="getCities($event)"></app-prime-autocomplete>
             </div>
         </form>
     }

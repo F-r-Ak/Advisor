@@ -66,6 +66,12 @@ export class RegionsComponent extends BaseListComponent {
                 header: 'مسمي المنطقة',
                 filter: true,
                 filterMode: 'text'
+            },
+            {
+                field: 'cityName',
+                header: 'اسم المدينة',
+                filter: true,
+                filterMode: 'text'
             }
         ];
     }
