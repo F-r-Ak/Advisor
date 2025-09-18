@@ -3,14 +3,14 @@ import { BaseEditComponent } from '../../../../base/components/base-edit-compone
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ShiftsService, UsersService, BranchsService, PrimeAutoCompleteComponent, PrimeCheckBoxComponent, PrimeInputTextComponent, PrimeRadioButtonComponent, SubmitButtonsComponent, PrimeCalendarComponent, PrimeDatepickerComponent } from '../../../../shared';
+import { ShiftsService, UsersService, BranchsService, PrimeAutoCompleteComponent, PrimeCheckBoxComponent, PrimeInputTextComponent, SubmitButtonsComponent, PrimeDatepickerComponent } from '../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-add-edit-shift',
     standalone: true,
-    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent, PrimeAutoCompleteComponent, PrimeCheckBoxComponent,PrimeDatepickerComponent],
+    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent, PrimeAutoCompleteComponent, PrimeCheckBoxComponent, PrimeDatepickerComponent],
     templateUrl: './add-edit-shift.component.html',
     styleUrl: './add-edit-shift.component.scss'
 })
@@ -53,7 +53,7 @@ export class AddEditShiftComponent extends BaseEditComponent implements OnInit {
             branchId: ['', Validators.required],
             startValue: [0, Validators.required],
             endValue: [0, Validators.required],
-            notes: ['', Validators.required]
+            notes: ['']
         });
     }
 
@@ -61,7 +61,7 @@ export class AddEditShiftComponent extends BaseEditComponent implements OnInit {
         const query = event.query.toLowerCase();
         this.usersService.users.subscribe({
             next: (res: any) => {
-                this.filteredUsers = res.filter((user: any) => user.name.toLowerCase().includes(query) );
+                this.filteredUsers = res.filter((user: any) => user.name.toLowerCase().includes(query));
             },
             error: (err) => {
                 this.alert.error('خطأ فى جلب بيانات المستخدمين');
@@ -90,15 +90,15 @@ export class AddEditShiftComponent extends BaseEditComponent implements OnInit {
         this.selectedBranch = event.value;
         this.form.get('branchId')?.setValue(this.selectedBranch.id);
     }
-     fetchUserDetails(shift: any) {
+    fetchUserDetails(shift: any) {
         this.usersService.users.subscribe((response: any) => {
             this.filteredUsers = Array.isArray(response) ? response : response.data || [];
-            console.log('');
+            console.log('response of users', response);
             this.selectedUser = this.filteredUsers.find((user: any) => user.id === shift.userId);
             this.form.get('userId')?.setValue(this.selectedUser?.id);
         });
     }
-     fetchBranchDetails(shift: any) {
+    fetchBranchDetails(shift: any) {
         this.branchsService.branchs.subscribe((response: any) => {
             this.filteredBranchs = Array.isArray(response) ? response : response.data || [];
             console.log('');
@@ -113,6 +113,7 @@ export class AddEditShiftComponent extends BaseEditComponent implements OnInit {
             this.form.patchValue(shift);
             this.fetchUserDetails(shift);
             this.fetchBranchDetails(shift);
+            console.log('shift details', shift);
         });
     };
 

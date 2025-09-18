@@ -129,6 +129,9 @@
                             @case ('time') {
                                 <span>{{ getCellData(row, col) | date: 'hh:mm aa' }}</span>
                             }
+                            @case ('dateTime') {
+                                <span>{{ getCellData(row, col) | date: 'dd/MM/yyyy hh:mm aa' }}</span>
+                            }
                             @case ('boolean') {
                                 <span>
                                     @if (getCellData(row, col) === true) {

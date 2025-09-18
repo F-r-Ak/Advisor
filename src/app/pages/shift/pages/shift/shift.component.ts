@@ -49,7 +49,7 @@ export class ShiftsComponent extends BaseListComponent {
             bodyOptions: {
                 filter: {}
             },
-            responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
+            responsiveDisplayedProperties: ['user', 'branch', 'startTime', 'endTime', 'startValue', 'endValue', 'notes']
         };
     }
 
@@ -62,7 +62,7 @@ export class ShiftsComponent extends BaseListComponent {
                 filterMode: 'text'
             },
             {
-                field:  'branch',
+                field: 'branch',
                 header: 'اسم الفرع',
                 filter: true,
                 filterMode: 'text'
@@ -71,15 +71,19 @@ export class ShiftsComponent extends BaseListComponent {
                 field: 'startTime',
                 header: 'وقت بداية الشيفت',
                 filter: true,
-                filterMode: 'text'
-                
+                filterMode: 'dateTime'
+            },
+            {
+                field: 'endTime',
+                header: 'وقت نهاية الشيفت',
+                filter: true,
+                filterMode: 'dateTime'
             },
             {
                 field: 'startValue',
                 header: 'قيمة بداية الشيفت',
                 filter: true,
-                filterMode: 'text',
-                
+                filterMode: 'text'
             },
             {
                 field: 'endValue',
@@ -90,7 +94,6 @@ export class ShiftsComponent extends BaseListComponent {
             {
                 field: 'notes',
                 header: 'ملاحظات',
-                filter: true,
                 filterMode: 'text'
             }
         ];
