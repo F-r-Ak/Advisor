@@ -77,23 +77,31 @@ export default [
     },
     {
         path: 'items',
-        loadChildren: () => import('./items/items.routes').then((m) => m.ItemsRoutes)
+        loadChildren: () => import('./items/items.routes').then((m) => m.itemsRoutes)
     },
     {
         path: 'clients',
-        loadChildren: () => import('./clients/clients.routes').then((m) => m.ClientsRoutes)
+        loadChildren: () => import('./clients/clients.routes').then((m) => m.clientsRoutes)
+    },
+    {
+        path: 'sellers',
+        loadChildren: () => import('./sellers/sellers.routes').then((m) => m.sellersRoutes)
     },
     {
         path: 'shifts',
-        loadChildren: () => import('./shift/shift.routes').then((m) => m.ShiftsRoutes)
+        loadChildren: () => import('./shift/shift.routes').then((m) => m.shiftsRoutes)
     },
     {
         path: 'user-user-group',
-        loadChildren: () => import('./user-user-group/user-user-group.routes').then((m) => m.UserUserGroupRoutes)
+        loadChildren: () => import('./user-user-group/user-user-group.routes').then((m) => m.userUserGroupRoutes)
+    },
+    {
+        path: 'user-branchs',
+        loadChildren: () => import('./user-branch/user-branch.routes').then((m) => m.userBranchRoutes)
     },
     {
         path: 'user-groups-user-roles',
-        loadChildren: () => import('./user-group-user-role/user-groups-user-roles.routes').then((m) => m.UserGroupsUserRolesRoutes)
+        loadChildren: () => import('./user-group-user-role/user-groups-user-roles.routes').then((m) => m.userGroupsUserRolesRoutes)
     },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }

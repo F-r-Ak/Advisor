@@ -137,6 +137,11 @@ export class AppMenu {
                         routerLink: ['/pages/clients']
                     },
                     {
+                        label: 'الموردين',
+                        icon: 'pi pi-user',
+                        routerLink: ['/pages/sellers']
+                    },
+                    {
                         label: 'الشيفتات',
                         icon: 'pi pi-briefcase',
                         routerLink: ['/pages/shifts']
@@ -150,6 +155,11 @@ export class AppMenu {
                         label: 'صلاحيات الادوار',
                         icon: 'pi pi-user',
                         routerLink: ['/pages/user-groups-user-roles']
+                    },
+                    {
+                        label: 'فروع المستخدمين',
+                        icon: 'pi pi-user',
+                        routerLink: ['/pages/user-branchs']
                     }
                 ]
             }

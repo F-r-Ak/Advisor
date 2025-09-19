@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const ShiftsRoutes: Routes = [
+export const shiftsRoutes: Routes = [
     {
         path: '',
         loadComponent: () => import('./pages/shift/shift.component').then((c) => c.ShiftsComponent),

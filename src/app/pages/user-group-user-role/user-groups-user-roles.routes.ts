@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const UserGroupsUserRolesRoutes: Routes = [
+export const userGroupsUserRolesRoutes: Routes = [
     {
         path: '',
         loadComponent: () => import('./pages/user-groups-user-roles/user-groups-user-roles.component').then((c) => c.UserGroupUserRoleComponent),

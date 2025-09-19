@@ -3,14 +3,14 @@
         <form method="post" class="row" [formGroup]="form">
             <div class="col-lg-4">
                 <label class="mb-2 text-middle">{{ ' المستخدم' }}</label>
-                <app-prime-autocomplete [field]="'userName'" [selectedOption]="selectedUser" [suggestions]="filteredUser" [formGroup]="form" (onSelect)="onUserSelect($event)" [lazy]="false" (handleMethod)="getUser($event)"></app-prime-autocomplete>
+                <app-prime-autocomplete [field]="'userName'" [selectedOption]="selectedUser" [suggestions]="filteredUsers" [formGroup]="form" (onSelect)="onUserSelect($event)" [lazy]="false" (handleMethod)="getUser($event)"></app-prime-autocomplete>
             </div>
             <div class="col-lg-4">
                 <label class="mb-2 text-middle">{{ 'الفرع' }}</label>
                 <app-prime-autocomplete
                     [field]="'nameAr'"
                     [selectedOption]="selectedBranch"
-                    [suggestions]="filteredBranch"
+                    [suggestions]="filteredBranchs"
                     [formGroup]="form"
                     (onSelect)="onBranchSelect($event)"
                     [lazy]="false"

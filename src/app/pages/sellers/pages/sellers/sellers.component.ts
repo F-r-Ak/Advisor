@@ -2,23 +2,24 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
-import { PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../shared';
+import { PrimeDataTableComponent, PrimeTitleToolBarComponent, SellersService } from '../../../../shared';
 import { TableOptions } from '../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../base/components/base-list-component';
 import { takeUntil } from 'rxjs';
-import { AddEditUserBranchComponent } from '../../components/add-edit-user-branch/add-edit-user-branch.component';
-import { UserBranchService } from '../../../../shared/services/pages/user-branch/user-branch.service';
+import { AddEditSellersComponent } from '../../components/add-edit-sellers/add-edit-sellers.component';
 
 @Component({
-    selector: 'app-user-branch',
+    selector: 'app-sellers',
+    standalone: true,
     imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
-    templateUrl: './user-branch.component.html',
-    styleUrl: './user-branch.component.scss'
+    templateUrl: './sellers.component.html',
+    styleUrl: './sellers.component.scss'
 })
-export class UserBranchComponent extends BaseListComponent {
+export class ClientsComponent extends BaseListComponent {
+    @Input() employeeId: string = '';
     isEnglish = false;
     tableOptions!: TableOptions;
-    service = inject(UserBranchService);
+    service = inject(SellersService);
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
@@ -34,9 +35,9 @@ export class UserBranchComponent extends BaseListComponent {
     initializeTableOptions() {
         this.tableOptions = {
             inputUrl: {
-                getAll: 'v1/userbranch/getPaged',
+                getAll: 'v1/seller/getPaged',
                 getAllMethod: 'POST',
-                delete: 'v1/userbranch/deletesoft'
+                delete: 'v1/seller/deletesoft'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -48,21 +49,21 @@ export class UserBranchComponent extends BaseListComponent {
             bodyOptions: {
                 filter: {}
             },
-            responsiveDisplayedProperties: ['usernameAr', 'branchNameAr']
+            responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
         };
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
         return [
             {
-                field: 'usernameAr',
-                header: 'اسم المستخدم',
+                field: 'code',
+                header: 'الكود',
                 filter: true,
                 filterMode: 'text'
             },
             {
-                field: 'branchNameAr',
-                header: 'مسمي الفرع',
+                field: this.language === 'ar' ? 'nameAr' : 'nameEn',
+                header: 'اسم المورد',
                 filter: true,
                 filterMode: 'text'
             }
@@ -92,17 +93,16 @@ export class UserBranchComponent extends BaseListComponent {
     }
 
     openAdd() {
-        this.openDialog(AddEditUserBranchComponent, this.localize.translate.instant('اضافة فرع المستخدم'), {
+        this.openDialog(AddEditSellersComponent, this.localize.translate.instant('اضافة مورد'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditUserBranchComponent, this.localize.translate.instant('تعديل بيانات فرع المستخدم'), {
+        this.openDialog(AddEditSellersComponent, this.localize.translate.instant('تعديل بيانات مورد'), {
             pageType: 'edit',
             row: { rowData }
         });
-        console.log('rowData Before Edit User Branch Component : ', rowData);
     }
 
     /* when leaving the component */

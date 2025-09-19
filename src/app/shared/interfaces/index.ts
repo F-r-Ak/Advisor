@@ -8,3 +8,4 @@ export * from './item-category/item-category';
 export * from './regions/regions';
 export * from './cities/cities';
 export * from './user-group-user-role/user-group-user-role';
+export * from './sellers/sellers';
