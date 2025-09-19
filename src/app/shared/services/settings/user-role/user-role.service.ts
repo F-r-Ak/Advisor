@@ -19,7 +19,7 @@ export class UserRoleService extends HttpService {
         return this.get<Lookup>({ apiName: `getEdit/${id}` });
     }
 
-    get userRole() {
+    get userRoles() {
         return this.get<Lookup[]>({ apiName: 'getAll' });
     }
 

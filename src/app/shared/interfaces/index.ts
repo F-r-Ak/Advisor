@@ -7,3 +7,4 @@ export * from './item-item-unit/item-item-unit';
 export * from './item-category/item-category';
 export * from './regions/regions';
 export * from './cities/cities';
+export * from './user-group-user-role/user-group-user-role';

@@ -3,26 +3,26 @@ import { BaseEditComponent } from '../../../../base/components/base-edit-compone
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PrimeAutoCompleteComponent, SubmitButtonsComponent, UserGroupsService, UsersService } from '../../../../shared';
+import { PrimeAutoCompleteComponent, SubmitButtonsComponent, UserGroupsService, UserRoleService } from '../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
-import { UserUserGroupService } from '../../../../shared/services/pages/user-user-group/user-user-group.service';
+import { UserGroupUserRoleService } from '../../../../shared/';
 
 @Component({
-    selector: 'app-add-edit-user-user-group',
+    selector: 'app-add-edit-user-groups-user-roles',
     imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeAutoCompleteComponent],
-    templateUrl: './add-edit-user-user-group.component.html',
-    styleUrl: './add-edit-user-user-group.component.scss'
+    templateUrl: './add-edit-user-group-user-role.component.html',
+    styleUrl: './add-edit-user-group-user-role.component.scss'
 })
-export class AddEditUserUserGroupComponent extends BaseEditComponent implements OnInit {
-    selectedUser: any;
+export class AddEditUserGroupUserRoleComponent extends BaseEditComponent implements OnInit {
     selectedUserGroup: any;
-    filteredUser: any[] = [];
+    selectedUserRole: any;
     filteredUserGroups: any[] = [];
+    filteredUserRoles: any[] = [];
 
     userGroupService: UserGroupsService = inject(UserGroupsService);
-    userService: UsersService = inject(UsersService);
-    userUserGroupService: UserUserGroupService = inject(UserUserGroupService);
+    userRoleService: UserRoleService = inject(UserRoleService);
+    userGroupUserRoleService: UserGroupUserRoleService = inject(UserGroupUserRoleService);
 
     dialogService: DialogService = inject(DialogService);
 
@@ -39,7 +39,7 @@ export class AddEditUserUserGroupComponent extends BaseEditComponent implements 
             }
         });
         if (this.pageType === 'edit') {
-            this.getEditUserUserGroup();
+            this.getEditUserGroupUserRole();
         } else {
             this.initFormGroup();
         }
@@ -48,31 +48,30 @@ export class AddEditUserUserGroupComponent extends BaseEditComponent implements 
     initFormGroup() {
         this.form = this.fb.group({
             id: [''],
-            // user: ['', Validators.required],
-            // userGroup: ['', Validators.required],
-            userId: [null, Validators.required],
-            userGroupId: [null, Validators.required]
+            userGroupId: [null, Validators.required],
+            userRoleId: [null, Validators.required]
         });
     }
 
-    getUser(event: any) {
+    getUserRoles(event: any) {
         const query = event.query.toLowerCase();
-        this.userService.users.subscribe({
+        this.userRoleService.userRoles.subscribe({
             next: (res: any) => {
-                this.filteredUser = res.filter((user: any) => user.userName.toLowerCase().includes(query) || user.name.toLowerCase().includes(query));
+                this.filteredUserRoles = res.filter((userRole: any) => userRole.nameAr.toLowerCase().includes(query) || userRole.nameEn.toLowerCase().includes(query));
             },
             error: (err) => {
-                this.alert.error('خطأ فى جلب بيانات المستخدم');
+                this.alert.error('خطأ فى جلب بيانات صلاحيات المستخدمين');
             }
         });
     }
 
-    onUserSelect(event: any) {
-        this.selectedUser = event.value;
-        this.form.get('userId')?.setValue(this.selectedUser.id);
+    onUserRoleSelect(event: any) {
+        this.selectedUserRole = event.value;
+        this.form.get('userRoleId')?.setValue(this.selectedUserRole.id);
+        console.log('this.selectedUserRole ::', this.selectedUserRole);
     }
 
-    getUserGroup(event: any) {
+    getUserGroups(event: any) {
         const query = event.query.toLowerCase();
         this.userGroupService.userGroups.subscribe({
             next: (res: any) => {
@@ -89,7 +88,7 @@ export class AddEditUserUserGroupComponent extends BaseEditComponent implements 
         this.form.get('userGroupId')?.setValue(this.selectedUserGroup.id);
     }
 
-    fetchUserGroupsDetails(userGroupsUserRole: any) {
+    fetchUserGroupDetails(userGroupsUserRole: any) {
         this.userGroupService.userGroups.subscribe((response: any) => {
             this.filteredUserGroups = Array.isArray(response) ? response : response.data || [];
             console.log('');
@@ -98,32 +97,30 @@ export class AddEditUserUserGroupComponent extends BaseEditComponent implements 
         });
     }
 
-    fetchUserDetails(userGroupsUserRole: any) {
-        this.userService.users.subscribe((response: any) => {
-            this.filteredUser = Array.isArray(response) ? response : response.data || [];
-            console.log('');
-            this.selectedUser = this.filteredUser.find((user: any) => user.id === userGroupsUserRole.userId);
-            this.form.get('userId')?.setValue(this.selectedUser.id);
+    fetchUserRoleDetails(userGroupsUserRole: any) {
+        this.userRoleService.userRoles.subscribe((response: any) => {
+            this.filteredUserRoles = Array.isArray(response) ? response : response.data || [];
+            this.selectedUserRole = this.filteredUserRoles.find((role: any) => role.id === userGroupsUserRole.userRoleId);
+            this.form.get('userRoleId')?.setValue(this.selectedUserRole?.id);
         });
     }
 
-    getEditUserUserGroup = () => {
-        this.userUserGroupService.getEditUserUsergroup(this.id).subscribe((userUserGroup: any) => {
+    getEditUserGroupUserRole = () => {
+        this.userGroupUserRoleService.getEditUserGroupUserRole(this.id).subscribe((userGroupUserRole: any) => {
             this.initFormGroup();
-            this.form.patchValue(userUserGroup);
-            this.fetchUserGroupsDetails(userUserGroup);
-            this.fetchUserDetails(userUserGroup);
+            this.form.patchValue(userGroupUserRole);
+            this.fetchUserGroupDetails(userGroupUserRole);
+            this.fetchUserRoleDetails(userGroupUserRole);
         });
     };
 
     submit() {
         if (this.pageType === 'add')
-            this.userUserGroupService.add(this.form.value).subscribe(() => {
+            this.userGroupUserRoleService.add(this.form.value).subscribe(() => {
                 this.closeDialog();
-                console.log(this.form.value);
             });
         if (this.pageType === 'edit')
-            this.userUserGroupService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+            this.userGroupUserRoleService.update({ id: this.id, ...this.form.value }).subscribe(() => {
                 this.closeDialog();
             });
     }

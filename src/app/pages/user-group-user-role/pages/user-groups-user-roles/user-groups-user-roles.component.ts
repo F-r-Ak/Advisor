@@ -7,15 +7,15 @@ import { TableOptions } from '../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../base/components/base-list-component';
 import { takeUntil } from 'rxjs';
 import { UserUserGroupService } from '../../../../shared/services/pages/user-user-group/user-user-group.service';
-import { AddEditUserUserGroupComponent } from '../../components/add-edit-user-user-group/add-edit-user-user-group.component';
+import { AddEditUserGroupUserRoleComponent } from '../../components/user-group-user-role/add-edit-user-group-user-role.component';
 
 @Component({
-    selector: 'app-user-user-group',
+    selector: 'app-user-groups-user-roles',
     imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
-    templateUrl: './user-user-group.component.html',
-    styleUrl: './user-user-group.component.scss'
+    templateUrl: './user-groups-user-roles.component.html',
+    styleUrl: './user-groups-user-roles.component.scss'
 })
-export class UserUserGroupComponent extends BaseListComponent {
+export class UserGroupUserRoleComponent extends BaseListComponent {
     isEnglish = false;
     tableOptions!: TableOptions;
     service = inject(UserUserGroupService);
@@ -34,9 +34,9 @@ export class UserUserGroupComponent extends BaseListComponent {
     initializeTableOptions() {
         this.tableOptions = {
             inputUrl: {
-                getAll: 'v1/userusergroup/getpaged',
+                getAll: 'v1/usergroupuserrole/getpaged',
                 getAllMethod: 'POST',
-                delete: 'v1/userusergroup/deletesoft'
+                delete: 'v1/usergroupuserrole/deletesoft'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -48,21 +48,21 @@ export class UserUserGroupComponent extends BaseListComponent {
             bodyOptions: {
                 filter: {}
             },
-            responsiveDisplayedProperties: ['user', 'userGroup']
+            responsiveDisplayedProperties: ['userGroup', 'userRole']
         };
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
         return [
             {
-                field: 'user',
-                header: 'اسم المستخدم',
+                field: 'userGroup',
+                header: 'الدور',
                 filter: true,
                 filterMode: 'text'
             },
             {
-                field: 'userGroup',
-                header: 'الادوار',
+                field: 'userRole',
+                header: 'الصلاحيات',
                 filter: true,
                 filterMode: 'text'
             }
@@ -92,13 +92,13 @@ export class UserUserGroupComponent extends BaseListComponent {
     }
 
     openAdd() {
-        this.openDialog(AddEditUserUserGroupComponent, this.localize.translate.instant('اضافة دور مستخدم'), {
+        this.openDialog(AddEditUserGroupUserRoleComponent, this.localize.translate.instant('اضافة صلاحيات الادوار'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditUserUserGroupComponent, this.localize.translate.instant('تعديل دور مستخدم'), {
+        this.openDialog(AddEditUserGroupUserRoleComponent, this.localize.translate.instant('تعديل صلاحيات الادوار'), {
             pageType: 'edit',
             row: { rowData }
         });

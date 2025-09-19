@@ -91,6 +91,10 @@ export default [
         path: 'user-user-group',
         loadChildren: () => import('./user-user-group/user-user-group.routes').then((m) => m.UserUserGroupRoutes)
     },
+    {
+        path: 'user-groups-user-roles',
+        loadChildren: () => import('./user-group-user-role/user-groups-user-roles.routes').then((m) => m.UserGroupsUserRolesRoutes)
+    },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }
 ] as Routes;

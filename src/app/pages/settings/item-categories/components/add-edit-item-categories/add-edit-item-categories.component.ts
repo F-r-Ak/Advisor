@@ -41,6 +41,7 @@ export class AddEditItemCategoriesComponent extends BaseEditComponent implements
             this.pageType = element.instance.ddconfig.data.pageType;
             if (this.pageType === 'edit') {
                 this.id = element.instance.ddconfig.data.row.rowData.id;
+                console.log('element ::', element);
             }
         });
         if (this.pageType === 'edit') {
@@ -59,7 +60,7 @@ export class AddEditItemCategoriesComponent extends BaseEditComponent implements
             sellsList: [1, Validators.required],
             theOrder: [0, Validators.required],
             categoryType: [1, Validators.required],
-            parentCategoryId: ['', Validators.required]
+            parentCategoryId: ['']
         });
     }
 
@@ -119,10 +120,45 @@ export class AddEditItemCategoriesComponent extends BaseEditComponent implements
         this.form.get('parentCategoryId')?.setValue(this.selectedParentCategory.id);
     }
 
+    fetchCategoryTypeDetails(itemCategory: any) {
+        this.categoryTypesService.categoryTypes.subscribe((response: any) => {
+            this.filteredCategoryTypes = Array.isArray(response) ? response : response.data || [];
+            this.selectedCategoryType = this.filteredCategoryTypes.find((type: any) => type.nameEn === itemCategory.categoryType);
+            this.form.get('categoryType')?.setValue(this.selectedCategoryType.id);
+        });
+    }
+
+    fetchSellsListDetails(itemCategory: any) {
+        this.sellsListService.sellsList.subscribe((response: any) => {
+            this.filteredSellsList = Array.isArray(response) ? response : response.data || [];
+            this.selectedSellsList = this.filteredSellsList.find((list: any) => list.id === Number(itemCategory.sellsList));
+            this.form.get('sellsList')?.setValue(this.selectedSellsList.id);
+        });
+    }
+
+    fetchItemCategoryDetails(itemCategory: any) {
+        this.itemCategoriesService.itemCategories.subscribe((response: any) => {
+            this.filteredParentCategories = Array.isArray(response) ? response : response.data || [];
+            const selectItemCategory = this.filteredParentCategories.find((category: any) => category.id === itemCategory.parentCategoryId);
+            console.log('selectItemCategory ::', selectItemCategory);
+
+            if (selectItemCategory) {
+                this.selectedParentCategory = selectItemCategory;
+                this.form.get('parentCategoryId')?.setValue(this.selectedParentCategory.id);
+            }
+            // } else {
+            //     console.log('%cNo parent category found', 'color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold');
+            // }
+        });
+    }
+
     getEditItemCategory = () => {
         this.itemCategoriesService.getEditItemCategory(this.id).subscribe((Icategory: UpdateItemCategoryDto) => {
             this.initFormGroup();
             this.form.patchValue(Icategory);
+            this.fetchCategoryTypeDetails(Icategory);
+            this.fetchSellsListDetails(Icategory);
+            this.fetchItemCategoryDetails(Icategory);
         });
     };
 

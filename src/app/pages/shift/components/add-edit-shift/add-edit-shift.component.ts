@@ -95,6 +95,8 @@ export class AddEditShiftComponent extends BaseEditComponent implements OnInit {
             this.filteredUsers = Array.isArray(response) ? response : response.data || [];
             console.log('response of users', response);
             this.selectedUser = this.filteredUsers.find((user: any) => user.id === shift.userId);
+            console.log('selected user shift component', this.selectedUser);
+
             this.form.get('userId')?.setValue(this.selectedUser?.id);
         });
     }

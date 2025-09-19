@@ -63,7 +63,7 @@ export class UserGroupsComponent extends BaseListComponent {
             },
             {
                 field: this.language === 'ar' ? 'nameAr' : 'nameEn',
-                header: 'مسمي المجموعة الوظيفية',
+                header: 'الدور',
                 filter: true,
                 filterMode: 'text'
             }
@@ -93,13 +93,13 @@ export class UserGroupsComponent extends BaseListComponent {
     }
 
     openAdd() {
-        this.openDialog(AddEditUserGroupComponent, this.localize.translate.instant('اضافة مجموعة وظيفية'), {
+        this.openDialog(AddEditUserGroupComponent, this.localize.translate.instant('اضافة دور جديد'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditUserGroupComponent, this.localize.translate.instant('تعديل مجموعة وظيفية'), {
+        this.openDialog(AddEditUserGroupComponent, this.localize.translate.instant('تعديل الدور'), {
             pageType: 'edit',
             row: { rowData }
         });

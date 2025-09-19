@@ -94,7 +94,7 @@ export class AppMenu {
                                 routerLink: ['/pages/settings/employee']
                             },
                             {
-                                label: 'المجموعات الوظيفية',
+                                label: 'الادوار',
                                 icon: 'pi pi-users',
                                 routerLink: ['/pages/settings/user-groups']
                             },
@@ -142,9 +142,14 @@ export class AppMenu {
                         routerLink: ['/pages/shifts']
                     },
                     {
-                        label: 'عضوية المستخدم فى المجموعات',
+                        label: 'ادوار المستخدمين',
                         icon: 'pi pi-briefcase',
                         routerLink: ['/pages/user-user-group']
+                    },
+                    {
+                        label: 'صلاحيات الادوار',
+                        icon: 'pi pi-user',
+                        routerLink: ['/pages/user-groups-user-roles']
                     }
                 ]
             }

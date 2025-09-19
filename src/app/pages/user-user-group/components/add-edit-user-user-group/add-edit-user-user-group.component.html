@@ -2,11 +2,11 @@
     @if (form) {
         <form method="post" class="row" [formGroup]="form">
             <div class="col-lg-4">
-                <label class="mb-2 text-middle">{{ ' المستخدم' }}</label>
+                <label class="mb-2 text-middle">{{ 'المستخدم' }}</label>
                 <app-prime-autocomplete [field]="'userName'" [selectedOption]="selectedUser" [suggestions]="filteredUser" [formGroup]="form" (onSelect)="onUserSelect($event)" [lazy]="false" (handleMethod)="getUser($event)"></app-prime-autocomplete>
             </div>
             <div class="col-lg-4">
-                <label class="mb-2 text-middle">{{ 'المجموعات الوظيفية' }}</label>
+                <label class="mb-2 text-middle">{{ 'الادوار' }}</label>
                 <app-prime-autocomplete
                     [field]="'nameAr'"
                     [selectedOption]="selectedUserGroup"
@@ -17,12 +17,6 @@
                     (handleMethod)="getUserGroup($event)"
                 ></app-prime-autocomplete>
             </div>
-            <!-- <div class="col-lg-4">
-                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
-            </div>
-            <div class="col-lg-4">
-                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
-            </div> -->
         </form>
     }
 </p-card>

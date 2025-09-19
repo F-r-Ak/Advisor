@@ -25,3 +25,4 @@ export * from './enums/category-types/category-types.service';
 export * from './settings/cities/cities.service';
 export * from './settings/countries/countries.service';
 export * from './pages/shifts/shifts.service';
+export * from './pages/user-group-user-role/user-group-user-role.service';

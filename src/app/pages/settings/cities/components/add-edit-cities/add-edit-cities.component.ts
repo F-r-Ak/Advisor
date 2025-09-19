@@ -16,7 +16,7 @@ import { Lookup } from '../../../../../shared/interfaces';
     styleUrl: './add-edit-cities.component.scss'
 })
 export class AddEditCitiesComponent extends BaseEditComponent implements OnInit {
-    selectedCountry!: Lookup;
+    selectedCountry: any;
     filteredCountries: Lookup[] = [];
 
     citiesService: CitiesService = inject(CitiesService);
@@ -69,10 +69,19 @@ export class AddEditCitiesComponent extends BaseEditComponent implements OnInit 
         this.form.get('countryId')?.setValue(this.selectedCountry.id);
     }
 
+    fetchCountryDetails(city: any) {
+        this.countriesService.countries.subscribe((response: any) => {
+            this.filteredCountries = Array.isArray(response) ? response : response.data || [];
+            this.selectedCountry = this.filteredCountries.find((country: any) => country.id === city.countryId);
+            this.form.get('countryId')?.setValue(this.selectedCountry.id);
+        });
+    }
+
     getEditCity = () => {
         this.citiesService.getEditCity(this.id).subscribe((city: any) => {
             this.initFormGroup();
             this.form.patchValue(city);
+            this.fetchCountryDetails(city);
         });
     };
 
