@@ -66,6 +66,48 @@ export class ClientsComponent extends BaseListComponent {
                 header: 'اسم المورد',
                 filter: true,
                 filterMode: 'text'
+            },
+            {
+                field: 'phone',
+                header: 'رقم الهاتف',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'address',
+                header: 'العنوان',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'email',
+                header: 'البريد الالكتروني',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'sellerCategory',
+                header: 'تصنيف المورد',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'region',
+                header: 'المنطقة',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'openingBalance',
+                header: 'الرصيد الأفتتاحي',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'paymentTerms.nameAr',
+                header: 'شروط الدفع',
+                filter: true,
+                filterMode: 'text'
             }
         ];
     }

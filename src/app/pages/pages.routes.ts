@@ -72,6 +72,10 @@ export default [
             {
                 path: 'job-titles',
                 loadChildren: () => import('./settings/job-titles/job-titles-routes').then((m) => m.jobTitlesRoutes)
+            },
+            {
+                path: 'org-structures',
+                loadChildren: () => import('./settings/orgStructures/orgStructures.routes').then((m) => m.orgStructures)
             }
         ]
     },
@@ -102,6 +106,10 @@ export default [
     {
         path: 'user-groups-user-roles',
         loadChildren: () => import('./user-group-user-role/user-groups-user-roles.routes').then((m) => m.userGroupsUserRolesRoutes)
+    },
+    {
+        path: 'org-structure-job-titles',
+        loadChildren: () => import('./org-structure-job-titles/org-structure-job-titles.routes').then((m) => m.orgStructureJobTitlesRoutes)
     },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }

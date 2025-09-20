@@ -140,7 +140,6 @@ export class AddEditItemCategoriesComponent extends BaseEditComponent implements
         this.itemCategoriesService.itemCategories.subscribe((response: any) => {
             this.filteredParentCategories = Array.isArray(response) ? response : response.data || [];
             const selectItemCategory = this.filteredParentCategories.find((category: any) => category.id === itemCategory.parentCategoryId);
-            console.log('selectItemCategory ::', selectItemCategory);
 
             if (selectItemCategory) {
                 this.selectedParentCategory = selectItemCategory;

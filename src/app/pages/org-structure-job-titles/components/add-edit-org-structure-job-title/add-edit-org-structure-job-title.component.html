@@ -2,12 +2,9 @@
     @if (form) {
         <form method="post" class="row" [formGroup]="form">
             <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="name" validatorLanguageType="ar" [label]="'مسمي الهيكل التنظيمي بالعربية'"> </app-prime-input-text>
-            </div>
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'هيكل تنظيمي رئيسي' }}</label>
+                <label class="mb-2">{{ 'الهيكل الوظيفي' }}</label>
                 <app-prime-autocomplete
-                    [field]="'nameAr'"
+                    [field]="'name'"
                     [selectedOption]="selectedOrgStructure"
                     [suggestions]="filteredOrgStructures"
                     [formGroup]="form"
@@ -16,12 +13,19 @@
                     (handleMethod)="getOrgStructures($event)"
                 ></app-prime-autocomplete>
             </div>
-            <!-- <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="nameEn" [label]="'مسمي الفرع بالإنجليزية'"> </app-prime-input-text>
-            </div> -->
-            <!-- <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
-            </div> -->
+
+            <div class="col-lg-6">
+                <label class="mb-2">{{ 'الدور الوظيفي' }}</label>
+                <app-prime-autocomplete
+                    [field]="'name'"
+                    [selectedOption]="selectedJobTitle"
+                    [suggestions]="filteredJobTitles"
+                    [formGroup]="form"
+                    (onSelect)="onJobTitleSelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getJobTitles($event)"
+                ></app-prime-autocomplete>
+            </div>
         </form>
     }
 </p-card>

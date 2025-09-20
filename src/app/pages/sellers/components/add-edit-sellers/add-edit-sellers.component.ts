@@ -33,14 +33,14 @@ export class AddEditSellersComponent extends BaseEditComponent implements OnInit
     selectedSellerCategory: any;
     selectedRegion: any;
     selectedClient: any;
-    selectedType: any;
+    selectedPaymentTerm: any;
+    selectedDealerType: any;
 
     filteredSellerCategories: any[] = [];
     filteredRegions: any[] = [];
     filteredClients: any[] = [];
     dealerTypes: EnumDto[] = [];
     paymentTerms: EnumDto[] = [];
-    filteredTypes: any[] = [];
 
     // services
     sellersService: SellersService = inject(SellersService);
@@ -126,7 +126,6 @@ export class AddEditSellersComponent extends BaseEditComponent implements OnInit
         this.paymentTermsService.paymentTerms.subscribe({
             next: (res) => {
                 this.paymentTerms = res;
-                console.log('  this.paymentTerms', this.paymentTerms);
             },
             error: (err) => {
                 this.alert.error(this.localize.translate.instant('خطأ في جلب بيانات شروط الدفع'));
@@ -168,15 +167,50 @@ export class AddEditSellersComponent extends BaseEditComponent implements OnInit
         this.form.get('clientId')?.setValue(this.selectedClient.id);
     }
 
-    onTypeSelect(event: any) {
-        this.selectedType = event.value;
-        this.form.get('type')?.setValue(this.selectedType.code);
+    fetchSellerCategoryDetails(seller: any) {
+        this.sellerCategoryService.sellerCategory.subscribe({
+            next: (response: any) => {
+                this.filteredSellerCategories = Array.isArray(response) ? response : response.data || [];
+                this.selectedSellerCategory = this.filteredSellerCategories.find((sellerCategory: any) => sellerCategory.id === seller.sellerCategoryId);
+                this.form.get('sellerCategoryId')?.setValue(this.selectedSellerCategory?.id);
+            }
+        });
+    }
+
+    fetchRegionDetails(seller: any) {
+        this.regionsService.regions.subscribe({
+            next: (response: any) => {
+                this.filteredRegions = Array.isArray(response) ? response : response.data || [];
+                this.selectedRegion = this.filteredRegions.find((region: any) => region.id === seller.regionId);
+                this.form.get('regionId')?.setValue(this.selectedRegion?.id);
+            }
+        });
+    }
+
+    fetchPaymentTypeDetails(seller: any) {
+        this.paymentTermsService.paymentTerms.subscribe((response: any) => {
+            this.paymentTerms = Array.isArray(response) ? response : response.data || [];
+            this.selectedPaymentTerm = this.paymentTerms.find((paymentTerm: any) => paymentTerm.nameEn === seller.paymentTerms);
+            this.form.get('paymentTerms')?.setValue(this.selectedPaymentTerm.id);
+        });
+    }
+
+    fetchDealrTypeDetails(seller: any) {
+        this.dealerTypesService.dealerTypes.subscribe((response: any) => {
+            this.dealerTypes = Array.isArray(response) ? response : response.data || [];
+            this.selectedDealerType = this.dealerTypes.find((dealerTypes: any) => dealerTypes.nameEn === seller.dealerType);
+            this.form.get('dealerType')?.setValue(this.selectedDealerType?.id);
+        });
     }
 
     getEditSeller = () => {
-        this.sellersService.getEditseller(this.id).subscribe((client: any) => {
+        this.sellersService.getEditseller(this.id).subscribe((seller: any) => {
             this.initFormGroup();
-            this.form.patchValue(client);
+            this.form.patchValue(seller);
+            this.fetchSellerCategoryDetails(seller);
+            this.fetchRegionDetails(seller);
+            this.fetchPaymentTypeDetails(seller); // استدعاء شروط الدفع
+            this.fetchDealrTypeDetails(seller);
         });
     };
 

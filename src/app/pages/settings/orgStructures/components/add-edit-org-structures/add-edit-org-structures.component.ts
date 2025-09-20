@@ -3,17 +3,21 @@ import { BaseEditComponent } from '../../../../../base/components/base-edit-comp
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BranchsService, PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
+import { OrgStructuresService, PrimeAutoCompleteComponent, PrimeInputTextComponent, SubmitButtonsComponent } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-add-edit-org-structures',
-    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
+    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent, PrimeAutoCompleteComponent],
     templateUrl: './add-edit-org-structures.component.html',
     styleUrl: './add-edit-org-structures.component.scss'
 })
 export class AddEditOrgStructuresComponent extends BaseEditComponent implements OnInit {
-    branchsService: BranchsService = inject(BranchsService);
+    selectedOrgStructure: any;
+    selectedParentId: any;
+    filteredOrgStructures: any[] = [];
+
+    orgStructuresService: OrgStructuresService = inject(OrgStructuresService);
     dialogService: DialogService = inject(DialogService);
 
     constructor(override activatedRoute: ActivatedRoute) {
@@ -38,26 +42,56 @@ export class AddEditOrgStructuresComponent extends BaseEditComponent implements 
     initFormGroup() {
         this.form = this.fb.group({
             id: [''],
-            code: ['', Validators.required],
-            nameAr: ['', Validators.required],
-            nameEn: ['']
+            // code: ['', Validators.required],
+            name: ['', Validators.required],
+            parentId: ['']
+        });
+    }
+
+    getOrgStructures(event: any) {
+        const query = event.query.toLowerCase();
+        this.orgStructuresService.orgStructures.subscribe({
+            next: (res: any) => {
+                this.filteredOrgStructures = res.filter((orgStr: any) => orgStr.name.toLowerCase().includes(query));
+            },
+            error: (err) => {
+                this.alert.error('خطأ فى جلب بيانات الهياكل التنظيمية');
+            }
+        });
+    }
+
+    onOrgStructureSelect(event: any) {
+        this.selectedOrgStructure = event.value;
+        this.form.get('parentId')?.setValue(this.selectedOrgStructure.id);
+    }
+
+    fetchOrgStructureDetails(mainOrgStructure: any) {
+        this.orgStructuresService.orgStructures.subscribe((response: any) => {
+            this.filteredOrgStructures = Array.isArray(response) ? response : response.data || [];
+            this.selectedOrgStructure = this.filteredOrgStructures.find((parentOrgStructure: any) => parentOrgStructure.id === mainOrgStructure.parentCategoryId);
+
+            if (this.selectedOrgStructure) {
+                this.selectedParentId = this.selectedOrgStructure;
+                this.form.get('parentId')?.setValue(this.selectedParentId.id);
+            }
         });
     }
 
     getEditBranchs = () => {
-        this.branchsService.getEditBranchs(this.id).subscribe((branch: any) => {
+        this.orgStructuresService.getEditOrgStructure(this.id).subscribe((orgStructure: any) => {
             this.initFormGroup();
-            this.form.patchValue(branch);
+            this.form.patchValue(orgStructure);
+            this.fetchOrgStructureDetails(orgStructure);
         });
     };
 
     submit() {
         if (this.pageType === 'add')
-            this.branchsService.add(this.form.value).subscribe(() => {
+            this.orgStructuresService.add(this.form.value).subscribe(() => {
                 this.closeDialog();
             });
         if (this.pageType === 'edit')
-            this.branchsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+            this.orgStructuresService.update({ id: this.id, ...this.form.value }).subscribe(() => {
                 this.closeDialog();
             });
     }

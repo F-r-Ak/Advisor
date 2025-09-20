@@ -117,6 +117,11 @@ export class AppMenu {
                                 label: 'تصنيفات المدن',
                                 icon: 'pi pi-box',
                                 routerLink: ['/pages/settings/cities']
+                            },
+                            {
+                                label: 'مسميات الهياكل التنظيمية',
+                                icon: 'pi pi-building',
+                                routerLink: ['/pages/settings/org-structures']
                             }
                         ]
                     }
@@ -160,6 +165,11 @@ export class AppMenu {
                         label: 'فروع المستخدمين',
                         icon: 'pi pi-user',
                         routerLink: ['/pages/user-branchs']
+                    },
+                    {
+                        label: 'org-structure-job-titles',
+                        icon: 'pi pi-building',
+                        routerLink: ['/pages/org-structure-job-titles']
                     }
                 ]
             }

@@ -15,7 +15,7 @@ export class OrgStructuresService extends HttpService {
         return this.get<Lookup>({ apiName: `get/${id}` });
     }
 
-    getEditOrgStructures(id: string) {
+    getEditOrgStructure(id: string) {
         return this.get<Lookup>({ apiName: `getEdit/${id}` });
     }
 

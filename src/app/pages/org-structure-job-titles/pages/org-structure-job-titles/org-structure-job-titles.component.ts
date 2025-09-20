@@ -2,23 +2,24 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
-import { PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
-import { TableOptions } from '../../../../../shared/interfaces';
-import { BaseListComponent } from '../../../../../base/components/base-list-component';
+import { OrgStructureJobTitlesService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../shared';
+import { TableOptions } from '../../../../shared/interfaces';
+import { BaseListComponent } from '../../../../base/components/base-list-component';
 import { takeUntil } from 'rxjs';
-import { OrgStructuresService } from '../../../../../shared/services/settings/orgStructures/org-structures.service';
-import { AddEditOrgStructuresComponent } from '../../components/add-edit-org-structures/add-edit-org-structures.component';
+import { AddEditOrgStructureJobTitleComponent } from '../../components/add-edit-org-structure-job-title/add-edit-org-structure-job-title.component';
 
 @Component({
-    selector: 'app-org-structures',
+    selector: 'app-org-structure-job-titles',
+    standalone: true,
     imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
-    templateUrl: './org-structures.component.html',
-    styleUrl: './org-structures.component.scss'
+    templateUrl: './org-structure-job-titles.component.html',
+    styleUrl: './org-structure-job-titles.component.scss'
 })
-export class OrgStructuresComponent extends BaseListComponent {
+export class OrgStructureJobTitlesComponent extends BaseListComponent {
+    @Input() employeeId: string = '';
     isEnglish = false;
     tableOptions!: TableOptions;
-    service = inject(OrgStructuresService);
+    service = inject(OrgStructureJobTitlesService);
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
@@ -34,9 +35,9 @@ export class OrgStructuresComponent extends BaseListComponent {
     initializeTableOptions() {
         this.tableOptions = {
             inputUrl: {
-                getAll: 'v1/orgstructures/getpaged',
+                getAll: 'v1/orgstructurejobtitles/getPaged',
                 getAllMethod: 'POST',
-                delete: 'v1/orgstructures/delete'
+                delete: 'v1/orgstructurejobtitles/deletesoft'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -48,21 +49,21 @@ export class OrgStructuresComponent extends BaseListComponent {
             bodyOptions: {
                 filter: {}
             },
-            responsiveDisplayedProperties: ['name']
+            responsiveDisplayedProperties: ['orgStructureName', 'jobTitleName']
         };
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
         return [
-            // {
-            //     field: 'code',
-            //     header: 'الكود',
-            //     filter: true,
-            //     filterMode: 'text'
-            // },
             {
-                field: this.language === 'ar' ? 'name' : 'name',
-                header: 'اسم هيكل المؤسسة',
+                field: 'orgStructureName',
+                header: 'الهيكل الوظيفي',
+                filter: true,
+                filterMode: 'text'
+            },
+            {
+                field: 'jobTitleName',
+                header: 'الدور الوظيفي',
                 filter: true,
                 filterMode: 'text'
             }
@@ -92,19 +93,22 @@ export class OrgStructuresComponent extends BaseListComponent {
     }
 
     openAdd() {
-        this.openDialog(AddEditOrgStructuresComponent, this.localize.translate.instant('اضافة هيكل تنظيمي مؤسسة'), {
+        this.openDialog(AddEditOrgStructureJobTitleComponent, this.localize.translate.instant('اضافة orgStructureJobTitles'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditOrgStructuresComponent, this.localize.translate.instant('تعديل هيكل تنظيمي مؤسسة'), {
+        this.openDialog(AddEditOrgStructureJobTitleComponent, this.localize.translate.instant('تعديل orgStructureJobTitles'), {
             pageType: 'edit',
             row: { rowData }
         });
     }
 
+    /* when leaving the component */
     override ngOnDestroy() {
+        //Called once, before the instance is destroyed.
+        //Add 'implements OnDestroy' to the class.
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
     }
