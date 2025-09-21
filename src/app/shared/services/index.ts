@@ -29,3 +29,4 @@ export * from './settings/countries/countries.service';
 export * from './pages/shifts/shifts.service';
 export * from './pages/user-group-user-role/user-group-user-role.service';
 export * from './pages/org-structure-job-titles/org-structure-job-titles.service';
+export * from './pages/departments/departments.service';

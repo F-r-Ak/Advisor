@@ -111,6 +111,10 @@ export default [
         path: 'org-structure-job-titles',
         loadChildren: () => import('./org-structure-job-titles/org-structure-job-titles.routes').then((m) => m.orgStructureJobTitlesRoutes)
     },
+    {
+        path: 'departments',
+        loadChildren: () => import('./departments/departments.routes').then((m) => m.departmentsRoutes)
+    },
     { path: 'empty', component: Empty },
     { path: '**', redirectTo: '/notfound' }
 ] as Routes;

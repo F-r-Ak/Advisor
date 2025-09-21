@@ -170,6 +170,11 @@ export class AppMenu {
                         label: 'org-structure-job-titles',
                         icon: 'pi pi-building',
                         routerLink: ['/pages/org-structure-job-titles']
+                    },
+                    {
+                        label: 'الأقسام',
+                        icon: 'pi pi-building',
+                        routerLink: ['/pages/departments']
                     }
                 ]
             }

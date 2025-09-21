@@ -2,24 +2,24 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
-import { PrimeDataTableComponent, PrimeTitleToolBarComponent, SellersService } from '../../../../shared';
+import { DepartmentsService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../shared';
 import { TableOptions } from '../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../base/components/base-list-component';
 import { takeUntil } from 'rxjs';
-import { AddEditSellersComponent } from '../../components/add-edit-sellers/add-edit-sellers.component';
+import { AddEditDepartmentComponent } from '../../components/add-edit-department/add-edit-department.component';
 
 @Component({
-    selector: 'app-sellers',
+    selector: 'app-departments',
     standalone: true,
     imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
-    templateUrl: './sellers.component.html',
-    styleUrl: './sellers.component.scss'
+    templateUrl: './departments.component.html',
+    styleUrl: './departments.component.scss'
 })
-export class ClientsComponent extends BaseListComponent {
+export class DepartmentsComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
     tableOptions!: TableOptions;
-    service = inject(SellersService);
+    service = inject(DepartmentsService);
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
@@ -35,9 +35,9 @@ export class ClientsComponent extends BaseListComponent {
     initializeTableOptions() {
         this.tableOptions = {
             inputUrl: {
-                getAll: 'v1/seller/getPaged',
+                getAll: 'v1/departments/getPaged',
                 getAllMethod: 'POST',
-                delete: 'v1/seller/deletesoft'
+                delete: 'v1/departments/deletesoft'
             },
             inputCols: this.initializeTableColumns(),
             inputActions: this.initializeTableActions(),
@@ -49,63 +49,21 @@ export class ClientsComponent extends BaseListComponent {
             bodyOptions: {
                 filter: {}
             },
-            responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn', 'phone', 'address', 'email', 'sellerCategory', 'region', 'openingBalance', 'paymentTerms.nameAr']
+            responsiveDisplayedProperties: ['orgStructureName', 'jobTitleName']
         };
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
         return [
             {
-                field: 'code',
-                header: 'الكود',
+                field: 'name',
+                header: 'القسم',
                 filter: true,
                 filterMode: 'text'
             },
             {
-                field: this.language === 'ar' ? 'nameAr' : 'nameEn',
-                header: 'اسم المورد',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: 'phone',
-                header: 'رقم الهاتف',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: 'address',
-                header: 'العنوان',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: 'email',
-                header: 'البريد الالكتروني',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: 'sellerCategory',
-                header: 'تصنيف المورد',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: 'region',
-                header: 'المنطقة',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: 'openingBalance',
-                header: 'الرصيد الأفتتاحي',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: 'paymentTerms.nameAr',
-                header: 'شروط الدفع',
+                field: 'branch',
+                header: 'الفرع',
                 filter: true,
                 filterMode: 'text'
             }
@@ -135,13 +93,13 @@ export class ClientsComponent extends BaseListComponent {
     }
 
     openAdd() {
-        this.openDialog(AddEditSellersComponent, this.localize.translate.instant('اضافة مورد'), {
+        this.openDialog(AddEditDepartmentComponent, this.localize.translate.instant('اضافة قسم'), {
             pageType: 'add'
         });
     }
 
     openEdit(rowData: any) {
-        this.openDialog(AddEditSellersComponent, this.localize.translate.instant('تعديل بيانات مورد'), {
+        this.openDialog(AddEditDepartmentComponent, this.localize.translate.instant('تعديل قسم'), {
             pageType: 'edit',
             row: { rowData }
         });
