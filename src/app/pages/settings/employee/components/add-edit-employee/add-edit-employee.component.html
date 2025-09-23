@@ -32,28 +32,58 @@
                 <app-prime-datepicker [formGroup]="form" controlName="birthDate" [label]="'تاريخ الميلاد'"></app-prime-datepicker>
             </div>
             <div class="col-lg-6">
-                <label class="mb-2">{{ 'المؤسسة' }}</label>
-                <!-- <app-prime-autocomplete
-                    [field]="'nameAr'"
+                <label class="mb-2 text-middle">{{ 'مسمى الهيكل التنظيمى' }}</label>
+                <app-prime-autocomplete
+                    [field]="'name'"
                     [selectedOption]="selectedOrgStructure"
                     [suggestions]="filteredOrgStructure"
                     [formGroup]="form"
                     (onSelect)="onOrgStructureSelect($event)"
                     [lazy]="false"
-                    (handleMethod)="getOrgStructure($event)"
-                ></app-prime-autocomplete> -->
+                    (handleMethod)="getOrgStructures($event)"
+                ></app-prime-autocomplete>
             </div>
             <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="jobTitleId" [label]="' كود الوظيفة '"> </app-prime-input-text>
+                <label class="mb-2 text-middle">{{ 'مسمى الوظيفة' }}</label>
+                <app-prime-autocomplete
+                    [field]="'name'"
+                    [selectedOption]="selectedJobTitle"
+                    [suggestions]="filteredJobTitle"
+                    [formGroup]="form"
+                    (onSelect)="onJobTitleSelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getJobTitles($event)"
+                ></app-prime-autocomplete>
             </div>
+
             <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="branchId" [label]="' كود الفرع '"> </app-prime-input-text>
+                <label class="mb-2 text-middle">{{ 'الفرع' }}</label>
+                <app-prime-autocomplete
+                    [field]="'nameAr'"
+                    [selectedOption]="selectedBranch"
+                    [suggestions]="filteredBranch"
+                    [formGroup]="form"
+                    (onSelect)="onBranchSelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getBranchs($event)"
+                ></app-prime-autocomplete>
             </div>
+
             <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="departmentId" [label]="' كود القسم '"> </app-prime-input-text>
+                <label class="mb-2 text-middle">{{ 'القسم' }}</label>
+                <app-prime-autocomplete
+                    [field]="'name'"
+                    [selectedOption]="selectedDepartment"
+                    [suggestions]="filteredDepartment"
+                    [formGroup]="form"
+                    (onSelect)="onDepartmentSelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getDepartments($event)"
+                ></app-prime-autocomplete>
             </div>
+
             <div class="col-lg-6">
-                <label class="mb-2">{{ 'المستخدم' }}</label>
+                <label class="mb-2 text-middle">{{ 'المستخدم' }}</label>
                 <app-prime-autocomplete [field]="'name'" [selectedOption]="selectedUser" [suggestions]="filteredUser" [formGroup]="form" (onSelect)="onUserSelect($event)" [lazy]="false" (handleMethod)="getUsers($event)"></app-prime-autocomplete>
             </div>
         </form>

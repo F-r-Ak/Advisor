@@ -62,7 +62,7 @@ export class EmployeeComponent extends BaseListComponent {
                 filterMode: 'text'
             },
             {
-                field: this.language === 'ar' ? 'name' : 'userName',
+                field: this.language === 'ar' ? 'nameAr' : 'nameEn',
                 header: 'اسم الموظف',
                 filter: true,
                 filterMode: 'text'

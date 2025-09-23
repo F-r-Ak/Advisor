@@ -3,10 +3,11 @@ import { BaseEditComponent } from '../../../../../base/components/base-edit-comp
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PrimeInputTextComponent, SubmitButtonsComponent, PrimeDatepickerComponent, PrimeAutoCompleteComponent, UsersService } from '../../../../../shared';
+import { PrimeInputTextComponent, SubmitButtonsComponent, PrimeDatepickerComponent, PrimeAutoCompleteComponent, UsersService, DepartmentsService, BranchsService, OrgStructuresService } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../../../../../shared/services/settings/employee/employee.service';
+import { JobTitlesService } from '../../../../../shared/services/settings/job-titles/job-titles.service';
 
 @Component({
     selector: 'app-add-edit-employee',
@@ -17,10 +18,20 @@ import { EmployeeService } from '../../../../../shared/services/settings/employe
 export class AddEditEmployeeComponent extends BaseEditComponent implements OnInit {
     employeeService: EmployeeService = inject(EmployeeService);
     usersService: UsersService = inject(UsersService);
+    departmentService: DepartmentsService = inject(DepartmentsService);
+    branchService: BranchsService = inject(BranchsService);
+    jobTitleService: JobTitlesService = inject(JobTitlesService);
+    orgStructureService: OrgStructuresService = inject(OrgStructuresService);
     selectedOrgStructure: any;
     selectedUser: any;
+    selectedDepartment: any;
+    selectedBranch: any;
+    selectedJobTitle: any;
     filteredUser: any[] = [];
     filteredOrgStructure: any[] = [];
+    filteredDepartment: any[] = [];
+    filteredBranch: any[] = [];
+    filteredJobTitle: any[] = [];
     dialogService: DialogService = inject(DialogService);
     employeeId: string = '';
 
@@ -78,14 +89,6 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         console.log('this.selectedUser.id', this.selectedUser.id);
     }
 
-    getEditEmployee = () => {
-        this.employeeService.getEditEmployee(this.id).subscribe((res: any) => {
-            this.initFormGroup();
-            this.form.patchValue(res);
-            this.fetchUserDetails(res);
-        });
-    };
-
     fetchUserDetails(item: any) {
         this.usersService.users.subscribe((response: any) => {
             this.filteredUser = Array.isArray(response) ? response : response.data || [];
@@ -94,21 +97,120 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         });
     }
 
-    // getOrgStructure(event: any) {
-    //     const query = event.query.toLowerCase();
-    //     this._employeeService.Employees.subscribe({
-    //         next: (res: any) => {
-    //             this.filteredOrgStructure = res.filter((orgStructure: any) => orgStructure.nameAr.toLowerCase().includes(query) || orgStructure.nameEn.toLowerCase().includes(query));
-    //         },
-    //         error: (err) => {
-    //             this.alert.error('خطأ فى جلب بيانات المؤسسة');
-    //         }
-    //     });
-    // }
+    getDepartments(event: any) {
+        const query = event.query.toLowerCase();
+        this.departmentService.departments.subscribe({
+            next: (res: any) => {
+                this.filteredDepartment = res.filter((department: any) => department.name.toLowerCase().includes(query) || department.name.toLowerCase().includes(query));
+            },
+            error: (err) => {
+                this.alert.error('خطأ فى جلب بيانات القسم');
+            }
+        });
+    }
+
+    onDepartmentSelect(event: any) {
+        this.selectedDepartment = event.value;
+        this.form.get('departmentId')?.setValue(this.selectedDepartment.id);
+        console.log('this.selectedDepartment.id', this.selectedDepartment.id);
+    }
+
+    fetchDepartmentDetails(item: any) {
+        this.departmentService.departments.subscribe((response: any) => {
+            this.filteredDepartment = Array.isArray(response) ? response : response.data || [];
+            this.selectedDepartment = this.filteredDepartment.find((department: any) => department.id === department.departmentId);
+            this.form.get('departmentId')?.setValue(this.selectedDepartment?.id);
+        });
+    }
+
+    getBranchs(event: any) {
+        const query = event.query.toLowerCase();
+        this.branchService.branchs.subscribe({
+            next: (res: any) => {
+                this.filteredBranch = res.filter((branch: any) => branch.nameAr.toLowerCase().includes(query) || branch.nameEn.toLowerCase().includes(query));
+            },
+            error: (err) => {
+                this.alert.error('خطأ فى جلب بيانات الفرع');
+            }
+        });
+    }
+
+    onBranchSelect(event: any) {
+        this.selectedBranch = event.value;
+        this.form.get('branchId')?.setValue(this.selectedBranch.id);
+        console.log('this.selectedbranch.id', this.selectedBranch.id);
+    }
+
+    fetchBranchDetails(item: any) {
+        this.branchService.branchs.subscribe((response: any) => {
+            this.filteredBranch = Array.isArray(response) ? response : response.data || [];
+            this.selectedBranch = this.filteredBranch.find((branch: any) => branch.id === branch.branchId);
+            this.form.get('branchId')?.setValue(this.selectedBranch?.id);
+        });
+    }
+
+    getJobTitles(event: any) {
+        const query = event.query.toLowerCase();
+        this.jobTitleService.jobTitles.subscribe({
+            next: (res: any) => {
+                this.filteredJobTitle = res.filter((jobTitle: any) => jobTitle.name.toLowerCase().includes(query) || jobTitle.nameEn.toLowerCase().includes(query));
+            },
+            error: (err) => {
+                this.alert.error('خطأ فى جلب بيانات المسميات الوظيفية');
+            }
+        });
+    }
+
+    onJobTitleSelect(event: any) {
+        this.selectedJobTitle = event.value;
+        this.form.get('jobTitleId')?.setValue(this.selectedJobTitle.id);
+        console.log('this.selectedJobTitle.id', this.selectedJobTitle.id);
+    }
+
+    fetchJobTitleDetails(item: any) {
+        this.jobTitleService.jobTitles.subscribe((response: any) => {
+            this.filteredJobTitle = Array.isArray(response) ? response : response.data || [];
+            this.selectedJobTitle = this.filteredJobTitle.find((jobTitle: any) => jobTitle.id === jobTitle.jobTitleId);
+            this.form.get('jobTitleId')?.setValue(this.selectedJobTitle?.id);
+        });
+    }
+
+    getOrgStructures(event: any) {
+        const query = event.query.toLowerCase();
+        this.orgStructureService.orgStructures.subscribe({
+            next: (res: any) => {
+                this.filteredOrgStructure = res.filter((orgStructure: any) => orgStructure.name.toLowerCase().includes(query) || orgStructure.name.toLowerCase().includes(query));
+            },
+            error: (err) => {
+                this.alert.error('خطأ فى جلب بيانات مسميات الهياكل التنظيمية');
+            }
+        });
+    }
+
     onOrgStructureSelect(event: any) {
         this.selectedOrgStructure = event.value;
         this.form.get('orgStructureId')?.setValue(this.selectedOrgStructure.id);
+        console.log('this.selectedOrgStructure.id', this.selectedOrgStructure.id);
     }
+
+    fetchOrgStructureDetails(item: any) {
+        this.orgStructureService.orgStructures.subscribe((response: any) => {
+            this.filteredOrgStructure = Array.isArray(response) ? response : response.data || [];
+            this.selectedOrgStructure = this.filteredOrgStructure.find((orgStructure: any) => orgStructure.id === orgStructure.orgStructureId);
+            this.form.get('orgStructureId')?.setValue(this.selectedOrgStructure?.id);
+        });
+    }
+
+    getEditEmployee = () => {
+        this.employeeService.getEditEmployee(this.id).subscribe((res: any) => {
+            this.initFormGroup();
+            this.form.patchValue(res);
+            this.fetchUserDetails(res);
+            this.fetchDepartmentDetails(res);
+            this.fetchBranchDetails(res);
+            this.fetchJobTitleDetails(res);
+        });
+    };
 
     submit() {
         if (this.pageType === 'add')
