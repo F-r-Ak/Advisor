@@ -41,10 +41,16 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
 
     override ngOnInit(): void {
         super.ngOnInit();
-        this.id = this.activatedRoute.snapshot.paramMap.get('id') as string;
+        this.dialogService.dialogComponentRefMap.forEach((element) => {
+            this.pageType = element.instance.ddconfig.data.pageType;
+            if (this.pageType === 'edit') {
+                this.id = element.instance.ddconfig.data.row.rowData.id;
+            }
+        });
+        // this.id = this.activatedRoute.snapshot.paramMap.get('id') as string;
         if (this.pageType === 'edit') {
             this.getEditEmployee();
-            this.employeeId = this.activatedRoute.snapshot.paramMap.get('id') as string;
+            // this.employeeId = this.activatedRoute.snapshot.paramMap.get('id') as string;
         } else {
             this.initFormGroup();
         }
@@ -67,7 +73,7 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
             jobTitleId: ['', Validators.required],
             branchId: ['', Validators.required],
             departmentId: ['', Validators.required],
-            userId: [null, Validators.required]
+            userId: [null]
         });
     }
 
@@ -89,10 +95,10 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         console.log('this.selectedUser.id', this.selectedUser.id);
     }
 
-    fetchUserDetails(item: any) {
+    fetchUserDetails(employee: any) {
         this.usersService.users.subscribe((response: any) => {
             this.filteredUser = Array.isArray(response) ? response : response.data || [];
-            this.selectedUser = this.filteredUser.find((user: any) => user.id === user.userId);
+            this.selectedUser = this.filteredUser.find((user: any) => user.id === employee.userId);
             this.form.get('userId')?.setValue(this.selectedUser?.id);
         });
     }
@@ -115,10 +121,10 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         console.log('this.selectedDepartment.id', this.selectedDepartment.id);
     }
 
-    fetchDepartmentDetails(item: any) {
+    fetchDepartmentDetails(employee: any) {
         this.departmentService.departments.subscribe((response: any) => {
             this.filteredDepartment = Array.isArray(response) ? response : response.data || [];
-            this.selectedDepartment = this.filteredDepartment.find((department: any) => department.id === department.departmentId);
+            this.selectedDepartment = this.filteredDepartment.find((department: any) => department.id === employee.departmentId);
             this.form.get('departmentId')?.setValue(this.selectedDepartment?.id);
         });
     }
@@ -141,10 +147,10 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         console.log('this.selectedbranch.id', this.selectedBranch.id);
     }
 
-    fetchBranchDetails(item: any) {
+    fetchBranchDetails(employee: any) {
         this.branchService.branchs.subscribe((response: any) => {
             this.filteredBranch = Array.isArray(response) ? response : response.data || [];
-            this.selectedBranch = this.filteredBranch.find((branch: any) => branch.id === branch.branchId);
+            this.selectedBranch = this.filteredBranch.find((branch: any) => branch.id === employee.branchId);
             this.form.get('branchId')?.setValue(this.selectedBranch?.id);
         });
     }
@@ -167,10 +173,10 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         console.log('this.selectedJobTitle.id', this.selectedJobTitle.id);
     }
 
-    fetchJobTitleDetails(item: any) {
+    fetchJobTitleDetails(employee: any) {
         this.jobTitleService.jobTitles.subscribe((response: any) => {
             this.filteredJobTitle = Array.isArray(response) ? response : response.data || [];
-            this.selectedJobTitle = this.filteredJobTitle.find((jobTitle: any) => jobTitle.id === jobTitle.jobTitleId);
+            this.selectedJobTitle = this.filteredJobTitle.find((jobTitle: any) => jobTitle.id === employee.jobTitleId);
             this.form.get('jobTitleId')?.setValue(this.selectedJobTitle?.id);
         });
     }
@@ -193,10 +199,10 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         console.log('this.selectedOrgStructure.id', this.selectedOrgStructure.id);
     }
 
-    fetchOrgStructureDetails(item: any) {
+    fetchOrgStructureDetails(employee: any) {
         this.orgStructureService.orgStructures.subscribe((response: any) => {
             this.filteredOrgStructure = Array.isArray(response) ? response : response.data || [];
-            this.selectedOrgStructure = this.filteredOrgStructure.find((orgStructure: any) => orgStructure.id === orgStructure.orgStructureId);
+            this.selectedOrgStructure = this.filteredOrgStructure.find((orgStructure: any) => orgStructure.id === employee.orgStructureId);
             this.form.get('orgStructureId')?.setValue(this.selectedOrgStructure?.id);
         });
     }
@@ -204,11 +210,13 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
     getEditEmployee = () => {
         this.employeeService.getEditEmployee(this.id).subscribe((res: any) => {
             this.initFormGroup();
+            console.log('result::', res);
             this.form.patchValue(res);
             this.fetchUserDetails(res);
             this.fetchDepartmentDetails(res);
             this.fetchBranchDetails(res);
             this.fetchJobTitleDetails(res);
+            this.fetchOrgStructureDetails(res);
         });
     };
 
