@@ -16,7 +16,7 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
     data!: any[];
     totalCount: number = 0;
     language: string = 'ar';
-    dialogRef: DynamicDialogRef | undefined;
+    dialogRef: DynamicDialogRef | null = null;
     /* load data at first time */
     private firstInit!: boolean;
     abstract tableOptions: TableOptions;
@@ -100,7 +100,7 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
             dismissableMask: true,
             closable: closable // Set the closable property
         });
-        this.dialogRef.onDestroy.subscribe(() => {
+        this.dialogRef?.onDestroy.subscribe(() => {
             this.loadDataFromServer();
         });
     }

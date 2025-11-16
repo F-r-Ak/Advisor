@@ -51,7 +51,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
     itemId: string = '';
     showItemTabs: boolean = false;
     activeTab: ItemTabs = ItemTabs.General;
-    dialogRef: DynamicDialogRef | undefined;
+    dialogRef: DynamicDialogRef | null = null ;
     itemsService: ItemsService = inject(ItemsService);
     SellsListService: SellsListService = inject(SellsListService);
     vendorService: VendorService = inject(VendorService);
@@ -101,7 +101,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
             Object.keys(this.itemForm.controls).forEach(key => {
                 this.itemForm.get(key).markAsTouched();
             });
-            
+
             // Proceed to next step if form is valid
             activateCallback(2);
         } else {
@@ -120,13 +120,13 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
             }
         });
     }
-    
+
     getItemVendors(event: any) {
         const query = event.query.toLowerCase();
         this.vendorService.Vendors.subscribe({
             next: (res: any) => {
-                this.filteredItemVendors = res.filter((itemVendor: any) => 
-                    itemVendor.nameAr.toLowerCase().includes(query) || 
+                this.filteredItemVendors = res.filter((itemVendor: any) =>
+                    itemVendor.nameAr.toLowerCase().includes(query) ||
                     itemVendor.nameEn.toLowerCase().includes(query)
                 );
             },
@@ -145,8 +145,8 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
         const query = event.query.toLowerCase();
         this.itemCategoriesService.itemCategories.subscribe({
             next: (res: any) => {
-                this.filteredItemCategorys = res.filter((itemCategory: any) => 
-                    itemCategory.nameAr.toLowerCase().includes(query) || 
+                this.filteredItemCategorys = res.filter((itemCategory: any) =>
+                    itemCategory.nameAr.toLowerCase().includes(query) ||
                     itemCategory.nameEn.toLowerCase().includes(query)
                 );
             },
@@ -160,7 +160,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
         this.selectedItemCategory = event.value;
         this.itemForm.get('itemCategoryId')?.setValue(this.selectedItemCategory.id);
     }
-    
+
     get itemEnum() {
         return ItemTabs;
     }
@@ -184,7 +184,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
             }
         });
     }
-    
+
     getEditItem = () => {
         this.itemsService.getEditItem(this.id).subscribe((item: any) => {
             this.initFormGroup();

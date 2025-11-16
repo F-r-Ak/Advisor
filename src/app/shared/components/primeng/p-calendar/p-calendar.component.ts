@@ -1,10 +1,9 @@
 import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { formatDate, NgClass } from '@angular/common';
-import { CalendarModule } from 'primeng/calendar';
 @Component({
     selector: 'app-prime-calendar',
-    imports: [CalendarModule, FormsModule, ReactiveFormsModule, NgClass],
+    imports: [ FormsModule, ReactiveFormsModule, NgClass],
     templateUrl: './p-calendar.component.html',
     styleUrl: './p-calendar.component.scss'
 })
