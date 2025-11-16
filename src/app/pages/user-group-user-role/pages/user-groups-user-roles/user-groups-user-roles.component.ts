@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
@@ -8,7 +8,6 @@ import { BaseListComponent } from '../../../../base/components/base-list-compone
 import { takeUntil } from 'rxjs';
 import { UserUserGroupService } from '../../../../shared/services/pages/user-user-group/user-user-group.service';
 import { AddEditUserGroupUserRoleComponent } from '../../components/user-group-user-role/add-edit-user-group-user-role.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-user-groups-user-roles',
@@ -26,7 +25,9 @@ export class UserGroupUserRoleComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+        effect(() => {
+            const lang = this.localize.currentLanguage(); // <-- Signal usage
+
             this.language.set(lang);
             this.initializeTableOptions();
         });

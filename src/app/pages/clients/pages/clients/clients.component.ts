@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
@@ -9,99 +9,103 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AddEditClientsComponent } from '../../components/add-edit-clients/add-edit-clients.component';
 
 @Component({
-    selector: 'app-clients',
-    standalone: true,
-    imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
-    templateUrl: './clients.component.html',
-    styleUrl: './clients.component.scss'
+  selector: 'app-clients',
+  standalone: true,
+  imports: [TranslateModule, RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
+  templateUrl: './clients.component.html',
+  styleUrl: './clients.component.scss'
 })
 export class ClientsComponent extends BaseListComponent {
-    @Input() employeeId: string = '';
-    isEnglish = false;
-    tableOptions!: WritableSignal<TableOptions>;
-    service = inject(ClientsService);
+  @Input() employeeId: string = '';
+  isEnglish = false;
+  service = inject(ClientsService);
 
-    constructor(activatedRoute: ActivatedRoute) {
-        super(activatedRoute);
-    }
+  constructor(activatedRoute: ActivatedRoute) {
+    super(activatedRoute);
+  }
 
-    override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
-            this.language.set(lang);
-            this.initializeTableOptions();
-        });
-    }
+  // ✅ signal لازم تتعرف مرة واحدة هنا مش جوا function
+  tableOptions: WritableSignal<TableOptions> = signal<TableOptions>({
+    inputUrl: {
+      getAll: 'v1/client/getPaged',
+      getAllMethod: 'POST',
+      delete: 'v1/client/deletesoft'
+    },
+    inputCols: [],
+    inputActions: [],
+    permissions: {
+      componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
+      allowAll: true,
+      listOfPermissions: []
+    },
+    bodyOptions: {
+      filter: {}
+    },
+    responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
+  });
 
-    initializeTableOptions() {
-        this.tableOptions = signal({
-            inputUrl: {
-                getAll: 'v1/client/getPaged',
-                getAllMethod: 'POST',
-                delete: 'v1/client/deletesoft'
-            },
-            inputCols: this.initializeTableColumns(),
-            inputActions: this.initializeTableActions(),
-            permissions: {
-                componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
-                allowAll: true,
-                listOfPermissions: []
-            },
-            bodyOptions: {
-                filter: {}
-            },
-            responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
-        });
-    }
+  // ✅ effect في Injection Context (Field-based)
+  langEffect = effect(() => {
+    const lang = this.localize.currentLanguage();
+    this.language.set(lang);
 
-    initializeTableColumns(): TableOptions['inputCols'] {
-        return [
-            {
-                field: 'code',
-                header: 'الكود',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: this.language() === 'ar' ? 'nameAr' : 'nameEn',
-                header: 'مسمي الفرع',
-                filter: true,
-                filterMode: 'text'
-            }
-        ];
-    }
+    // update table dynamically when language changes
+    this.tableOptions.update(options => ({
+      ...options,
+      inputCols: this.initializeTableColumns(),
+      inputActions: this.initializeTableActions()
+    }));
+  });
 
-    initializeTableActions(): TableOptions['inputActions'] {
-        return [
-            {
-                name: 'Edit',
-                icon: 'pi pi-file-edit',
-                color: 'text-middle',
-                isCallBack: true,
-                call: (row) => {
-                    this.openEdit(row);
-                },
-                allowAll: true
-            },
-            {
-                name: 'DELETE',
-                icon: 'pi pi-trash',
-                color: 'text-error',
-                allowAll: true,
-                isDelete: true
-            }
-        ];
-    }
+  initializeTableColumns(): TableOptions['inputCols'] {
+    return [
+      {
+        field: 'code',
+        header: 'الكود',
+        filter: true,
+        filterMode: 'text'
+      },
+      {
+        field: this.language() === 'ar' ? 'nameAr' : 'nameEn',
+        header: 'مسمي الفرع',
+        filter: true,
+        filterMode: 'text'
+      }
+    ];
+  }
 
-    openAdd() {
-        this.openDialog(AddEditClientsComponent, this.localize.translate.instant('اضافة عميل'), {
-            pageType: 'add'
-        });
-    }
+  initializeTableActions(): TableOptions['inputActions'] {
+    return [
+      {
+        name: 'Edit',
+        icon: 'pi pi-file-edit',
+        color: 'text-middle',
+        isCallBack: true,
+        call: row => {
+          this.openEdit(row);
+        },
+        allowAll: true
+      },
+      {
+        name: 'DELETE',
+        icon: 'pi pi-trash',
+        color: 'text-error',
+        allowAll: true,
+        isDelete: true
+      }
+    ];
+  }
 
-    openEdit(rowData: any) {
-        this.openDialog(AddEditClientsComponent, this.localize.translate.instant('تعديل بيانات عميل'), {
-            pageType: 'edit',
-            row: { rowData }
-        });
-    }
+  openAdd() {
+    this.openDialog(AddEditClientsComponent, this.localize.translate.instant('اضافة عميل'), {
+      pageType: 'add'
+    });
+  }
+
+  openEdit(rowData: any) {
+    this.openDialog(AddEditClientsComponent, this.localize.translate.instant('تعديل بيانات عميل'), {
+      pageType: 'edit',
+      row: { rowData }
+    });
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
@@ -6,7 +6,6 @@ import { CitiesService, PrimeDataTableComponent, PrimeTitleToolBarComponent } fr
 import { TableOptions } from '../../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
 import { AddEditCitiesComponent } from '../../components/add-edit-cities/add-edit-cities.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-cities',
@@ -26,7 +25,9 @@ export class CitiesComponent extends BaseListComponent {
   }
 
   override ngOnInit(): void {
-    this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(lang => {
+    effect(() => {
+      const lang = this.localize.currentLanguage(); // <-- Signal usage
+
       this.language.set(lang);
       this.initializeTableOptions();
     });

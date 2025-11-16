@@ -1,10 +1,9 @@
-import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
 import { PrimeDataTableComponent, PrimeTitleToolBarComponent, UnitsService } from '../../../../../shared';
 import { CardModule } from 'primeng/card';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableOptions } from '../../../../../shared/interfaces';
 import { AddEditUnitComponent } from '../../components/add-edit-unit/add-edit-unit.component';
 
@@ -25,7 +24,9 @@ export class UnitsComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+        effect(() => {
+            const lang = this.localize.currentLanguage(); // <-- Signal usage
+
             this.language.set(lang);
             this.initializeTableOptions();
         });

@@ -1,19 +1,20 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2, signal, computed, effect, WritableSignal, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
-import { BehaviorSubject } from 'rxjs';
+import { Language, Languages } from '../../../core/enums/languages';
+import { StorageService } from '../../../core';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TranslationService {
-  private defaultLang: string = localStorage.getItem('currentLang') || 'ar';
-  private language = '';
+  private defaultLang: Language = Languages.AR;
+
+  private _currentLanguage: WritableSignal<Language> = signal(this.defaultLang);
+  readonly currentLanguage = computed(() => this._currentLanguage());
+
+  private storageService = inject(StorageService);
 
   private renderer: Renderer2;
-  private currentLanguage = new BehaviorSubject<string>(this.defaultLang);
-
-  currentLanguage$ = this.currentLanguage.asObservable();
 
   constructor(
     public translate: TranslateService,
@@ -21,55 +22,53 @@ export class TranslationService {
   ) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
     this.initLanguage();
+    this.storageService.setLocal('currentLang', this._currentLanguage());
   }
 
-  isEnglish() {
-    return this.translate.currentLang === 'en';
+  private getStoredLanguage(): Language | null {
+    return this.storageService.getLocal('currentLang') as Language | null;
   }
 
-  initLanguage() {
-    const lang = localStorage.getItem('currentLang');
-
-    if (lang) {
-      this.language = lang;
-    } else {
-      this.language = this.defaultLang;
-      localStorage.setItem('currentLang', this.language);
-    }
-
-    this.translate.use(this.language);
-    this.translate.setDefaultLang(this.language);
-    this.handleBasicLogic();
+  private initLanguage(): void {
+    const lang = this._currentLanguage();
+    this.translate.setFallbackLang(lang);
+    this.translate.use(lang);
+    this.handleBasicLogic(lang);
   }
 
-  changeLanguage() {
-    this.language = this.language === 'ar' ? 'en' : 'ar';
-    localStorage.setItem('currentLang', this.language);
-    location.reload();
+  changeLanguage(): void {
+    const newLang = this._currentLanguage() === Languages.AR ? Languages.EN : Languages.AR;
+    this._currentLanguage.set(newLang);
+    this.storageService.setLocal('currentLang', newLang);
 
-    this.translate.use(this.language);
-    this.handleBasicLogic();
+    this.translate.use(newLang);
+    this.handleBasicLogic(newLang);
   }
-  checkLang(): boolean {
-    const currentLang = this.translate.currentLang;
 
-    if (currentLang === 'en') {
-      return true;
-    } else {
-      return false;
-    }
+  isEnglish(): boolean {
+    return this._currentLanguage() === Languages.EN;
   }
-  private handleBasicLogic() {
-    if (this.language === 'ar') {
-      this.renderer.addClass(document.body, 'rtl');
-      this.renderer.setAttribute(document.body, 'dir', 'rtl');
-      this.renderer.setAttribute(document.querySelector("html"), "lang", "ar");
-      this.currentLanguage.next(this.language);
-    } else {
-      this.renderer.removeClass(document.body, 'rtl');
-      this.renderer.setAttribute(document.body, 'dir', 'ltr');
-      this.renderer.setAttribute(document.querySelector("html"), "lang", "en");
-      this.currentLanguage.next(this.language);
-    }
+
+  private handleBasicLogic(lang: Language): void {
+    const html = document.documentElement;
+    const body = document.body;
+    const isArabic = lang === Languages.AR;
+    const dir = isArabic ? 'rtl' : 'ltr';
+
+    this.renderer.setAttribute(body, 'dir', dir);
+    this.renderer.setAttribute(html, 'dir', dir);
+    this.renderer.setAttribute(html, 'lang', lang);
+    this.renderer.addClass(body, dir);
+    this.renderer.removeClass(body, isArabic ? 'ltr' : 'rtl');
   }
+
+  private applyLanguage(lang: Language): void {
+    this.translate.use(lang);
+    this.handleBasicLogic(lang);
+  }
+
+  private languageEffect = effect(() => {
+    const lang = this._currentLanguage();
+    this.applyLanguage(lang);
+  });
 }
