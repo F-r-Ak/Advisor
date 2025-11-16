@@ -48,7 +48,7 @@ export class AddEditUserComponent extends BaseEditComponent implements OnInit {
     }
 
     getEditUser = () => {
-        this._usersService.getEditUser(this.id).subscribe((res: any) => {
+        this._usersService.getEditUser(this.id()).subscribe((res: any) => {
             this.initFormGroup();
             this.form.patchValue(res);
         });

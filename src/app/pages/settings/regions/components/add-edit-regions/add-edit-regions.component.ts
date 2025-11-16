@@ -51,7 +51,7 @@ export class AddEditRegionsComponent extends BaseEditComponent implements OnInit
     }
 
     getEditRegions = () => {
-        this.regionsService.getEditRegions(this.id).subscribe((region: any) => {
+        this.regionsService.getEditRegions(this.id()).subscribe((region: any) => {
             this.initFormGroup();
             this.form.patchValue(region);
             this.fetchCityDetails(region);

@@ -47,7 +47,7 @@ export class AddEditBranchsComponent extends BaseEditComponent implements OnInit
     }
 
     getEditBranchs = () => {
-        this.branchsService.getEditBranchs(this.id).subscribe((branch: any) => {
+        this.branchsService.getEditBranchs(this.id()).subscribe((branch: any) => {
             this.initFormGroup();
             this.form.patchValue(branch);
         });

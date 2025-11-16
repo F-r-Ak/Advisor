@@ -1,4 +1,4 @@
-import { Directive, Injectable, OnInit, inject } from '@angular/core';
+import { Directive, Injectable, OnInit, WritableSignal, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
 import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
@@ -7,23 +7,39 @@ import { DataTableService } from '../../shared';
 import { BaseComponent } from './base-component';
 import { HttpService } from '../../core/services/http/http.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Language } from '@ngx-translate/core';
+import { Languages } from '../../core/enums/languages';
 
 @Directive()
 @Injectable({
     providedIn: 'root'
 })
 export abstract class BaseListComponent extends BaseComponent implements OnInit {
-    data!: any[];
-    totalCount: number = 0;
-    language: string = 'ar';
+    data = signal<any[]>([]);
+    totalCount: WritableSignal<number> = signal(0);
+    language = signal<Language>(Languages.AR);
+
     dialogRef: DynamicDialogRef | null = null;
     /* load data at first time */
-    private firstInit!: boolean;
-    abstract tableOptions: TableOptions;
+    private firstInit: boolean = false;
+    abstract tableOptions: WritableSignal<TableOptions>;
     abstract get service(): HttpService;
-    protected destroy$: Subject<boolean> = new Subject<boolean>();
+
     dataTableService = inject(DataTableService);
     dialogService = inject(DialogService);
+
+    // ✅ مراقبة عمليات البحث (بدل الاشتراك اليدوي)
+    //   private searchEffec = effect(() => {
+    //     const searchValue = this.dataTableService.searchNew$; // 👈 قراءة قيمة الـ signal
+    //     if (searchValue === null) return; // أول مرة بيكون null فنتجاهله
+    //     console.log('🔍 search effect running...', searchValue);
+    //     this.firstInit ? this.loadDataFromServer() : (this.firstInit = true);
+    //     console.log('this.firstInit :::', this.firstInit);
+    //   });
+    //     constructor(activatedRoute: ActivatedRoute) {
+    //         super(activatedRoute);
+    //     }
+
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
     }
@@ -35,41 +51,38 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
     /**
      * Handle Data Table Event (Sort , Pagination , Filter , Delete , Print)
      * @param dataTableEvent
+     *  معالجة أحداث الجدول (تحميل، تصفية، حذف... إلخ)
+
      */
     handleEvent(dataTableEvent: any): void {
-        if (dataTableEvent.eventType == 'lazyLoad') {
-            this.loadLazyLoadedData(dataTableEvent.data);
-        }
-        if (dataTableEvent.eventType == 'reset') {
-            this.resetOpt();
-        }
-
-        // if (dataTableEvent.eventType == 'filter') {
-        //   console.log('dataTableEvent at filter:', dataTableEvent);
-        //   this.filter(dataTableEvent.value, dataTableEvent.column,dataTableEvent.filterColumnName,dataTableEvent.dataType)
-        // }
-
-        if (dataTableEvent.eventType === 'filter') {
-            this.applyFilter(dataTableEvent.value, dataTableEvent.column);
-        }
-
-        if (dataTableEvent.eventType == 'delete') {
-            this.deleteData(dataTableEvent.data);
-        }
-        if (dataTableEvent.eventType == 'deleteRange') {
-            this.deleteRange(dataTableEvent.data);
-            this.loadDataFromServer();
-        }
-        if (dataTableEvent.eventType == 'export') {
-            this.export(dataTableEvent.data.columnNames, dataTableEvent.data.reportName);
+        switch (dataTableEvent.eventType) {
+            case 'lazyLoad':
+                this.loadLazyLoadedData(dataTableEvent.data);
+                break;
+            case 'reset':
+                this.resetOpt();
+                break;
+            case 'filter':
+                this.applyFilter(dataTableEvent.value, dataTableEvent.column);
+                break;
+            case 'delete':
+                this.deleteData(dataTableEvent.data);
+                break;
+            case 'deleteRange':
+                this.deleteRange(dataTableEvent.data);
+                break;
+            case 'export':
+                this.export(dataTableEvent.data.columnNames, dataTableEvent.data.reportName);
+                break;
         }
     }
+
     // this to be moved inside data table input filters and emit filter event inside the filter method
-    columnSearchInput(): void {
-        this.dataTableService.searchNew$.pipe(debounceTime(1000), distinctUntilChanged(), takeUntil(this.destroy$)).subscribe(() => {
-            this.firstInit ? this.loadDataFromServer() : (this.firstInit = true);
-        });
-    }
+    // columnSearchInput(): void {
+    //     this.dataTableService.searchNew$.pipe(debounceTime(1000), distinctUntilChanged(), takeUntil(this.destroy$)).subscribe(() => {
+    //         this.firstInit ? this.loadDataFromServer() : (this.firstInit = true);
+    //     });
+    // }
 
     applyFilter(value: any, column: string): void {
         this.resetOpt();
@@ -77,11 +90,11 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
         this.loadDataFromServer();
     }
 
-    search(filterArray: any): void {
-        // debugger
-        this.dataTableService.opt.filter = filterArray;
-        this.loadDataFromServer(); // Reload data based on the filter
-    }
+    // search(filterArray: any): void {
+    //     // debugger
+    //     this.dataTableService.opt.filter = filterArray;
+    //     this.loadDataFromServer(); // Reload data based on the filter
+    // }
 
     openDialog(component: any, pageTitle: any, data: any, closable: boolean = true): void {
         // Add closable parameter with default value
@@ -105,12 +118,14 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
         });
     }
 
-    // load data from server
+    /**
+     * load data from server
+     */
     loadDataFromServer(): void {
-        this.dataTableService.loadData(this.tableOptions.inputUrl.getAll).subscribe({
+        this.dataTableService.loadData(this.tableOptions().inputUrl.getAll).subscribe({
             next: (res) => {
-                this.data = res.data.data;
-                this.totalCount = res.data.totalCount;
+                this.data.set(res.data.data);
+                this.totalCount.set(res.data.totalCount);
                 console.log('res ::', res);
             },
             error: (err) => {
@@ -145,11 +160,17 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
     filter(value?: any, column?: any, filterColumnName?: string, dataType?: string): void {
         this.resetOpt();
         value = this.checkDataType(value, dataType);
-        if (filterColumnName !== undefined && filterColumnName !== '' && filterColumnName !== null) {
-            this.dataTableService.searchNew$.next((this.dataTableService.opt.filter[filterColumnName] = value));
+        if (filterColumnName) {
+            this.dataTableService.opt.filter[filterColumnName] = value;
         } else {
-            this.dataTableService.searchNew$.next((this.dataTableService.opt.filter[column] = value));
+            this.dataTableService.opt.filter[column] = value;
         }
+
+        // 👇 هنا نحدث الإشارة (signal)
+        this.dataTableService.searchNew$.set({
+            keyword: value,
+            page: this.dataTableService.opt.pageNumber
+        });
     }
 
     checkDataType(value: any, dataType?: string): any {
@@ -160,28 +181,35 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
     }
 
     deleteData(id: string) {
-        this.dataTableService.delete(this.tableOptions.inputUrl.delete, id).subscribe((res: any) => {
-            this.data = res.data.data;
-            this.totalCount = res.totalCount;
-            this.loadDataFromServer();
+        this.dataTableService.delete(this.tableOptions().inputUrl.delete, id).subscribe({
+            next: () => {
+                (this.localize.translate.instant('VALIDATION.DELETE_SUCCESS'), this.loadDataFromServer()); // ✅ إعادة التحميل
+            },
+            error: () => this.localize.translate.instant('VALIDATION.GET_ERROR')
         });
     }
 
-    deleteRange(id: string[]) {
-        this.dataTableService.deleteRange(this.tableOptions.inputUrl.delete, id).subscribe({
+    /**
+     * حذف مجموعة عناصر
+     */
+    deleteRange(ids: string[]) {
+        this.dataTableService.deleteRange(this.tableOptions().inputUrl.delete, ids).subscribe({
             next: (res) => {
+                // this.data.set(res.data)
+                // this.totalCount.set(res.totalCount)
                 this.alert.success(this.localize.translate.instant('VALIDATION.DELETE_SUCCESS'));
-                this.data = res.data.data;
-                this.totalCount = res.data.totalCount;
                 this.loadDataFromServer();
             },
-            error: (err) => {
+            error: () => {
                 this.alert.error(this.localize.translate.instant('VALIDATION.GET_ERROR'));
             }
         });
     }
 
-    /* reset server options */
+    /**
+     * reset server options
+     * إعادة ضبط خيارات الجدول
+     */
     resetOpt(): void {
         this.dataTableService.opt = {
             pageNumber: 1,
@@ -189,21 +217,22 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
             orderByValue: [{ colId: 'id', sort: 'asc' }],
             filter: {}
         };
-        this.dataTableService.opt.filter = this.tableOptions.bodyOptions.filter !== null && this.tableOptions.bodyOptions.filter !== undefined ? this.tableOptions.bodyOptions.filter : this.dataTableService.opt.filter;
-        this.dataTableService.opt.filter.appId = this.tableOptions.appId !== 0 ? this.tableOptions.appId : 0;
+
+        this.dataTableService.opt.filter = this.tableOptions().bodyOptions.filter ?? this.dataTableService.opt.filter;
+        this.dataTableService.opt.filter.appId = this.tableOptions().appId !== 0 ? this.tableOptions().appId : 0;
     }
 
     export(sheetDetails: { [k: string]: string }, fileName: string) {
         const sheetColumnsValues = Object.keys(sheetDetails);
 
-        const newArray = this.data.map((eachData, index) => {
+        const newArray = this.data()?.map((eachData, index) => {
             let eachRow = {};
 
-            sheetColumnsValues.map((eachColumnValue) => {
+            sheetColumnsValues.forEach((col) => {
                 eachRow = {
                     ...eachRow,
-                    ...{ '#': index + 1 },
-                    [sheetDetails[eachColumnValue]]: eachData[eachColumnValue]
+                    '#': index + 1,
+                    [sheetDetails[col]]: eachData[col]
                 };
             });
 
@@ -213,15 +242,24 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
         this.excel.exportAsExcelFile(newArray, fileName);
     }
 
+    /**
+     * computed signal لاستخدامها في القالب لو حبيت
+     */
+    filteredData = computed(() => {
+        return this.data().filter((x) => !!x);
+    });
+
     /* when leaving the component */
-    ngOnDestroy() {
-        this.dataTableService.searchNew$.next({});
-        this.dataTableService.searchNew$.unsubscribe();
+    override ngOnDestroy(): void {
+        console.log('ngOnDestroy');
+        this.dataTableService.searchNew$.set(null);
+        super.ngOnDestroy();
     }
-    Redirect() {
-        const currentRoute = this.route.url;
+
+    Redirect(): void {
+        const currentRoute = this.router.url;
         const index = currentRoute.lastIndexOf('/');
         const str = currentRoute.substring(0, index);
-        this.route.navigate([str]);
+        this.router.navigate([str]);
     }
 }

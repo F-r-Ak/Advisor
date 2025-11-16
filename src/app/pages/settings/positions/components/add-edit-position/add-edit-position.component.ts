@@ -47,7 +47,7 @@ export class AddEditPositionComponent extends BaseEditComponent implements OnIni
     }
 
     getEditPosition = () => {
-        this.positionsService.getEditPosition(this.id).subscribe((position: any) => {
+        this.positionsService.getEditPosition(this.id()).subscribe((position: any) => {
             this.initFormGroup();
             this.form.patchValue(position);
         });

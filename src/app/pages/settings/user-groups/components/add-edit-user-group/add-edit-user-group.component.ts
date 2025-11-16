@@ -47,7 +47,7 @@ export class AddEditUserGroupComponent extends BaseEditComponent implements OnIn
     }
 
     getEditUserGroup = () => {
-        this.userGroupsService.getEditUserGroup(this.id).subscribe((branch: any) => {
+        this.userGroupsService.getEditUserGroup(this.id()).subscribe((branch: any) => {
             this.initFormGroup();
             this.form.patchValue(branch);
         });

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
@@ -8,6 +8,7 @@ import { BaseListComponent } from '../../../../base/components/base-list-compone
 import { takeUntil } from 'rxjs';
 import { UserUserGroupService } from '../../../../shared/services/pages/user-user-group/user-user-group.service';
 import { AddEditUserGroupUserRoleComponent } from '../../components/user-group-user-role/add-edit-user-group-user-role.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-user-groups-user-roles',
@@ -17,7 +18,7 @@ import { AddEditUserGroupUserRoleComponent } from '../../components/user-group-u
 })
 export class UserGroupUserRoleComponent extends BaseListComponent {
     isEnglish = false;
-    tableOptions!: TableOptions;
+    tableOptions!: WritableSignal<TableOptions>;
     service = inject(UserUserGroupService);
 
     constructor(activatedRoute: ActivatedRoute) {
@@ -25,14 +26,14 @@ export class UserGroupUserRoleComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
-            this.language = lang;
+        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+            this.language.set(lang);
             this.initializeTableOptions();
         });
     }
 
     initializeTableOptions() {
-        this.tableOptions = {
+        this.tableOptions = signal({
             inputUrl: {
                 getAll: 'v1/usergroupuserrole/getpaged',
                 getAllMethod: 'POST',
@@ -49,7 +50,7 @@ export class UserGroupUserRoleComponent extends BaseListComponent {
                 filter: {}
             },
             responsiveDisplayedProperties: ['userGroup', 'userRole']
-        };
+        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
@@ -102,13 +103,5 @@ export class UserGroupUserRoleComponent extends BaseListComponent {
             pageType: 'edit',
             row: { rowData }
         });
-    }
-
-    /* when leaving the component */
-    override ngOnDestroy() {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

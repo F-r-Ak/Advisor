@@ -33,10 +33,11 @@
                             }
                         ],
                         "styles": [
+                            "node_modules/primeicons/primeicons.css",
                             "node_modules/ngx-toastr/toastr.css",
                             "node_modules/ngx-spinner/animations/square-jelly-box.css",
                             "src/assets/scss/style.scss",
-                            "src/styles.scss"
+                            "src/styles.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [

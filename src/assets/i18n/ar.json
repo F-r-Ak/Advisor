@@ -70,7 +70,8 @@
     },
     "EMPTY": {
         "NO_ITEMS": "لا يوجد خيارات",
-        "NO_DEFAULT_VALUES": "لا يوجد قيم افتراضية حتي الان"
+        "NO_DEFAULT_VALUES": "لا يوجد قيم افتراضية حتي الان",
+		"NO_DATA_TO_DISPLAY_TABLE": "لا يوجد بيانات لعرض"
     },
     "VALIDATION": {
         "REQUIRED": "حقل مطلوب",

@@ -110,7 +110,7 @@ export class AddEditShiftComponent extends BaseEditComponent implements OnInit {
     }
 
     getEditShift = () => {
-        this.shiftsService.getEditshift(this.id).subscribe((shift: any) => {
+        this.shiftsService.getEditshift(this.id()).subscribe((shift: any) => {
             this.initFormGroup();
             this.form.patchValue(shift);
             this.fetchUserDetails(shift);

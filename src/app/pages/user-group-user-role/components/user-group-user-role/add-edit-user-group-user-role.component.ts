@@ -106,7 +106,7 @@ export class AddEditUserGroupUserRoleComponent extends BaseEditComponent impleme
     }
 
     getEditUserGroupUserRole = () => {
-        this.userGroupUserRoleService.getEditUserGroupUserRole(this.id).subscribe((userGroupUserRole: any) => {
+        this.userGroupUserRoleService.getEditUserGroupUserRole(this.id()).subscribe((userGroupUserRole: any) => {
             this.initFormGroup();
             this.form.patchValue(userGroupUserRole);
             this.fetchUserGroupDetails(userGroupUserRole);

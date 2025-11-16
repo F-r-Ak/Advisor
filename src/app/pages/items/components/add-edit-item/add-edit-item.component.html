@@ -1,101 +1,129 @@
 <div class="page-wrapper">
-    <div class="mb-3">
-        <h1 class="m-0 font-24 regular text-primary">{{ pageTitle }}</h1>
-    </div>
-    <p-stepper [value]="1">
-        <p-step-item [value]="1">
-            <p-step>{{ 'المرحلة الاولي' }}</p-step>
-            <p-step-panel>
-                <ng-template #content let-activateCallback="activateCallback">
-                    <p-card class="px-4 pt-2 pb-4 m-0">
-                        @if (itemForm) {
-                            <form method="post" class="row" [formGroup]="itemForm" (ngSubmit)="onStep1Submit(activateCallback)">
-                                <div class="col-lg-3">
-                                    <app-prime-input-text [formGroup]="itemForm" controlName="code" [label]="'الكود'"> </app-prime-input-text>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="mb-2">{{ 'المصنع' }}</label>
-                                    <app-prime-autocomplete
-                                        [field]="'nameAr'"
-                                        [selectedOption]="selectedItemVendor"
-                                        [suggestions]="filteredItemVendors"
-                                        [formGroup]="itemForm"
-                                        (onSelect)="onItemVendorSelect($event)"
-                                        [lazy]="false"
-                                        (handleMethod)="getItemVendors($event)"
-                                    ></app-prime-autocomplete>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="mb-2">{{ 'التصنيف' }}</label>
-                                    <app-prime-autocomplete
-                                        [field]="'nameAr'"
-                                        [selectedOption]="selectedItemCategory"
-                                        [suggestions]="filteredItemCategorys"
-                                        [formGroup]="itemForm"
-                                        (onSelect)="onItemCategorySelect($event)"
-                                        [lazy]="false"
-                                        (handleMethod)="getItemCategorys($event)"
-                                    ></app-prime-autocomplete>
-                                </div>
+  <div class="mb-3">
+    <h1 class="m-0 font-24 regular text-primary">{{ pageTitle }}</h1>
+  </div>
+  <p-stepper [value]="1">
+    <p-step-item [value]="1">
+      <p-step>{{ 'المرحلة الاولي' }}</p-step>
+      <p-step-panel>
+        <ng-template #content let-activateCallback="activateCallback">
+          <p-card class="px-4 pt-2 pb-4 m-0">
+            @if (itemForm) {
+              <form method="post" class="row" [formGroup]="itemForm" (ngSubmit)="onStep1Submit(activateCallback)">
+                <div class="col-lg-3">
+                  <app-prime-input-text [formGroup]="itemForm" controlName="code" [label]="'الكود'"> </app-prime-input-text>
+                </div>
+                <div class="col-lg-3">
+                  <label class="mb-2">{{ 'المصنع' }}</label>
+                  <app-prime-autocomplete
+                    [field]="'nameAr'"
+                    [selectedOption]="selectedItemVendor"
+                    [suggestions]="filteredItemVendors"
+                    [formGroup]="itemForm"
+                    (onSelect)="onItemVendorSelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getItemVendors($event)"></app-prime-autocomplete>
+                </div>
+                <div class="col-lg-3">
+                  <label class="mb-2">{{ 'التصنيف' }}</label>
+                  <app-prime-autocomplete
+                    [field]="'nameAr'"
+                    [selectedOption]="selectedItemCategory"
+                    [suggestions]="filteredItemCategorys"
+                    [formGroup]="itemForm"
+                    (onSelect)="onItemCategorySelect($event)"
+                    [lazy]="false"
+                    (handleMethod)="getItemCategorys($event)"></app-prime-autocomplete>
+                </div>
 
-                                <div class="col-lg-3">
-                                    <app-prime-input-text [formGroup]="itemForm" controlName="maxSellDiscount" contentType="number" [label]="'اقوي نسبة خصم'"> </app-prime-input-text>
-                                </div>
+                <div class="col-lg-3">
+                  <app-prime-input-text [formGroup]="itemForm" controlName="maxSellDiscount" contentType="number" [label]="'اقوي نسبة خصم'">
+                  </app-prime-input-text>
+                </div>
 
-                                <div class="col-lg-3">
-                                    <app-prime-input-text [formGroup]="itemForm" controlName="nameAr" validatorLanguageType="ar" [label]="'الاسم عربي'"> </app-prime-input-text>
-                                </div>
+                <div class="col-lg-3">
+                  <app-prime-input-text [formGroup]="itemForm" controlName="nameAr" validatorLanguageType="ar" [label]="'الاسم عربي'">
+                  </app-prime-input-text>
+                </div>
 
-                                <div class="col-lg-3">
-                                    <app-prime-input-text [formGroup]="itemForm" controlName="nameEn" validatorLanguageType="en" [label]="'الاسم انجليزي'"> </app-prime-input-text>
-                                </div>
-                                <div class="col-lg-3">
-                                    <app-prime-input-text [formGroup]="itemForm" contentType="number" controlName="displayOrder" [label]="'ترتيب العرض'"> </app-prime-input-text>
-                                </div>
-                                <div class="col-lg-3">
-                                    <app-prime-input-text [formGroup]="itemForm" contentType="number" controlName="orderLimit" [label]="'حد الطلب'"> </app-prime-input-text>
-                                </div>
-                                <div class="col-lg-3">
-                                    <app-prime-input-text [formGroup]="itemForm" contentType="number" controlName="expireDays" [label]="'عدد ايام الصلاحية'"> </app-prime-input-text>
-                                </div>
-                                <div class="col-lg-3">
-                                    <app-prime-input-text [formGroup]="itemForm" contentType="number" controlName="idleLimit" [label]="'حد الركود الشهري'"> </app-prime-input-text>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label class="mt-2 text-primary">{{ 'العرض في قائمة البيع' }}</label>
-                                    <div class="field col d-flex justify-content-evenly" style="flex-grow: 8">
-                                        @for (type of sellsList; track $index) {
-                                            <app-prime-radio-button [formGroup]="itemForm" controlName="sellsList" name="typeGroup" class="check" [value]="type.nameEn" [label]="language == 'ar' ? type.nameAr : type.nameEn"></app-prime-radio-button>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <app-prime-check-box [formGroup]="itemForm" controlName="checkRest" [binary]="true" [label]="'مراجعة الرصيد'"></app-prime-check-box>
-                                </div>
-                                <div class="col-lg-4">
-                                    <app-prime-check-box [formGroup]="itemForm" controlName="stopSell" [binary]="true" [label]="'ايقاف البيع'"></app-prime-check-box>
-                                </div>
-                                <div class="col-lg-4">
-                                    <app-prime-check-box [formGroup]="itemForm" controlName="isActive" [binary]="true" [label]="'ايقاف الصنف'"></app-prime-check-box>
-                                </div>
-                                
-                                <!-- Hidden button to submit form on enter -->
-                                <button type="submit" style="display: none;">Submit</button>
-                            </form>
-                        }
-                    </p-card>
-                    <div class="py-6">
-                        <p-button [label]="'التالي'" type="submit" (onClick)="itemForm.valid && activateCallback(2)" />
-                    </div>
-                </ng-template>
-            </p-step-panel>
-        </p-step-item>
+                <div class="col-lg-3">
+                  <app-prime-input-text [formGroup]="itemForm" controlName="nameEn" validatorLanguageType="en" [label]="'الاسم انجليزي'">
+                  </app-prime-input-text>
+                </div>
+                <div class="col-lg-3">
+                  <app-prime-input-text [formGroup]="itemForm" contentType="number" controlName="displayOrder" [label]="'ترتيب العرض'">
+                  </app-prime-input-text>
+                </div>
+                <div class="col-lg-3">
+                  <app-prime-input-text [formGroup]="itemForm" contentType="number" controlName="orderLimit" [label]="'حد الطلب'">
+                  </app-prime-input-text>
+                </div>
+                <div class="col-lg-3">
+                  <app-prime-input-text [formGroup]="itemForm" contentType="number" controlName="expireDays" [label]="'عدد ايام الصلاحية'">
+                  </app-prime-input-text>
+                </div>
+                <div class="col-lg-3">
+                  <app-prime-input-text [formGroup]="itemForm" contentType="number" controlName="idleLimit" [label]="'حد الركود الشهري'">
+                  </app-prime-input-text>
+                </div>
+                <div class="col-lg-6">
+                  <label class="mt-2 text-primary">{{ 'العرض في قائمة البيع' }}</label>
+                  <div class="field col d-flex justify-content-evenly" style="flex-grow: 8">
+                    @for (type of sellsList; track $index) {
+                      <app-prime-radio-button
+                        [formGroup]="itemForm"
+                        controlName="sellsList"
+                        name="typeGroup"
+                        class="check"
+                        [value]="type.nameEn"
+                        [label]="language() == 'ar' ? type.nameAr : type.nameEn"></app-prime-radio-button>
+                    }
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <app-prime-check-box
+                    [formGroup]="itemForm"
+                    controlName="checkRest"
+                    [binary]="true"
+                    [label]="'مراجعة الرصيد'"></app-prime-check-box>
+                </div>
+                <div class="col-lg-4">
+                  <app-prime-check-box
+                    [formGroup]="itemForm"
+                    controlName="stopSell"
+                    [binary]="true"
+                    [label]="'ايقاف البيع'"></app-prime-check-box>
+                </div>
+                <div class="col-lg-4">
+                  <app-prime-check-box
+                    [formGroup]="itemForm"
+                    controlName="isActive"
+                    [binary]="true"
+                    [label]="'ايقاف الصنف'"></app-prime-check-box>
+                </div>
 
-        <!-- Other steps remain similar but should also use itemForm -->
-        <!-- I've omitted them for brevity but they should follow the same pattern -->
-    </p-stepper>
-    
-    @if (itemForm) {
-        <app-submit-buttons [isSubmitDisabled]="itemForm.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="redirect()"> </app-submit-buttons>
-    }
+                <!-- Hidden button to submit form on enter -->
+                <button type="submit" style="display: none">Submit</button>
+              </form>
+            }
+          </p-card>
+          <div class="py-6">
+            <p-button [label]="'التالي'" type="submit" (onClick)="itemForm.valid && activateCallback(2)" />
+          </div>
+        </ng-template>
+      </p-step-panel>
+    </p-step-item>
+
+    <!-- Other steps remain similar but should also use itemForm -->
+    <!-- I've omitted them for brevity but they should follow the same pattern -->
+  </p-stepper>
+
+  @if (itemForm) {
+    <app-submit-buttons
+      [isSubmitDisabled]="itemForm.invalid"
+      [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'"
+      (submit)="submit()"
+      (cancel)="redirect()">
+    </app-submit-buttons>
+  }
 </div>

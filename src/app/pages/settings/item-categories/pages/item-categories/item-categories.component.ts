@@ -1,11 +1,11 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { ItemCategoriesService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
 import { TableOptions } from '../../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AddEditItemCategoriesComponent } from '../../components/add-edit-item-categories/add-edit-item-categories.component';
 
 @Component({
@@ -18,7 +18,7 @@ import { AddEditItemCategoriesComponent } from '../../components/add-edit-item-c
 export class ItemCategoriesComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
-    tableOptions!: TableOptions;
+    tableOptions!: WritableSignal<TableOptions>;
     service = inject(ItemCategoriesService);
 
     constructor(activatedRoute: ActivatedRoute) {
@@ -26,14 +26,14 @@ export class ItemCategoriesComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
-            this.language = lang;
+        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+            this.language.set(lang);
             this.initializeTableOptions();
         });
     }
 
     initializeTableOptions() {
-        this.tableOptions = {
+        this.tableOptions = signal({
             inputUrl: {
                 getAll: 'v1/itemcategory/getPaged',
                 getAllMethod: 'POST',
@@ -50,7 +50,7 @@ export class ItemCategoriesComponent extends BaseListComponent {
                 filter: {}
             },
             responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
-        };
+        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
@@ -62,7 +62,7 @@ export class ItemCategoriesComponent extends BaseListComponent {
                 filterMode: 'text'
             },
             {
-                field: this.language === 'ar' ? 'nameAr' : 'nameEn',
+                field: this.language() === 'ar' ? 'nameAr' : 'nameEn',
                 header: 'مسمي تصنيف العنصر',
                 filter: true,
                 filterMode: 'text'
@@ -103,13 +103,5 @@ export class ItemCategoriesComponent extends BaseListComponent {
             pageType: 'edit',
             row: { rowData }
         });
-    }
-
-    /* when leaving the component */
-    override ngOnDestroy() {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

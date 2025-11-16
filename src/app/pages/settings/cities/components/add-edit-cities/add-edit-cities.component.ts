@@ -78,7 +78,7 @@ export class AddEditCitiesComponent extends BaseEditComponent implements OnInit 
     }
 
     getEditCity = () => {
-        this.citiesService.getEditCity(this.id).subscribe((city: any) => {
+        this.citiesService.getEditCity(this.id()).subscribe((city: any) => {
             this.initFormGroup();
             this.form.patchValue(city);
             this.fetchCountryDetails(city);

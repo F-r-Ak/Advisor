@@ -107,7 +107,7 @@ export class AddEditUserBranchComponent extends BaseEditComponent implements OnI
     }
 
     getEditUserBranch = () => {
-        this.userBranchService.getEditUserBranch(this.id).subscribe((userBranch: any) => {
+        this.userBranchService.getEditUserBranch(this.id()).subscribe((userBranch: any) => {
             this.initFormGroup();
             this.form.patchValue(userBranch);
             this.fetchUserDetails(userBranch);

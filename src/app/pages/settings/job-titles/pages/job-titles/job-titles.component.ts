@@ -1,11 +1,11 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../../shared';
 import { TableOptions } from '../../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { JobTitlesService } from '../../../../../shared/services/settings/job-titles/job-titles.service';
 import { AddEditJobTitlesComponent } from '../../components/add-edit-job-titles/add-edit-job-titles.component';
 
@@ -18,7 +18,7 @@ import { AddEditJobTitlesComponent } from '../../components/add-edit-job-titles/
 export class JobTitlesComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
-    tableOptions!: TableOptions;
+    tableOptions!: WritableSignal<TableOptions>;
     service = inject(JobTitlesService);
 
     constructor(activatedRoute: ActivatedRoute) {
@@ -26,15 +26,15 @@ export class JobTitlesComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
-            this.language = lang;
+        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+            this.language.set(lang);
             this.initializeTableOptions();
         });
         super.ngOnInit();
     }
 
     initializeTableOptions() {
-        this.tableOptions = {
+        this.tableOptions = signal({
             inputUrl: {
                 getAll: 'v1/jobtitles/getpaged',
                 getAllMethod: 'POST',
@@ -51,13 +51,13 @@ export class JobTitlesComponent extends BaseListComponent {
                 filter: {}
             },
             responsiveDisplayedProperties: ['name', 'description']
-        };
+        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
         return [
             {
-                field: this.language === 'ar' ? 'name' : 'nameEn',
+                field: this.language() === 'ar' ? 'name' : 'nameEn',
                 header: 'المسمى الوظيفة',
                 filter: true,
                 filterMode: 'text'
@@ -106,8 +106,4 @@ export class JobTitlesComponent extends BaseListComponent {
         });
     }
 
-    override ngOnDestroy() {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
-    }
 }

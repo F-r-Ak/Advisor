@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BaseListComponent } from '../../../../base/components/base-list-component';
 import { CardModule } from 'primeng/card';
@@ -16,7 +16,7 @@ import { AddEditItemItemUnitComponent } from '../add-edit-item-item-unit/add-edi
 export class ItemItemUnitsComponent extends BaseListComponent {
   @Input() itemId: string = '';
   isEnglish = false;
-  tableOptions!: TableOptions;
+  tableOptions!: WritableSignal<TableOptions>;
   service = inject(ItemItemUnitsService);
 
   constructor(activatedRoute: ActivatedRoute) {
@@ -29,7 +29,7 @@ export class ItemItemUnitsComponent extends BaseListComponent {
   }
 
   initializeTableOptions() {
-    this.tableOptions = {
+    this.tableOptions = signal({
       inputUrl: {
         getAll: 'marinaorganization/getpaged',
         getAllMethod: 'POST',
@@ -48,7 +48,7 @@ export class ItemItemUnitsComponent extends BaseListComponent {
         }
       },
       responsiveDisplayedProperties: ['identity', 'idType', 'name', 'nationalityNameAr', 'job', 'mobile', 'email']
-    };
+    });
   }
 
   initializeTableColumns(): TableOptions['inputCols'] {
@@ -121,13 +121,5 @@ export class ItemItemUnitsComponent extends BaseListComponent {
       pageType: 'edit',
       row: { rowData }
     });
-  }
-
-  /* when leaving the component */
-  override ngOnDestroy() {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

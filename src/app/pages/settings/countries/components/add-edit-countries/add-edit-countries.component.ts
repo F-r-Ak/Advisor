@@ -47,7 +47,7 @@ export class AddEditCountriesComponent extends BaseEditComponent implements OnIn
     }
 
     getEditCountry = () => {
-        this.countriesService.getEditCountry(this.id).subscribe((country: any) => {
+        this.countriesService.getEditCountry(this.id()).subscribe((country: any) => {
             this.initFormGroup();
             this.form.patchValue(country);
         });

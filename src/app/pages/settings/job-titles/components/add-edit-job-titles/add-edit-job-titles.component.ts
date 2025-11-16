@@ -46,7 +46,7 @@ export class AddEditJobTitlesComponent extends BaseEditComponent implements OnIn
     }
 
     getEditJobTitles = () => {
-        this.jobTitlesService.getEditJobTitle(this.id).subscribe((jobTitle: any) => {
+        this.jobTitlesService.getEditJobTitle(this.id()).subscribe((jobTitle: any) => {
             this.initFormGroup();
             this.form.patchValue(jobTitle);
         });

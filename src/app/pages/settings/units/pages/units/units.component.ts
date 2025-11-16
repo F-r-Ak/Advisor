@@ -1,10 +1,10 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
 import { PrimeDataTableComponent, PrimeTitleToolBarComponent, UnitsService } from '../../../../../shared';
 import { CardModule } from 'primeng/card';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableOptions } from '../../../../../shared/interfaces';
 import { AddEditUnitComponent } from '../../components/add-edit-unit/add-edit-unit.component';
 
@@ -17,7 +17,7 @@ import { AddEditUnitComponent } from '../../components/add-edit-unit/add-edit-un
 export class UnitsComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
-    tableOptions!: TableOptions;
+    tableOptions!: WritableSignal<TableOptions>;
     service = inject(UnitsService);
 
     constructor(activatedRoute: ActivatedRoute) {
@@ -25,15 +25,15 @@ export class UnitsComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
-            this.language = lang;
+        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+            this.language.set(lang);
             this.initializeTableOptions();
         });
         super.ngOnInit();
     }
 
     initializeTableOptions() {
-        this.tableOptions = {
+        this.tableOptions = signal({
             inputUrl: {
                 getAll: 'v1/itemunit/getpaged',
                 getAllMethod: 'POST',
@@ -50,7 +50,7 @@ export class UnitsComponent extends BaseListComponent {
                 filter: {}
             },
             responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
-        };
+        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
@@ -62,13 +62,13 @@ export class UnitsComponent extends BaseListComponent {
                 filterMode: 'text'
             },
             {
-                field: this.language === 'ar' ? 'nameAr' : 'nameEn',
+                field: this.language() === 'ar' ? 'nameAr' : 'nameEn',
                 header: 'مسمي الوحدة بالعربى',
                 filter: true,
                 filterMode: 'text'
             },
             {
-                field: this.language === 'en' ? 'nameEn' : 'nameAr',
+                field: this.language() === 'en' ? 'nameEn' : 'nameAr',
                 header: 'مسمي الوحدة بالانجليزى',
                 filter: true,
                 filterMode: 'text'
@@ -109,10 +109,5 @@ export class UnitsComponent extends BaseListComponent {
             pageType: 'edit',
             row: { rowData }
         });
-    }
-
-    override ngOnDestroy() {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

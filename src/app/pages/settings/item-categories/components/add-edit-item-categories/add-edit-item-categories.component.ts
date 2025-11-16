@@ -152,7 +152,7 @@ export class AddEditItemCategoriesComponent extends BaseEditComponent implements
     }
 
     getEditItemCategory = () => {
-        this.itemCategoriesService.getEditItemCategory(this.id).subscribe((Icategory: UpdateItemCategoryDto) => {
+        this.itemCategoriesService.getEditItemCategory(this.id()).subscribe((Icategory: UpdateItemCategoryDto) => {
             this.initFormGroup();
             this.form.patchValue(Icategory);
             this.fetchCategoryTypeDetails(Icategory);

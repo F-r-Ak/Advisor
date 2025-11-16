@@ -1,11 +1,11 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { OrgStructureJobTitlesService, PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../shared';
 import { TableOptions } from '../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../base/components/base-list-component';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AddEditOrgStructureJobTitleComponent } from '../../components/add-edit-org-structure-job-title/add-edit-org-structure-job-title.component';
 
 @Component({
@@ -18,7 +18,7 @@ import { AddEditOrgStructureJobTitleComponent } from '../../components/add-edit-
 export class OrgStructureJobTitlesComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
-    tableOptions!: TableOptions;
+    tableOptions!: WritableSignal<TableOptions>;
     service = inject(OrgStructureJobTitlesService);
 
     constructor(activatedRoute: ActivatedRoute) {
@@ -26,14 +26,14 @@ export class OrgStructureJobTitlesComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
-            this.language = lang;
+        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+            this.language.set(lang);
             this.initializeTableOptions();
         });
     }
 
     initializeTableOptions() {
-        this.tableOptions = {
+        this.tableOptions = signal({
             inputUrl: {
                 getAll: 'v1/orgstructurejobtitles/getPaged',
                 getAllMethod: 'POST',
@@ -50,7 +50,7 @@ export class OrgStructureJobTitlesComponent extends BaseListComponent {
                 filter: {}
             },
             responsiveDisplayedProperties: ['orgStructureName', 'jobTitleName']
-        };
+        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
@@ -103,13 +103,5 @@ export class OrgStructureJobTitlesComponent extends BaseListComponent {
             pageType: 'edit',
             row: { rowData }
         });
-    }
-
-    /* when leaving the component */
-    override ngOnDestroy() {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

@@ -47,7 +47,7 @@ export class AddEditUserRoleComponent extends BaseEditComponent implements OnIni
     }
 
     getEditUserRole = () => {
-        this._userRoleService.getEditUserRole(this.id).subscribe((itempPricing: any) => {
+        this._userRoleService.getEditUserRole(this.id()).subscribe((itempPricing: any) => {
             this.initFormGroup();
             this.form.patchValue(itempPricing);
         });

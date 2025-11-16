@@ -78,7 +78,7 @@ export class AddEditOrgStructuresComponent extends BaseEditComponent implements 
     }
 
     getEditBranchs = () => {
-        this.orgStructuresService.getEditOrgStructure(this.id).subscribe((orgStructure: any) => {
+        this.orgStructuresService.getEditOrgStructure(this.id()).subscribe((orgStructure: any) => {
             this.initFormGroup();
             this.form.patchValue(orgStructure);
             this.fetchOrgStructureDetails(orgStructure);

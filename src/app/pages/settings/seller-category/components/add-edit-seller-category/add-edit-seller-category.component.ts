@@ -47,7 +47,7 @@ export class AddEditSellerCategoryComponent extends BaseEditComponent implements
     }
 
     getEditSellerCategory = () => {
-        this._sellerCategoryService.getEditSellerCategory(this.id).subscribe((itempPricing: any) => {
+        this._sellerCategoryService.getEditSellerCategory(this.id()).subscribe((itempPricing: any) => {
             this.initFormGroup();
             this.form.patchValue(itempPricing);
         });

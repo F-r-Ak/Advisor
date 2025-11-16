@@ -108,7 +108,7 @@ export class AddEditUserUserGroupComponent extends BaseEditComponent implements 
     }
 
     getEditUserUserGroup = () => {
-        this.userUserGroupService.getEditUserUsergroup(this.id).subscribe((userUserGroup: any) => {
+        this.userUserGroupService.getEditUserUsergroup(this.id()).subscribe((userUserGroup: any) => {
             this.initFormGroup();
             this.form.patchValue(userUserGroup);
             this.fetchUserGroupsDetails(userUserGroup);

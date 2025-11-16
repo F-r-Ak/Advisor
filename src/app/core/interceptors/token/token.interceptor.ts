@@ -6,8 +6,8 @@ import { StorageKeys } from '../../enums/storage-keys';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const storageService = inject(StorageService);
-  const token = storageService.getItemFromSessionStorage(StorageKeys.AccessToken);
-  const language = storageService.getItemFromLocalStorage(StorageKeys.CurrentLanguage);
+  const token = storageService.getSession(StorageKeys.AccessToken);
+  const language = storageService.getLocal(StorageKeys.CurrentLanguage);
 
   req = req.clone({
     setHeaders: {

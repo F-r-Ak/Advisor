@@ -47,7 +47,7 @@ export class AddEditTreasuryComponent extends BaseEditComponent implements OnIni
     }
 
     getEditTreasury = () => {
-        this._treasuryService.getEditTreasury(this.id).subscribe((itempPricing: any) => {
+        this._treasuryService.getEditTreasury(this.id()).subscribe((itempPricing: any) => {
             this.initFormGroup();
             this.form.patchValue(itempPricing);
         });

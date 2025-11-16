@@ -1,11 +1,11 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { PrimeDataTableComponent, PrimeTitleToolBarComponent } from '../../../../shared';
 import { TableOptions } from '../../../../shared/interfaces';
 import { BaseListComponent } from '../../../../base/components/base-list-component';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AddEditUserBranchComponent } from '../../components/add-edit-user-branch/add-edit-user-branch.component';
 import { UserBranchService } from '../../../../shared/services/pages/user-branch/user-branch.service';
 
@@ -17,7 +17,7 @@ import { UserBranchService } from '../../../../shared/services/pages/user-branch
 })
 export class UserBranchComponent extends BaseListComponent {
     isEnglish = false;
-    tableOptions!: TableOptions;
+    tableOptions!: WritableSignal<TableOptions>;
     service = inject(UserBranchService);
 
     constructor(activatedRoute: ActivatedRoute) {
@@ -25,14 +25,14 @@ export class UserBranchComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
-            this.language = lang;
+        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+            this.language.set(lang);
             this.initializeTableOptions();
         });
     }
 
     initializeTableOptions() {
-        this.tableOptions = {
+        this.tableOptions = signal({
             inputUrl: {
                 getAll: 'v1/userbranch/getPaged',
                 getAllMethod: 'POST',
@@ -49,7 +49,7 @@ export class UserBranchComponent extends BaseListComponent {
                 filter: {}
             },
             responsiveDisplayedProperties: ['usernameAr', 'branchNameAr']
-        };
+        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
@@ -103,13 +103,5 @@ export class UserBranchComponent extends BaseListComponent {
             row: { rowData }
         });
         console.log('rowData Before Edit User Branch Component : ', rowData);
-    }
-
-    /* when leaving the component */
-    override ngOnDestroy() {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

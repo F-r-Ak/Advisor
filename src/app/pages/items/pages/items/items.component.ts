@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BaseListComponent } from '../../../../base/components/base-list-component';
@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrl: './items.component.scss'
 })
 export class ItemsComponent extends BaseListComponent {
-    tableOptions!: TableOptions;
+    tableOptions!: WritableSignal<TableOptions>;
     service = inject(ItemsService);
     formBuilder: FormBuilder = inject(FormBuilder);
     constructor(activatedRoute: ActivatedRoute) {
@@ -27,7 +27,7 @@ export class ItemsComponent extends BaseListComponent {
     }
 
     initializeTableOptions() {
-        this.tableOptions = {
+        this.tableOptions = signal({
             inputUrl: {
                 getAll: 'v1/item/getpaged',
                 getAllMethod: 'POST',
@@ -44,7 +44,7 @@ export class ItemsComponent extends BaseListComponent {
                 filter: {}
             },
             responsiveDisplayedProperties: ['code', 'itemVendorNameAr','itemVendorNameEn','itemCategoryNameAr','itemCategoryNameEn','checkRest','stopSell','expireDays','orderLimit','idleLimit','maxSellDiscount','sellsList','isActive'],
-        };
+        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
@@ -137,12 +137,5 @@ export class ItemsComponent extends BaseListComponent {
                 isDelete: true
             }
         ];
-    }
-    /* when leaving the component */
-    override ngOnDestroy() {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

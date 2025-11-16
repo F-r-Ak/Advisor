@@ -12,3 +12,6 @@ node_modules
 *.yml
 /tsconfig.json
 *.json
+
+/dist
+/coverage

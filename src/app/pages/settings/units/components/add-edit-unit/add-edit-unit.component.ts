@@ -47,7 +47,7 @@ export class AddEditUnitComponent extends BaseEditComponent implements OnInit {
     }
 
     getEditUnit = () => {
-        this.unitsService.getEditUnit(this.id).subscribe((unit: any) => {
+        this.unitsService.getEditUnit(this.id()).subscribe((unit: any) => {
             this.initFormGroup();
             this.form.patchValue(unit);
         });

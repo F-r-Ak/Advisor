@@ -103,7 +103,7 @@ export class AddEditOrgStructureJobTitleComponent extends BaseEditComponent impl
     }
 
     getEditOrgStructureJobTiltle = () => {
-        this.orgStructureJobTitlesService.getEditOrgStructureJobTitle(this.id).subscribe((orgStructureJobTitle: any) => {
+        this.orgStructureJobTitlesService.getEditOrgStructureJobTitle(this.id()).subscribe((orgStructureJobTitle: any) => {
             this.initFormGroup();
             this.form.patchValue(orgStructureJobTitle);
             this.fetchOrgStructureDetails(orgStructureJobTitle);

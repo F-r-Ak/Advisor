@@ -1,10 +1,10 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseListComponent } from '../../../../../base/components/base-list-component';
 import { PrimeDataTableComponent, PrimeTitleToolBarComponent, PositionsService } from '../../../../../shared';
 import { CardModule } from 'primeng/card';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableOptions } from '../../../../../shared/interfaces';
 import { AddEditPositionComponent } from '../../components/add-edit-position/add-edit-position.component';
 
@@ -18,7 +18,7 @@ import { AddEditPositionComponent } from '../../components/add-edit-position/add
 export class PositionsComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
-    tableOptions!: TableOptions;
+    tableOptions!: WritableSignal<TableOptions>;
     service = inject(PositionsService);
 
     constructor(activatedRoute: ActivatedRoute) {
@@ -26,15 +26,15 @@ export class PositionsComponent extends BaseListComponent {
     }
 
     override ngOnInit(): void {
-        this.localize.currentLanguage$.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
-            this.language = lang;
+        this.localize.currentLanguage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((lang) => {
+            this.language.set(lang);
             this.initializeTableOptions();
         });
         super.ngOnInit();
     }
 
     initializeTableOptions() {
-        this.tableOptions = {
+        this.tableOptions = signal({
             inputUrl: {
                 getAll: 'v1/position/getPaged',
                 getAllMethod: 'POST',
@@ -51,7 +51,7 @@ export class PositionsComponent extends BaseListComponent {
                 filter: {}
             },
             responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
-        };
+        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
@@ -63,7 +63,7 @@ export class PositionsComponent extends BaseListComponent {
                 filterMode: 'text'
             },
             {
-                field: this.language === 'ar' ? 'nameAr' : 'nameEn',
+                field: this.language() === 'ar' ? 'nameAr' : 'nameEn',
                 header: 'المسمى الوظيفي',
                 filter: true,
                 filterMode: 'text'
@@ -104,13 +104,5 @@ export class PositionsComponent extends BaseListComponent {
             pageType: 'edit',
             row: { rowData }
         });
-    }
-
-    /* when leaving the component */
-    override ngOnDestroy() {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

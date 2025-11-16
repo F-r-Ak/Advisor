@@ -204,7 +204,7 @@ export class AddEditSellersComponent extends BaseEditComponent implements OnInit
     }
 
     getEditSeller = () => {
-        this.sellersService.getEditseller(this.id).subscribe((seller: any) => {
+        this.sellersService.getEditseller(this.id()).subscribe((seller: any) => {
             this.initFormGroup();
             this.form.patchValue(seller);
             this.fetchSellerCategoryDetails(seller);

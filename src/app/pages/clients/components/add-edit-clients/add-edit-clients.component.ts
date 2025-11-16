@@ -171,7 +171,7 @@ export class AddEditClientsComponent extends BaseEditComponent implements OnInit
     }
 
     getEditClients = () => {
-        this.clientsService.getEditclient(this.id).subscribe((client: any) => {
+        this.clientsService.getEditclient(this.id()).subscribe((client: any) => {
             this.initFormGroup();
             this.form.patchValue(client);
         });

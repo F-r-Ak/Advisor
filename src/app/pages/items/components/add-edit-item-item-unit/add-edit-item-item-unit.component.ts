@@ -76,8 +76,8 @@ export class AddEditItemItemUnitComponent extends BaseEditComponent implements O
         this.form.get('organizationId')?.setValue(this.selectedOrganization?.id);
     }
 
-    getEditMarinaOrganization = () => {
-        this.itemItemUnitsService.getEditItemItemUnit(this.id).subscribe((MarinaOrganization: any) => {
+  getEditMarinaOrganization = () => {
+    this.itemItemUnitsService.getEditItemItemUnit(this.id()).subscribe((MarinaOrganization: any) => {
             this.initFormGroup();
             this.form.patchValue(MarinaOrganization);
             //  this.fetchOrganizationDetails(MarinaOrganization); // this.fetchOrganizationDetails(MarinaOrganization.organizationId);

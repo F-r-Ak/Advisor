@@ -108,7 +108,7 @@ export class AddEditDepartmentComponent extends BaseEditComponent implements OnI
     }
 
     getEditDepartment = () => {
-        this.departmentsService.getEditDepartment(this.id).subscribe((department: any) => {
+        this.departmentsService.getEditDepartment(this.id()).subscribe((department: any) => {
             this.initFormGroup();
             this.form.patchValue(department);
             this.fetchBranchDetails(department);
