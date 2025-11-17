@@ -50,7 +50,7 @@ export class ClientsComponent extends BaseListComponent {
     this.language.set(lang);
 
     // update table dynamically when language changes
-    this.tableOptions.update(options => ({
+    this.tableOptions.update((options) => ({
       ...options,
       inputCols: this.initializeTableColumns(),
       inputActions: this.initializeTableActions()
@@ -81,7 +81,7 @@ export class ClientsComponent extends BaseListComponent {
         icon: 'pi pi-file-edit',
         color: 'text-middle',
         isCallBack: true,
-        call: row => {
+        call: (row) => {
           this.openEdit(row);
         },
         allowAll: true

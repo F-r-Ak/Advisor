@@ -14,7 +14,7 @@ export class SubmitButtonsComponent {
   @Input() submitButtonText: string = 'ACTIONS.SUBMIT';
   @Output() submit = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
-  
+
   @Input() viewCancelBtn: Boolean = true;
 
   onSubmit() {

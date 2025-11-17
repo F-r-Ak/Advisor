@@ -1,36 +1,16 @@
-@if(formGroup) {
-<div
-  class="form-group d-flex flex-column mb-3"
-  [formGroup]="formGroup"
-  [ngClass]="{ 'mb-3': formGroup.get(controlName)?.errors && formGroup.get(controlName)?.touched }">
-  <label [attr.for]="controlName" class="text-middle font-14 font-bold mb-2">{{ label }}</label>
-  @if(inputType === 'textbox') {
-  <input
-    pInputText
-    [id]="controlName"
-    [formControlName]="controlName"
-    [type]="contentType"
-    min="0"
-    style="height: 20px"
-    (keydown)="formGroup.get(controlName)?.markAsTouched()"
-    [specificLanguage]="validatorLanguageType"
-    [readonly]="readonly" />
-  } @if(inputType === 'textarea') {
-  <textarea
-    pInputText
-    [id]="controlName"
-    [formControlName]="controlName"
-    [specificLanguage]="validatorLanguageType"
-    [readonly]="readonly"
-    [cols]="50"
-    [rows]="5"
-    (keydown)="formGroup.get(controlName)?.markAsTouched()">
-  </textarea>
-
-  } @if (formGroup.get(controlName)?.errors) {
-  <small>
-    <span class="font-10 text-danger">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
-  </small>
-  }
-</div>
+@if (formGroup) {
+  <div class="form-group d-flex flex-column mb-3" [formGroup]="formGroup" [ngClass]="{ 'mb-3': formGroup.get(controlName)?.errors && formGroup.get(controlName)?.touched }">
+    <label [attr.for]="controlName" class="text-middle font-14 font-bold mb-2">{{ label }}</label>
+    @if (inputType === 'textbox') {
+      <input pInputText [id]="controlName" [formControlName]="controlName" [type]="contentType" min="0" style="height: 20px" (keydown)="formGroup.get(controlName)?.markAsTouched()" [specificLanguage]="validatorLanguageType" [readonly]="readonly" />
+    }
+    @if (inputType === 'textarea') {
+      <textarea pInputText [id]="controlName" [formControlName]="controlName" [specificLanguage]="validatorLanguageType" [readonly]="readonly" [cols]="50" [rows]="5" (keydown)="formGroup.get(controlName)?.markAsTouched()"> </textarea>
+    }
+    @if (formGroup.get(controlName)?.errors) {
+      <small>
+        <span class="font-10 text-danger">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
+      </small>
+    }
+  </div>
 }

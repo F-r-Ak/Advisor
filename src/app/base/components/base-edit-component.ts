@@ -7,67 +7,67 @@ import { Languages } from '../../core/enums/languages';
 
 @Directive()
 export abstract class BaseEditComponent extends BaseComponent implements OnInit {
-    model = signal<any>({});
-    form!: FormGroup;
-    isEnglish = signal(false);
-    language = signal<Language>(Languages.AR);
-    id = signal<string>('');
-    role = signal<any>({});
-    fb = inject(FormBuilder);
-    allowEdit: WritableSignal<boolean> = signal(false);
+  model = signal<any>({});
+  form!: FormGroup;
+  isEnglish = signal(false);
+  language = signal<Language>(Languages.AR);
+  id = signal<string>('');
+  role = signal<any>({});
+  fb = inject(FormBuilder);
+  allowEdit: WritableSignal<boolean> = signal(false);
 
-    override router = inject(Router);
-    override destroyRef = inject(DestroyRef);
-    constructor(protected activateRoute: ActivatedRoute) {
-        super(activateRoute);
+  override router = inject(Router);
+  override destroyRef = inject(DestroyRef);
+  constructor(protected activateRoute: ActivatedRoute) {
+    super(activateRoute);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.getRouteParams();
+  }
+
+  /**
+   * تأثير بسيط لتحديث حالة اللغة الإنجليزية
+   * لما تتغير قيمة اللغة
+   */
+  change = effect(() => {
+    this.isEnglish.set(this.language() === Languages.EN);
+  });
+
+  /**
+   * تفعيل أو تعطيل حقل بناءً على زر التبديل
+   */
+  toggleEditBtn(formControl: string) {
+    const control = this.form.get(formControl);
+    if (this.allowEdit()) {
+      control?.enable({ emitEvent: false });
+    } else {
+      control?.disable({ emitEvent: false });
     }
+  }
 
-    override ngOnInit(): void {
-        super.ngOnInit();
-        this.getRouteParams();
+  protected getRouteParams() {
+    const routId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (routId) {
+      this.id.set(routId);
+      this.pageType = 'edit';
+    } else {
+      this.pageType = 'add';
     }
+  }
 
-    /**
-     * تأثير بسيط لتحديث حالة اللغة الإنجليزية
-     * لما تتغير قيمة اللغة
-     */
-    change = effect(() => {
-        this.isEnglish.set(this.language() === Languages.EN);
-    });
+  /** Protected Methods */
 
-    /**
-     * تفعيل أو تعطيل حقل بناءً على زر التبديل
-     */
-    toggleEditBtn(formControl: string) {
-        const control = this.form.get(formControl);
-        if (this.allowEdit()) {
-            control?.enable({ emitEvent: false });
-        } else {
-            control?.disable({ emitEvent: false });
-        }
-    }
+  protected getUserRole(): void {
+    //this.role = this.manager.GetRole();
+  }
 
-    protected getRouteParams() {
-        const routId = this.activatedRoute.snapshot.paramMap.get('id');
-        if (routId) {
-            this.id.set(routId);
-            this.pageType = 'edit';
-        } else {
-            this.pageType = 'add';
-        }
-    }
+  redirect(url?: string) {
+    this.router.navigate([url]);
+  }
 
-    /** Protected Methods */
-
-    protected getUserRole(): void {
-        //this.role = this.manager.GetRole();
-    }
-
-    redirect(url?: string) {
-        this.router.navigate([url]);
-    }
-
-    preventDefault(event: any) {
-        event.preventDefault();
-    }
+  preventDefault(event: any) {
+    event.preventDefault();
+  }
 }

@@ -65,9 +65,8 @@ export class SessionManager {
    */
   public GetPermission(id: string | Action): string {
     const permissionList = JSON.parse(sessionStorage.getItem('Permissions')) as any;
-    const permission = permissionList.permissions.find(x => x === id);
+    const permission = permissionList.permissions.find((x) => x === id);
     return permission;
-
   }
   /**
    * Get Page Permissions
@@ -76,7 +75,7 @@ export class SessionManager {
    */
   public GetPagePermission(page: string): string[] {
     const permissionList = JSON.parse(sessionStorage.getItem('Permissions')) as any;
-    const permissions = permissionList.permissions.filter(x => x.includes(page));
+    const permissions = permissionList.permissions.filter((x) => x.includes(page));
     return permissions;
   }
   /**
@@ -114,7 +113,7 @@ export class SessionManager {
    */
   private MapRoles(roles: any): void {
     const parsedRoles = JSON.parse(roles);
-    const appRoles = parsedRoles.filter(x => x.AppCode === 'TRANSPORTATION-SYSTEM');
+    const appRoles = parsedRoles.filter((x) => x.AppCode === 'TRANSPORTATION-SYSTEM');
     sessionStorage.setItem('Roles', JSON.stringify(appRoles));
   }
   /**
@@ -122,7 +121,7 @@ export class SessionManager {
    * @param permissions
    */
   private MapPermissions(permissions?: any[]) {
-    const appPermission = permissions.find(x => x.appCode === 'TRANSPORTATION-SYSTEM');
+    const appPermission = permissions.find((x) => x.appCode === 'TRANSPORTATION-SYSTEM');
     sessionStorage.setItem('Permissions', JSON.stringify(appPermission));
   }
   /**
@@ -137,5 +136,4 @@ export class SessionManager {
       this.IsLoggedIn = new Date() < new Date(token.Expiry);
     }
   }
-
 }

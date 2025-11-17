@@ -1,34 +1,34 @@
 <p-card class="p-2 m-0">
-    @if (form) {
-        <form method="post" class="row" [formGroup]="form">
-            <div class="col-lg-4">
-                <label class="mb-2 text-middle">{{ 'الدور' }}</label>
-                <app-prime-autocomplete
-                    [field]="'nameAr'"
-                    [selectedOption]="selectedUserGroup"
-                    [suggestions]="filteredUserGroups"
-                    [formGroup]="form"
-                    (onSelect)="onUserGroupSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getUserGroups($event)"
-                ></app-prime-autocomplete>
-            </div>
+  @if (form) {
+    <form method="post" class="row" [formGroup]="form">
+      <div class="col-lg-4">
+        <label class="mb-2 text-middle">{{ 'الدور' }}</label>
+        <app-prime-autocomplete
+          [field]="'nameAr'"
+          [selectedOption]="selectedUserGroup"
+          [suggestions]="filteredUserGroups"
+          [formGroup]="form"
+          (onSelect)="onUserGroupSelect($event)"
+          [lazy]="false"
+          (handleMethod)="getUserGroups($event)"
+        ></app-prime-autocomplete>
+      </div>
 
-            <div class="col-lg-4">
-                <label class="mb-2 text-middle">{{ 'الصلاحيات' }}</label>
-                <app-prime-autocomplete
-                    [field]="'nameAr'"
-                    [selectedOption]="selectedUserRole"
-                    [suggestions]="filteredUserRoles"
-                    [formGroup]="form"
-                    (onSelect)="onUserRoleSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getUserRoles($event)"
-                ></app-prime-autocomplete>
-            </div>
-        </form>
-    }
+      <div class="col-lg-4">
+        <label class="mb-2 text-middle">{{ 'الصلاحيات' }}</label>
+        <app-prime-autocomplete
+          [field]="'nameAr'"
+          [selectedOption]="selectedUserRole"
+          [suggestions]="filteredUserRoles"
+          [formGroup]="form"
+          (onSelect)="onUserRoleSelect($event)"
+          [lazy]="false"
+          (handleMethod)="getUserRoles($event)"
+        ></app-prime-autocomplete>
+      </div>
+    </form>
+  }
 </p-card>
 @if (form) {
-    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+  <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
 }

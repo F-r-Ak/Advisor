@@ -32,7 +32,7 @@ export class ValidationHandlerPipe implements PipeTransform {
     this.translate
       .get(`VALIDATION.${customTranslate.toUpperCase()}`)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(translationWord => {
+      .subscribe((translationWord) => {
         res = translationWord + (customMessage ? '(' + customMessage + ')' : '');
       });
 

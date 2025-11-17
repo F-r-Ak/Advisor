@@ -9,65 +9,65 @@ import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../../../shared/services/settings/user/user.service';
 
 @Component({
-    selector: 'app-add-edit-user',
-    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
-    templateUrl: './add-edit-user.component.html',
-    styleUrl: './add-edit-user.component.scss'
+  selector: 'app-add-edit-user',
+  imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
+  templateUrl: './add-edit-user.component.html',
+  styleUrl: './add-edit-user.component.scss'
 })
 export class AddEditUserComponent extends BaseEditComponent implements OnInit {
-    _usersService: UsersService = inject(UsersService);
-    dialogService: DialogService = inject(DialogService);
+  _usersService: UsersService = inject(UsersService);
+  dialogService: DialogService = inject(DialogService);
 
-    constructor(override activatedRoute: ActivatedRoute) {
-        super(activatedRoute);
+  constructor(override activatedRoute: ActivatedRoute) {
+    super(activatedRoute);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.dialogService.dialogComponentRefMap.forEach((element) => {
+      this.pageType = element.instance.ddconfig.data.pageType;
+      if (this.pageType === 'edit') {
+        this.id = element.instance.ddconfig.data.row.rowData.id;
+      }
+    });
+    if (this.pageType === 'edit') {
+      this.getEditUser();
+    } else {
+      this.initFormGroup();
     }
+  }
 
-    override ngOnInit(): void {
-        super.ngOnInit();
-        this.dialogService.dialogComponentRefMap.forEach((element) => {
-            this.pageType = element.instance.ddconfig.data.pageType;
-            if (this.pageType === 'edit') {
-                this.id = element.instance.ddconfig.data.row.rowData.id;
-            }
-        });
-        if (this.pageType === 'edit') {
-            this.getEditUser();
-        } else {
-            this.initFormGroup();
-        }
-    }
+  initFormGroup() {
+    this.form = this.fb.group({
+      id: [''],
+      code: ['', Validators.required],
+      name: ['', Validators.required],
+      userName: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
-    initFormGroup() {
-        this.form = this.fb.group({
-            id: [''],
-            code: ['', Validators.required],
-            name: ['', Validators.required],
-            userName: ['', Validators.required],
-            password: ['', Validators.required]
-        });
-    }
+  getEditUser = () => {
+    this._usersService.getEditUser(this.id()).subscribe((res: any) => {
+      this.initFormGroup();
+      this.form.patchValue(res);
+    });
+  };
 
-    getEditUser = () => {
-        this._usersService.getEditUser(this.id()).subscribe((res: any) => {
-            this.initFormGroup();
-            this.form.patchValue(res);
-        });
-    };
+  submit() {
+    if (this.pageType === 'add')
+      this._usersService.add(this.form.value).subscribe(() => {
+        this.closeDialog();
+      });
+    if (this.pageType === 'edit')
+      this._usersService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+        this.closeDialog();
+      });
+  }
 
-    submit() {
-        if (this.pageType === 'add')
-            this._usersService.add(this.form.value).subscribe(() => {
-                this.closeDialog();
-            });
-        if (this.pageType === 'edit')
-            this._usersService.update({ id: this.id, ...this.form.value }).subscribe(() => {
-                this.closeDialog();
-            });
-    }
-
-    closeDialog() {
-        this.dialogService.dialogComponentRefMap.forEach((dialog) => {
-            dialog.destroy();
-        });
-    }
+  closeDialog() {
+    this.dialogService.dialogComponentRefMap.forEach((dialog) => {
+      dialog.destroy();
+    });
+  }
 }

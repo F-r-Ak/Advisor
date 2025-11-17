@@ -8,112 +8,112 @@ import { TableOptions } from '../../../../../shared/interfaces';
 import { AddEditUnitComponent } from '../../components/add-edit-unit/add-edit-unit.component';
 
 @Component({
-    selector: 'app-units',
-    imports: [PrimeTitleToolBarComponent, PrimeDataTableComponent, TranslateModule, RouterModule, CardModule],
-    templateUrl: './units.component.html',
-    styleUrl: './units.component.scss'
+  selector: 'app-units',
+  imports: [PrimeTitleToolBarComponent, PrimeDataTableComponent, TranslateModule, RouterModule, CardModule],
+  templateUrl: './units.component.html',
+  styleUrl: './units.component.scss'
 })
 export class UnitsComponent extends BaseListComponent {
-    @Input() employeeId: string = '';
-    isEnglish = false;
-    service = inject(UnitsService);
+  @Input() employeeId: string = '';
+  isEnglish = false;
+  service = inject(UnitsService);
 
-    // ✅ Signal initialized at class level with static configuration
-    tableOptions: WritableSignal<TableOptions> = signal<TableOptions>({
-        inputUrl: {
-            getAll: 'v1/itemunit/getpaged',
-            getAllMethod: 'POST',
-            delete: 'v1/itemunit/deletesoft'
+  // ✅ Signal initialized at class level with static configuration
+  tableOptions: WritableSignal<TableOptions> = signal<TableOptions>({
+    inputUrl: {
+      getAll: 'v1/itemunit/getpaged',
+      getAllMethod: 'POST',
+      delete: 'v1/itemunit/deletesoft'
+    },
+    inputCols: [],
+    inputActions: [],
+    permissions: {
+      componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
+      allowAll: true,
+      listOfPermissions: []
+    },
+    bodyOptions: {
+      filter: {}
+    },
+    responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
+  });
+
+  // ✅ Effect at class level (not in ngOnInit)
+  langEffect = effect(() => {
+    const lang = this.localize.currentLanguage();
+    this.language.set(lang);
+
+    // Update only dynamic parts using .update()
+    this.tableOptions.update((options) => ({
+      ...options,
+      inputCols: this.initializeTableColumns(),
+      inputActions: this.initializeTableActions()
+    }));
+  });
+
+  constructor(activatedRoute: ActivatedRoute) {
+    super(activatedRoute);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+  }
+
+  initializeTableColumns(): TableOptions['inputCols'] {
+    return [
+      {
+        field: 'code',
+        header: 'الكود',
+        filter: true,
+        filterMode: 'text'
+      },
+      {
+        field: this.language() === 'ar' ? 'nameAr' : 'nameEn',
+        header: 'مسمي الوحدة بالعربى',
+        filter: true,
+        filterMode: 'text'
+      },
+      {
+        field: this.language() === 'en' ? 'nameEn' : 'nameAr',
+        header: 'مسمي الوحدة بالانجليزى',
+        filter: true,
+        filterMode: 'text'
+      }
+    ];
+  }
+
+  initializeTableActions(): TableOptions['inputActions'] {
+    return [
+      {
+        name: 'Edit',
+        icon: 'pi pi-file-edit',
+        color: 'text-middle',
+        isCallBack: true,
+        call: (row) => {
+          this.openEdit(row);
         },
-        inputCols: [],
-        inputActions: [],
-        permissions: {
-            componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
-            allowAll: true,
-            listOfPermissions: []
-        },
-        bodyOptions: {
-            filter: {}
-        },
-        responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
+        allowAll: true
+      },
+      {
+        name: 'DELETE',
+        icon: 'pi pi-trash',
+        color: 'text-error',
+        allowAll: true,
+        isDelete: true
+      }
+    ];
+  }
+
+  openAdd() {
+    this.openDialog(AddEditUnitComponent, this.localize.translate.instant('اضافة وحدة'), {
+      pageType: 'add'
     });
+  }
 
-    // ✅ Effect at class level (not in ngOnInit)
-    langEffect = effect(() => {
-        const lang = this.localize.currentLanguage();
-        this.language.set(lang);
-
-        // Update only dynamic parts using .update()
-        this.tableOptions.update(options => ({
-            ...options,
-            inputCols: this.initializeTableColumns(),
-            inputActions: this.initializeTableActions()
-        }));
+  openEdit(rowData: any) {
+    this.openDialog(AddEditUnitComponent, this.localize.translate.instant('تعديل وحدة'), {
+      pageType: 'edit',
+      row: { rowData }
     });
-
-    constructor(activatedRoute: ActivatedRoute) {
-        super(activatedRoute);
-    }
-
-    override ngOnInit(): void {
-        super.ngOnInit();
-    }
-
-    initializeTableColumns(): TableOptions['inputCols'] {
-        return [
-            {
-                field: 'code',
-                header: 'الكود',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: this.language() === 'ar' ? 'nameAr' : 'nameEn',
-                header: 'مسمي الوحدة بالعربى',
-                filter: true,
-                filterMode: 'text'
-            },
-            {
-                field: this.language() === 'en' ? 'nameEn' : 'nameAr',
-                header: 'مسمي الوحدة بالانجليزى',
-                filter: true,
-                filterMode: 'text'
-            }
-        ];
-    }
-
-    initializeTableActions(): TableOptions['inputActions'] {
-        return [
-            {
-                name: 'Edit',
-                icon: 'pi pi-file-edit',
-                color: 'text-middle',
-                isCallBack: true,
-                call: (row) => {
-                    this.openEdit(row);
-                },
-                allowAll: true
-            },
-            {
-                name: 'DELETE',
-                icon: 'pi pi-trash',
-                color: 'text-error',
-                allowAll: true,
-                isDelete: true
-            }
-        ];
-    }
-
-    openAdd() {
-        this.openDialog(AddEditUnitComponent, this.localize.translate.instant('اضافة وحدة'), {
-            pageType: 'add'
-        });
-    }
-
-    openEdit(rowData: any) {
-        this.openDialog(AddEditUnitComponent, this.localize.translate.instant('تعديل وحدة'), {
-            pageType: 'edit',
-            row: { rowData }
-        });
-    }
+  }
 }

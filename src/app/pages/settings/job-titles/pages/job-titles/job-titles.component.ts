@@ -45,7 +45,7 @@ export class JobTitlesComponent extends BaseListComponent {
     this.language.set(lang);
 
     // Update only dynamic parts using .update()
-    this.tableOptions.update(options => ({
+    this.tableOptions.update((options) => ({
       ...options,
       inputCols: this.initializeTableColumns(),
       inputActions: this.initializeTableActions()
@@ -84,7 +84,7 @@ export class JobTitlesComponent extends BaseListComponent {
         icon: 'pi pi-file-edit',
         color: 'text-middle',
         isCallBack: true,
-        call: row => {
+        call: (row) => {
           this.openEdit(row);
         },
         allowAll: true

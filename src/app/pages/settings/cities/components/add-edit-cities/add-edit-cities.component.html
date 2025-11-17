@@ -1,30 +1,30 @@
 <p-card class="p-2 m-0">
-    @if (form) {
-        <form method="post" class="row" [formGroup]="form">
-            <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'مسمي المدينة بالعربية'"> </app-prime-input-text>
-            </div>
-            <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="nameEn" [label]="'مسمي المدينة بالإنجليزية'"> </app-prime-input-text>
-            </div>
-            <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
-            </div>
-            <div class="col-lg-6">
-                <label class="mb-2 text-middle">{{ 'الدولة' }}</label>
-                <app-prime-autocomplete
-                    [field]="'nameAr'"
-                    [selectedOption]="selectedCountry"
-                    [suggestions]="filteredCountries"
-                    [formGroup]="form"
-                    (onSelect)="onCountrySelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getCountries($event)"
-                ></app-prime-autocomplete>
-            </div>
-        </form>
-    }
+  @if (form) {
+    <form method="post" class="row" [formGroup]="form">
+      <div class="col-lg-6">
+        <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'مسمي المدينة بالعربية'"> </app-prime-input-text>
+      </div>
+      <div class="col-lg-6">
+        <app-prime-input-text [formGroup]="form" controlName="nameEn" [label]="'مسمي المدينة بالإنجليزية'"> </app-prime-input-text>
+      </div>
+      <div class="col-lg-6">
+        <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
+      </div>
+      <div class="col-lg-6">
+        <label class="mb-2 text-middle">{{ 'الدولة' }}</label>
+        <app-prime-autocomplete
+          [field]="'nameAr'"
+          [selectedOption]="selectedCountry"
+          [suggestions]="filteredCountries"
+          [formGroup]="form"
+          (onSelect)="onCountrySelect($event)"
+          [lazy]="false"
+          (handleMethod)="getCountries($event)"
+        ></app-prime-autocomplete>
+      </div>
+    </form>
+  }
 </p-card>
 @if (form) {
-    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+  <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
 }

@@ -119,7 +119,7 @@ export class PrimeDataTableComponent implements OnDestroy {
 
     if (!this.filterSubjects[column]) {
       this.filterSubjects[column] = new Subject<string>();
-      this.filterSubjects[column].pipe(debounceTime(500), takeUntil(this.destroy$)).subscribe(debouncedValue => {
+      this.filterSubjects[column].pipe(debounceTime(500), takeUntil(this.destroy$)).subscribe((debouncedValue) => {
         this.event.emit({
           eventType: 'filter',
           value: { data: debouncedValue },
@@ -183,7 +183,7 @@ export class PrimeDataTableComponent implements OnDestroy {
   // 🧹 Cleanup on destroy
   ngOnDestroy() {
     this.event.emit({ eventType: 'reset' });
-    Object.values(this.filterSubjects).forEach(subject => subject.complete());
+    Object.values(this.filterSubjects).forEach((subject) => subject.complete());
     this.destroy$.next();
     this.destroy$.complete();
     // console.log('🧹 PrimeDataTableComponent destroyed — reset event emitted');

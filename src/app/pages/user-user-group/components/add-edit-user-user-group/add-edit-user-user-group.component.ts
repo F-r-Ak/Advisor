@@ -9,128 +9,128 @@ import { ActivatedRoute } from '@angular/router';
 import { UserUserGroupService } from '../../../../shared/services/pages/user-user-group/user-user-group.service';
 
 @Component({
-    selector: 'app-add-edit-user-user-group',
-    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeAutoCompleteComponent],
-    templateUrl: './add-edit-user-user-group.component.html',
-    styleUrl: './add-edit-user-user-group.component.scss'
+  selector: 'app-add-edit-user-user-group',
+  imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeAutoCompleteComponent],
+  templateUrl: './add-edit-user-user-group.component.html',
+  styleUrl: './add-edit-user-user-group.component.scss'
 })
 export class AddEditUserUserGroupComponent extends BaseEditComponent implements OnInit {
-    selectedUser: any;
-    selectedUserGroup: any;
-    filteredUser: any[] = [];
-    filteredUserGroups: any[] = [];
+  selectedUser: any;
+  selectedUserGroup: any;
+  filteredUser: any[] = [];
+  filteredUserGroups: any[] = [];
 
-    userGroupService: UserGroupsService = inject(UserGroupsService);
-    userService: UsersService = inject(UsersService);
-    userUserGroupService: UserUserGroupService = inject(UserUserGroupService);
+  userGroupService: UserGroupsService = inject(UserGroupsService);
+  userService: UsersService = inject(UsersService);
+  userUserGroupService: UserUserGroupService = inject(UserUserGroupService);
 
-    dialogService: DialogService = inject(DialogService);
+  dialogService: DialogService = inject(DialogService);
 
-    constructor(override activatedRoute: ActivatedRoute) {
-        super(activatedRoute);
+  constructor(override activatedRoute: ActivatedRoute) {
+    super(activatedRoute);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.dialogService.dialogComponentRefMap.forEach((element) => {
+      this.pageType = element.instance.ddconfig.data.pageType;
+      if (this.pageType === 'edit') {
+        this.id = element.instance.ddconfig.data.row.rowData.id;
+      }
+    });
+    if (this.pageType === 'edit') {
+      this.getEditUserUserGroup();
+    } else {
+      this.initFormGroup();
     }
+  }
 
-    override ngOnInit(): void {
-        super.ngOnInit();
-        this.dialogService.dialogComponentRefMap.forEach((element) => {
-            this.pageType = element.instance.ddconfig.data.pageType;
-            if (this.pageType === 'edit') {
-                this.id = element.instance.ddconfig.data.row.rowData.id;
-            }
-        });
-        if (this.pageType === 'edit') {
-            this.getEditUserUserGroup();
-        } else {
-            this.initFormGroup();
-        }
-    }
+  initFormGroup() {
+    this.form = this.fb.group({
+      id: [''],
+      // user: ['', Validators.required],
+      // userGroup: ['', Validators.required],
+      userId: [null, Validators.required],
+      userGroupId: [null, Validators.required]
+    });
+  }
 
-    initFormGroup() {
-        this.form = this.fb.group({
-            id: [''],
-            // user: ['', Validators.required],
-            // userGroup: ['', Validators.required],
-            userId: [null, Validators.required],
-            userGroupId: [null, Validators.required]
-        });
-    }
+  getUser(event: any) {
+    const query = event.query.toLowerCase();
+    this.userService.users.subscribe({
+      next: (res: any) => {
+        this.filteredUser = res.filter((user: any) => user.userName.toLowerCase().includes(query) || user.name.toLowerCase().includes(query));
+      },
+      error: (err) => {
+        this.alert.error('خطأ فى جلب بيانات المستخدم');
+      }
+    });
+  }
 
-    getUser(event: any) {
-        const query = event.query.toLowerCase();
-        this.userService.users.subscribe({
-            next: (res: any) => {
-                this.filteredUser = res.filter((user: any) => user.userName.toLowerCase().includes(query) || user.name.toLowerCase().includes(query));
-            },
-            error: (err) => {
-                this.alert.error('خطأ فى جلب بيانات المستخدم');
-            }
-        });
-    }
+  onUserSelect(event: any) {
+    this.selectedUser = event.value;
+    this.form.get('userId')?.setValue(this.selectedUser.id);
+  }
 
-    onUserSelect(event: any) {
-        this.selectedUser = event.value;
-        this.form.get('userId')?.setValue(this.selectedUser.id);
-    }
+  getUserGroup(event: any) {
+    const query = event.query.toLowerCase();
+    this.userGroupService.userGroups.subscribe({
+      next: (res: any) => {
+        this.filteredUserGroups = res.filter((userGroup: any) => userGroup.nameAr.toLowerCase().includes(query) || userGroup.nameEn.toLowerCase().includes(query));
+      },
+      error: (err) => {
+        this.alert.error('خطأ فى جلب بيانات الادوار ');
+      }
+    });
+  }
 
-    getUserGroup(event: any) {
-        const query = event.query.toLowerCase();
-        this.userGroupService.userGroups.subscribe({
-            next: (res: any) => {
-                this.filteredUserGroups = res.filter((userGroup: any) => userGroup.nameAr.toLowerCase().includes(query) || userGroup.nameEn.toLowerCase().includes(query));
-            },
-            error: (err) => {
-                this.alert.error('خطأ فى جلب بيانات الادوار ');
-            }
-        });
-    }
+  onUserGroupSelect(event: any) {
+    this.selectedUserGroup = event.value;
+    this.form.get('userGroupId')?.setValue(this.selectedUserGroup.id);
+  }
 
-    onUserGroupSelect(event: any) {
-        this.selectedUserGroup = event.value;
-        this.form.get('userGroupId')?.setValue(this.selectedUserGroup.id);
-    }
+  fetchUserGroupsDetails(userGroupsUserRole: any) {
+    this.userGroupService.userGroups.subscribe((response: any) => {
+      this.filteredUserGroups = Array.isArray(response) ? response : response.data || [];
+      console.log('');
+      this.selectedUserGroup = this.filteredUserGroups.find((group: any) => group.id === userGroupsUserRole.userGroupId);
+      this.form.get('userGroupId')?.setValue(this.selectedUserGroup.id);
+    });
+  }
 
-    fetchUserGroupsDetails(userGroupsUserRole: any) {
-        this.userGroupService.userGroups.subscribe((response: any) => {
-            this.filteredUserGroups = Array.isArray(response) ? response : response.data || [];
-            console.log('');
-            this.selectedUserGroup = this.filteredUserGroups.find((group: any) => group.id === userGroupsUserRole.userGroupId);
-            this.form.get('userGroupId')?.setValue(this.selectedUserGroup.id);
-        });
-    }
+  fetchUserDetails(userGroupsUserRole: any) {
+    this.userService.users.subscribe((response: any) => {
+      this.filteredUser = Array.isArray(response) ? response : response.data || [];
+      console.log('');
+      this.selectedUser = this.filteredUser.find((user: any) => user.id === userGroupsUserRole.userId);
+      this.form.get('userId')?.setValue(this.selectedUser.id);
+    });
+  }
 
-    fetchUserDetails(userGroupsUserRole: any) {
-        this.userService.users.subscribe((response: any) => {
-            this.filteredUser = Array.isArray(response) ? response : response.data || [];
-            console.log('');
-            this.selectedUser = this.filteredUser.find((user: any) => user.id === userGroupsUserRole.userId);
-            this.form.get('userId')?.setValue(this.selectedUser.id);
-        });
-    }
+  getEditUserUserGroup = () => {
+    this.userUserGroupService.getEditUserUsergroup(this.id()).subscribe((userUserGroup: any) => {
+      this.initFormGroup();
+      this.form.patchValue(userUserGroup);
+      this.fetchUserGroupsDetails(userUserGroup);
+      this.fetchUserDetails(userUserGroup);
+    });
+  };
 
-    getEditUserUserGroup = () => {
-        this.userUserGroupService.getEditUserUsergroup(this.id()).subscribe((userUserGroup: any) => {
-            this.initFormGroup();
-            this.form.patchValue(userUserGroup);
-            this.fetchUserGroupsDetails(userUserGroup);
-            this.fetchUserDetails(userUserGroup);
-        });
-    };
+  submit() {
+    if (this.pageType === 'add')
+      this.userUserGroupService.add(this.form.value).subscribe(() => {
+        this.closeDialog();
+        console.log(this.form.value);
+      });
+    if (this.pageType === 'edit')
+      this.userUserGroupService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+        this.closeDialog();
+      });
+  }
 
-    submit() {
-        if (this.pageType === 'add')
-            this.userUserGroupService.add(this.form.value).subscribe(() => {
-                this.closeDialog();
-                console.log(this.form.value);
-            });
-        if (this.pageType === 'edit')
-            this.userUserGroupService.update({ id: this.id, ...this.form.value }).subscribe(() => {
-                this.closeDialog();
-            });
-    }
-
-    closeDialog() {
-        this.dialogService.dialogComponentRefMap.forEach((dialog) => {
-            dialog.destroy();
-        });
-    }
+  closeDialog() {
+    this.dialogService.dialogComponentRefMap.forEach((dialog) => {
+      dialog.destroy();
+    });
+  }
 }

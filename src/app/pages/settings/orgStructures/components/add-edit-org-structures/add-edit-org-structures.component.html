@@ -1,30 +1,30 @@
 <p-card class="p-2 m-0">
-    @if (form) {
-        <form method="post" class="row" [formGroup]="form">
-            <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="name" validatorLanguageType="ar" [label]="'مسمي الهيكل التنظيمي بالعربية'"> </app-prime-input-text>
-            </div>
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'هيكل تنظيمي رئيسي' }}</label>
-                <app-prime-autocomplete
-                    [field]="'nameAr'"
-                    [selectedOption]="selectedOrgStructure"
-                    [suggestions]="filteredOrgStructures"
-                    [formGroup]="form"
-                    (onSelect)="onOrgStructureSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getOrgStructures($event)"
-                ></app-prime-autocomplete>
-            </div>
-            <!-- <div class="col-lg-6">
+  @if (form) {
+    <form method="post" class="row" [formGroup]="form">
+      <div class="col-lg-6">
+        <app-prime-input-text [formGroup]="form" controlName="name" validatorLanguageType="ar" [label]="'مسمي الهيكل التنظيمي بالعربية'"> </app-prime-input-text>
+      </div>
+      <div class="col-lg-6">
+        <label class="mb-2">{{ 'هيكل تنظيمي رئيسي' }}</label>
+        <app-prime-autocomplete
+          [field]="'nameAr'"
+          [selectedOption]="selectedOrgStructure"
+          [suggestions]="filteredOrgStructures"
+          [formGroup]="form"
+          (onSelect)="onOrgStructureSelect($event)"
+          [lazy]="false"
+          (handleMethod)="getOrgStructures($event)"
+        ></app-prime-autocomplete>
+      </div>
+      <!-- <div class="col-lg-6">
                 <app-prime-input-text [formGroup]="form" controlName="nameEn" [label]="'مسمي الفرع بالإنجليزية'"> </app-prime-input-text>
             </div> -->
-            <!-- <div class="col-lg-6">
+      <!-- <div class="col-lg-6">
                 <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
             </div> -->
-        </form>
-    }
+    </form>
+  }
 </p-card>
 @if (form) {
-    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+  <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
 }

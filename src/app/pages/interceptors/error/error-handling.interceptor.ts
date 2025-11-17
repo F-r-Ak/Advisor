@@ -6,8 +6,10 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class ErrorHandlingInterceptor implements HttpInterceptor {
-
-  constructor(private router: Router, private modal: MatDialog) { }
+  constructor(
+    private router: Router,
+    private modal: MatDialog
+  ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
@@ -18,13 +20,13 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
           localStorage.removeItem('userData');
           this.modal.closeAll();
           this.router.navigateByUrl('/');
-        }else{
-        // if (error && error.status === 403) {
-        //   localStorage.removeItem('token');
-        //   localStorage.removeItem('userData');
-        //   this.modal.closeAll();
-        //   this.router.navigateByUrl('/notfound');
-        // }
+        } else {
+          // if (error && error.status === 403) {
+          //   localStorage.removeItem('token');
+          //   localStorage.removeItem('userData');
+          //   this.modal.closeAll();
+          //   this.router.navigateByUrl('/notfound');
+          // }
         }
 
         return throwError(error);

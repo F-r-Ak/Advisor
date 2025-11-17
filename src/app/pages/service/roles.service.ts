@@ -40,9 +40,7 @@ export class RolesService extends BaseService {
    * This method doesn't expect any request body.
    */
   apiRolesGet$Plain(params?: ApiRolesGet$Plain$Params, context?: HttpContext): Observable<Array<LookupDto>> {
-    return this.apiRolesGet$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<LookupDto>>): Array<LookupDto> => r.body)
-    );
+    return this.apiRolesGet$Plain$Response(params, context).pipe(map((r: StrictHttpResponse<Array<LookupDto>>): Array<LookupDto> => r.body));
   }
 
   /**
@@ -62,9 +60,6 @@ export class RolesService extends BaseService {
    * This method doesn't expect any request body.
    */
   apiRolesGet$Json(params?: ApiRolesGet$Json$Params, context?: HttpContext): Observable<Array<LookupDto>> {
-    return this.apiRolesGet$Json$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<LookupDto>>): Array<LookupDto> => r.body)
-    );
+    return this.apiRolesGet$Json$Response(params, context).pipe(map((r: StrictHttpResponse<Array<LookupDto>>): Array<LookupDto> => r.body));
   }
-
 }

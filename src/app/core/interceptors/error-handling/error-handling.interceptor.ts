@@ -8,7 +8,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       // if (error && error.status === 401) {
-      //   router.navigateByUrl('/'); 
+      //   router.navigateByUrl('/');
       // }
       return throwError(() => error);
     })

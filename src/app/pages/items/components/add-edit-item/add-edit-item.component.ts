@@ -98,7 +98,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
   onStep1Submit(activateCallback: Function) {
     if (this.itemForm.valid) {
       // Mark all controls as touched to show validation errors
-      Object.keys(this.itemForm.controls).forEach(key => {
+      Object.keys(this.itemForm.controls).forEach((key) => {
         this.itemForm.get(key).markAsTouched();
       });
 
@@ -112,10 +112,10 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
 
   getSellsList() {
     this.SellsListService.sellsList.subscribe({
-      next: res => {
+      next: (res) => {
         this.sellsList = res;
       },
-      error: err => {
+      error: (err) => {
         this.alert.error(this.localize.translate.instant('خطأ في جلب البيانات'));
       }
     });
@@ -125,11 +125,9 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
     const query = event.query.toLowerCase();
     this.vendorService.Vendors.subscribe({
       next: (res: any) => {
-        this.filteredItemVendors = res.filter(
-          (itemVendor: any) => itemVendor.nameAr.toLowerCase().includes(query) || itemVendor.nameEn.toLowerCase().includes(query)
-        );
+        this.filteredItemVendors = res.filter((itemVendor: any) => itemVendor.nameAr.toLowerCase().includes(query) || itemVendor.nameEn.toLowerCase().includes(query));
       },
-      error: err => {
+      error: (err) => {
         this.alert.error('خطأ فى جلب بيانات المصنع');
       }
     });
@@ -144,11 +142,9 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
     const query = event.query.toLowerCase();
     this.itemCategoriesService.itemCategories.subscribe({
       next: (res: any) => {
-        this.filteredItemCategorys = res.filter(
-          (itemCategory: any) => itemCategory.nameAr.toLowerCase().includes(query) || itemCategory.nameEn.toLowerCase().includes(query)
-        );
+        this.filteredItemCategorys = res.filter((itemCategory: any) => itemCategory.nameAr.toLowerCase().includes(query) || itemCategory.nameEn.toLowerCase().includes(query));
       },
-      error: err => {
+      error: (err) => {
         this.alert.error('خطأ فى جلب بيانات تصنيفات العنصر');
       }
     });

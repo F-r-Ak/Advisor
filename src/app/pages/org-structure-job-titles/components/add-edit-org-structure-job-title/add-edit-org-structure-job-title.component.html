@@ -1,34 +1,34 @@
 <p-card class="p-2 m-0">
-    @if (form) {
-        <form method="post" class="row" [formGroup]="form">
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'الهيكل الوظيفي' }}</label>
-                <app-prime-autocomplete
-                    [field]="'name'"
-                    [selectedOption]="selectedOrgStructure"
-                    [suggestions]="filteredOrgStructures"
-                    [formGroup]="form"
-                    (onSelect)="onOrgStructureSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getOrgStructures($event)"
-                ></app-prime-autocomplete>
-            </div>
+  @if (form) {
+    <form method="post" class="row" [formGroup]="form">
+      <div class="col-lg-6">
+        <label class="mb-2">{{ 'الهيكل الوظيفي' }}</label>
+        <app-prime-autocomplete
+          [field]="'name'"
+          [selectedOption]="selectedOrgStructure"
+          [suggestions]="filteredOrgStructures"
+          [formGroup]="form"
+          (onSelect)="onOrgStructureSelect($event)"
+          [lazy]="false"
+          (handleMethod)="getOrgStructures($event)"
+        ></app-prime-autocomplete>
+      </div>
 
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'الدور الوظيفي' }}</label>
-                <app-prime-autocomplete
-                    [field]="'name'"
-                    [selectedOption]="selectedJobTitle"
-                    [suggestions]="filteredJobTitles"
-                    [formGroup]="form"
-                    (onSelect)="onJobTitleSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getJobTitles($event)"
-                ></app-prime-autocomplete>
-            </div>
-        </form>
-    }
+      <div class="col-lg-6">
+        <label class="mb-2">{{ 'الدور الوظيفي' }}</label>
+        <app-prime-autocomplete
+          [field]="'name'"
+          [selectedOption]="selectedJobTitle"
+          [suggestions]="filteredJobTitles"
+          [formGroup]="form"
+          (onSelect)="onJobTitleSelect($event)"
+          [lazy]="false"
+          (handleMethod)="getJobTitles($event)"
+        ></app-prime-autocomplete>
+      </div>
+    </form>
+  }
 </p-card>
 @if (form) {
-    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+  <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
 }

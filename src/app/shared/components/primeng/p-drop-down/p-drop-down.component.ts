@@ -45,7 +45,7 @@ export class PrimeDropDownComponent implements OnInit, ControlValueAccessor {
     this.filterData
       .pipe(
         debounceTime(500), // wait for 500ms pause in events
-        switchMap(filter => {
+        switchMap((filter) => {
           this.currentPage = 1; // Reset to the first page on new filter
           return this.loadDataList(this.currentPage, this.pageSize, filter); // Load categories based on filter
         })
@@ -83,7 +83,7 @@ export class PrimeDropDownComponent implements OnInit, ControlValueAccessor {
     if (this.getMethod) {
       this.loading = true;
       return this.getMethod(body).pipe(
-        tap(res => {
+        tap((res) => {
           const data: any = res;
           if (this.currentPage === 1) {
             this.options = data.data;
@@ -94,7 +94,7 @@ export class PrimeDropDownComponent implements OnInit, ControlValueAccessor {
           this.totalPages = Math.ceil(this.totalCount / this.pageSize);
           this.loading = false;
         }),
-        catchError(err => {
+        catchError((err) => {
           // this.alert.error(this.localize.translate.instant('VALIDATION.GET_ERROR'));
           return of([]); // Return an empty observable on error
         })

@@ -4,38 +4,38 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../../../../core/services';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ShiftsService extends HttpService {
-    protected get baseUrl(): string {
-        return 'v1/shift/';
-    }
+  protected get baseUrl(): string {
+    return 'v1/shift/';
+  }
 
-    getshift(id: string) {
-        return this.get<any>({ apiName: `Get/${id}` });
-    }
+  getshift(id: string) {
+    return this.get<any>({ apiName: `Get/${id}` });
+  }
 
-    getEditshift(id: string) {
-        return this.get<any>({ apiName: `getedit/${id}` });
-    }
+  getEditshift(id: string) {
+    return this.get<any>({ apiName: `getedit/${id}` });
+  }
 
-    get shifts() {
-        return this.get<any[]>({ apiName: 'getAll' });
-    }
+  get shifts() {
+    return this.get<any[]>({ apiName: 'getAll' });
+  }
 
-    getDropDown(body: GetPagedBody<any>): Observable<any> {
-        return this.dropdownPost<any, any>({ apiName: `getdropdown`, showAlert: true }, body);
-    }
+  getDropDown(body: GetPagedBody<any>): Observable<any> {
+    return this.dropdownPost<any, any>({ apiName: `getdropdown`, showAlert: true }, body);
+  }
 
-    add(body: any) {
-        return this.post<any, any>({ apiName: 'add', showAlert: true }, body);
-    }
+  add(body: any) {
+    return this.post<any, any>({ apiName: 'add', showAlert: true }, body);
+  }
 
-    update(body: any) {
-        return this.put({ apiName: 'update', showAlert: true }, body);
-    }
+  update(body: any) {
+    return this.put({ apiName: 'update', showAlert: true }, body);
+  }
 
-    remove(id: string) {
-        return this.delete({ apiName: `delete/`, showAlert: true }, id);
-    }
+  remove(id: string) {
+    return this.delete({ apiName: `delete/`, showAlert: true }, id);
+  }
 }

@@ -9,7 +9,7 @@ import { AddEditItemItemUnitComponent } from '../add-edit-item-item-unit/add-edi
 @Component({
   selector: 'app-item-item-units',
   standalone: true,
-  imports: [ RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
+  imports: [RouterModule, CardModule, PrimeDataTableComponent, PrimeTitleToolBarComponent],
   templateUrl: './item-item-units.component.html',
   styleUrl: './item-item-units.component.scss'
 })
@@ -34,7 +34,7 @@ export class ItemItemUnitsComponent extends BaseListComponent {
     },
     bodyOptions: {
       filter: {
-        "itemId": this.itemId
+        itemId: this.itemId
       }
     },
     responsiveDisplayedProperties: ['identity', 'idType', 'name', 'nationalityNameAr', 'job', 'mobile', 'email']
@@ -51,7 +51,7 @@ export class ItemItemUnitsComponent extends BaseListComponent {
   initializeTableColumns(): TableOptions['inputCols'] {
     return [
       {
-        field:  'organizationNameAr',
+        field: 'organizationNameAr',
         header: 'الشركة الماكة',
         filter: true,
         filterMode: 'text'
@@ -79,8 +79,7 @@ export class ItemItemUnitsComponent extends BaseListComponent {
         header: 'إلي تاريخ',
         filter: true,
         filterMode: 'text'
-      },
-      
+      }
     ];
   }
 
@@ -91,7 +90,7 @@ export class ItemItemUnitsComponent extends BaseListComponent {
         icon: 'pi pi-file-edit',
         color: 'text-middle',
         isCallBack: true,
-        call: row => {
+        call: (row) => {
           this.openEdit(row);
         },
         allowAll: true

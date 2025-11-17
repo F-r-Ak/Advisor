@@ -4,11 +4,11 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 //import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-image-viewer',
-    imports: [DialogModule],
-    providers: [DialogService],
-    templateUrl: './image-viewer.component.html',
-    styleUrls: ['./image-viewer.component.scss']
+  selector: 'app-image-viewer',
+  imports: [DialogModule],
+  providers: [DialogService],
+  templateUrl: './image-viewer.component.html',
+  styleUrls: ['./image-viewer.component.scss']
 })
 export class ImageViewerComponent implements OnInit {
   data: any;
@@ -20,6 +20,5 @@ export class ImageViewerComponent implements OnInit {
     this.data = this.dialogConfig.data;
   }
 
-  close() {
-  }
+  close() {}
 }

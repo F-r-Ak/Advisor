@@ -5,12 +5,10 @@
         <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
       </div>
       <div class="col-lg-4">
-        <app-prime-input-text [formGroup]="form" controlName="name" validatorLanguageType="ar" [label]="'اسم المورد'">
-        </app-prime-input-text>
+        <app-prime-input-text [formGroup]="form" controlName="name" validatorLanguageType="ar" [label]="'اسم المورد'"> </app-prime-input-text>
       </div>
       <div class="col-lg-4">
-        <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'مسمي المورد بالعربية'">
-        </app-prime-input-text>
+        <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'مسمي المورد بالعربية'"> </app-prime-input-text>
       </div>
       <div class="col-lg-4">
         <app-prime-input-text [formGroup]="form" controlName="nameEn" [label]="'مسمي المورد بالإنجليزية'"> </app-prime-input-text>
@@ -33,52 +31,30 @@
           [formGroup]="form"
           (onSelect)="onSellerCategorySelect($event)"
           [lazy]="false"
-          (handleMethod)="getSellerCategories($event)"></app-prime-autocomplete>
+          (handleMethod)="getSellerCategories($event)"
+        ></app-prime-autocomplete>
       </div>
       <div class="col-lg-4">
         <label class="mb-2 text-middle">{{ 'المنطقة' }}</label>
-        <app-prime-autocomplete
-          [field]="'nameAr'"
-          [selectedOption]="selectedRegion"
-          [suggestions]="filteredRegions"
-          [formGroup]="form"
-          (onSelect)="onRegionSelect($event)"
-          [lazy]="false"
-          (handleMethod)="getRegions($event)"></app-prime-autocomplete>
+        <app-prime-autocomplete [field]="'nameAr'" [selectedOption]="selectedRegion" [suggestions]="filteredRegions" [formGroup]="form" (onSelect)="onRegionSelect($event)" [lazy]="false" (handleMethod)="getRegions($event)"></app-prime-autocomplete>
       </div>
 
       <div class="col-lg-4">
-        <app-prime-input-text [formGroup]="form" controlName="openingBalance" contentType="number" [label]="'الرصيد الافتتاحي'">
-        </app-prime-input-text>
+        <app-prime-input-text [formGroup]="form" controlName="openingBalance" contentType="number" [label]="'الرصيد الافتتاحي'"> </app-prime-input-text>
       </div>
       <div class="col-lg-4">
-        <app-prime-input-text [formGroup]="form" controlName="maxDebt" contentType="number" [label]="'الحد الأقصى للديون'">
-        </app-prime-input-text>
+        <app-prime-input-text [formGroup]="form" controlName="maxDebt" contentType="number" [label]="'الحد الأقصى للديون'"> </app-prime-input-text>
       </div>
 
       <div class="col-lg-4">
         <label class="mb-2 text-middle">{{ 'ربط المورد بعميل' }}</label>
-        <app-prime-autocomplete
-          [field]="'nameAr'"
-          [selectedOption]="selectedClient"
-          [suggestions]="filteredClients"
-          [formGroup]="form"
-          (onSelect)="onClientSelect($event)"
-          [lazy]="false"
-          (handleMethod)="getClients($event)"></app-prime-autocomplete>
+        <app-prime-autocomplete [field]="'nameAr'" [selectedOption]="selectedClient" [suggestions]="filteredClients" [formGroup]="form" (onSelect)="onClientSelect($event)" [lazy]="false" (handleMethod)="getClients($event)"></app-prime-autocomplete>
       </div>
       <div class="col-lg-4">
         <label class="mb-2 text-middle">{{ 'النوع' }}</label>
         <div class="field col d-flex justify-content-evenly" style="flex-grow: 8">
           @for (dealerType of dealerTypes; track $index) {
-            <app-prime-radio-button
-              [formGroup]="form"
-              controlName="dealerType"
-              [groupName]="'typeGroup'"
-              class="check"
-              [value]="dealerType.id"
-              [label]="language() == 'ar' ? dealerType.nameAr : dealerType.nameEn">
-            </app-prime-radio-button>
+            <app-prime-radio-button [formGroup]="form" controlName="dealerType" [groupName]="'typeGroup'" class="check" [value]="dealerType.id" [label]="language() == 'ar' ? dealerType.nameAr : dealerType.nameEn"> </app-prime-radio-button>
           }
         </div>
       </div>
@@ -86,29 +62,16 @@
         <label class="mb-2 text-middle">{{ 'شروط الدفع' }}</label>
         <div class="field col d-flex justify-content-evenly" style="flex-grow: 8">
           @for (paymentTerm of paymentTerms; track $index) {
-            <app-prime-radio-button
-              [formGroup]="form"
-              controlName="paymentTerms"
-              [groupName]="'typeGroup'"
-              class="check"
-              [value]="paymentTerm.id"
-              [label]="language() == 'ar' ? paymentTerm.nameAr : paymentTerm.nameEn">
-            </app-prime-radio-button>
+            <app-prime-radio-button [formGroup]="form" controlName="paymentTerms" [groupName]="'typeGroup'" class="check" [value]="paymentTerm.id" [label]="language() == 'ar' ? paymentTerm.nameAr : paymentTerm.nameEn"> </app-prime-radio-button>
           }
         </div>
       </div>
       <div class="col-lg-4 d-flex align-items-center">
-        <app-prime-check-box [formGroup]="form" controlName="isActive" groupName="showGroup" [binary]="true" [label]="'نشط'">
-        </app-prime-check-box>
+        <app-prime-check-box [formGroup]="form" controlName="isActive" groupName="showGroup" [binary]="true" [label]="'نشط'"> </app-prime-check-box>
       </div>
     </form>
   }
 </p-card>
 @if (form) {
-  <app-submit-buttons
-    [isSubmitDisabled]="form.invalid"
-    [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'"
-    (submit)="submit()"
-    (cancel)="closeDialog()">
-  </app-submit-buttons>
+  <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
 }

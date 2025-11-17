@@ -1,4 +1,4 @@
-import { NumberedHttpStatus } from "../../enums/numbered-http-status";
+import { NumberedHttpStatus } from '../../enums/numbered-http-status';
 
 export interface ApResponse<T> {
   data: T;

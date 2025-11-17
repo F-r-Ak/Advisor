@@ -6,10 +6,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SpecificLanguageDirective } from '../../../directives';
 import { ValidationHandlerPipe } from '../../../pipes';
 @Component({
-    selector: 'app-prime-input-text',
-    imports: [TranslateModule, NgClass, FormsModule, ReactiveFormsModule, InputTextModule, ValidationHandlerPipe, SpecificLanguageDirective],
-    templateUrl: './p-input-text.component.html',
-    styleUrl: './p-input-text.component.scss'
+  selector: 'app-prime-input-text',
+  imports: [TranslateModule, NgClass, FormsModule, ReactiveFormsModule, InputTextModule, ValidationHandlerPipe, SpecificLanguageDirective],
+  templateUrl: './p-input-text.component.html',
+  styleUrl: './p-input-text.component.scss'
 })
 export class PrimeInputTextComponent implements OnInit {
   @Input() formGroup!: FormGroup;
@@ -24,6 +24,5 @@ export class PrimeInputTextComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

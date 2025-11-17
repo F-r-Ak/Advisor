@@ -3,14 +3,14 @@ import { HttpService } from '../../../../core';
 import { EnumDto } from '../../../interfaces';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CategoryTypesService extends HttpService {
-    protected get baseUrl(): string {
-        return 'v1/categorytypes/';
-    }
+  protected get baseUrl(): string {
+    return 'v1/categorytypes/';
+  }
 
-    get categoryTypes() {
-        return this.get<EnumDto[]>({ apiName: 'getAll' });
-    }
+  get categoryTypes() {
+    return this.get<EnumDto[]>({ apiName: 'getAll' });
+  }
 }

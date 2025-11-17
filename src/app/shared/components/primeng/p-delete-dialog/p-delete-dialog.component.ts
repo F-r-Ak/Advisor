@@ -4,18 +4,21 @@ import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-prime-delete-dialog',
-  imports: [ DialogModule],
+  imports: [DialogModule],
   templateUrl: './p-delete-dialog.component.html',
   styleUrl: './p-delete-dialog.component.scss'
 })
 export class PrimeDeleteDialogComponent implements OnInit {
   deleteMainDialog: boolean = false;
   @Output() event: EventEmitter<any> = new EventEmitter<any>();
-  splitedId: string='';
+  splitedId: string = '';
   @Output()
   onClose: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private _location: Location, private router: Router) {}
+  constructor(
+    private _location: Location,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.deleteMainDialog = true;

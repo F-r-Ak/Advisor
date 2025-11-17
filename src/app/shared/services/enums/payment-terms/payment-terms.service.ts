@@ -14,4 +14,3 @@ export class PaymentTermsService extends HttpService {
     return this.get<EnumDto[]>({ apiName: 'getAll' });
   }
 }
-

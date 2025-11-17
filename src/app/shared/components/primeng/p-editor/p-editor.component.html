@@ -1,11 +1,11 @@
-@if(formGroup) {
+@if (formGroup) {
   <label for="inputId" class="m-1">{{ label }}</label>
   <div [formGroup]="formGroup">
-  <p-editor [formControlName]="controlName" [readonly]="readonly" inputId="inputId" />
-  @if (formGroup.get(controlName)?.errors) {
-  <small>
-    <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors  }}</span>
-  </small>
-  }
-</div>
+    <p-editor [formControlName]="controlName" [readonly]="readonly" inputId="inputId" />
+    @if (formGroup.get(controlName)?.errors) {
+      <small>
+        <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors }}</span>
+      </small>
+    }
+  </div>
 }

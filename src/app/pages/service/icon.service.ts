@@ -4,20 +4,20 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class IconService {
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    icons!: any[];
+  icons!: any[];
 
-    selectedIcon: any;
+  selectedIcon: any;
 
-    apiUrl = 'assets/demo/data/icons.json';
+  apiUrl = 'assets/demo/data/icons.json';
 
-    getIcons() {
-        return this.http.get(this.apiUrl).pipe(
-            map((response: any) => {
-                this.icons = response.icons;
-                return this.icons;
-            })
-        );
-    }
+  getIcons() {
+    return this.http.get(this.apiUrl).pipe(
+      map((response: any) => {
+        this.icons = response.icons;
+        return this.icons;
+      })
+    );
+  }
 }

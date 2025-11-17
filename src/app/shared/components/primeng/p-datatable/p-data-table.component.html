@@ -1,10 +1,5 @@
 @if (checkbox && selected && selected.length > 0) {
-  <button
-    class="font-14 px-4 main-btn cancel deleteSelected"
-    type="button"
-    (click)="deleteSelected()"
-    [disabled]="!selected || !selected.length"
-    flat-button>
+  <button class="font-14 px-4 main-btn cancel deleteSelected" type="button" (click)="deleteSelected()" [disabled]="!selected || !selected.length" flat-button>
     <div class="d-flex align-items-center">
       <i class="font-18 m-inline-end-1 pi pi-trash"></i>
       <span class="p-inline-end-1">حذف</span>
@@ -27,7 +22,8 @@
   [rows]="pageSize()"
   [totalRecords]="totalCount()"
   (onLazyLoad)="loadLazyLoadedData($event)"
-  [(selection)]="selected">
+  [(selection)]="selected"
+>
   <!-- ================= HEADER ================= -->
   <ng-template pTemplate="header" let-columns>
     <tr class="table-header">
@@ -44,11 +40,7 @@
         </th>
       }
 
-      @if (
-        (tableOptions().inputActions &&
-          permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.View') > -1) ||
-        permissions().allowAll
-      ) {
+      @if ((tableOptions().inputActions && permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.View') > -1) || permissions().allowAll) {
         <th style="width: 10em">
           {{ 'ACTIONS.TITLE' | translate }}
         </th>
@@ -67,29 +59,17 @@
             @switch (col.filterMode) {
               @case ('text') {
                 <div class="form-group has-search">
-                  <input
-                    class="form-control search-box"
-                    type="text"
-                    (input)="filter($event, col.field)"
-                    placeholder="{{ col.header | translate }}" />
+                  <input class="form-control search-box" type="text" (input)="filter($event, col.field)" placeholder="{{ col.header | translate }}" />
                 </div>
               }
               @case ('date') {
                 <div class="form-group has-search">
-                  <input
-                    class="form-control search-box"
-                    type="date"
-                    (input)="filter($event, col.field)"
-                    placeholder="{{ col.header | translate }}" />
+                  <input class="form-control search-box" type="date" (input)="filter($event, col.field)" placeholder="{{ col.header | translate }}" />
                 </div>
               }
               @default {
                 <div class="form-group has-search">
-                  <input
-                    class="form-control search-box"
-                    type="text"
-                    (input)="filter($event, col.field)"
-                    placeholder="{{ col.header | translate }}" />
+                  <input class="form-control search-box" type="text" (input)="filter($event, col.field)" placeholder="{{ col.header | translate }}" />
                 </div>
               }
             }
@@ -99,11 +79,7 @@
         }
       }
 
-      @if (
-        (tableOptions().inputActions &&
-          permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.View') > -1) ||
-        permissions().allowAll
-      ) {
+      @if ((tableOptions().inputActions && permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.View') > -1) || permissions().allowAll) {
         <th></th>
       }
     </tr>
@@ -115,7 +91,8 @@
       class="tr-body"
       [ngClass]="{
         'tr-body-background': getCellData(row, { field: 'isLate' })
-      }">
+      }"
+    >
       @if (checkbox) {
         <td>
           <p-tableCheckbox [value]="row" />
@@ -155,7 +132,8 @@
                     'bg-green-100 text-green-700': getCellData(row, col) === true,
                     'bg-red-100 text-red-700': getCellData(row, col) === false
                   }"
-                  class="rounded-md font-semibold text-center min-w-[100px] py-2 px-3 inline-block">
+                  class="rounded-md font-semibold text-center min-w-[100px] py-2 px-3 inline-block"
+                >
                   @if (getCellData(row, col) === true) {
                     {{ col.trueText ? (col.trueText | translate) : '✅' }}
                   }
@@ -177,36 +155,23 @@
       }
 
       <!-- ================= ACTIONS ================= -->
-      @if (
-        (tableOptions().inputActions &&
-          permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.View') > -1) ||
-        permissions().allowAll
-      ) {
+      @if ((tableOptions().inputActions && permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.View') > -1) || permissions().allowAll) {
         <td class="actions">
           @for (action of tableOptions().inputActions; track $index) {
             <span>
-              @if (
-                action.isEdit &&
-                (permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.Edit') > -1 || action.allowAll)
-              ) {
+              @if (action.isEdit && (permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.Edit') > -1 || action.allowAll)) {
                 <a [routerLink]="action.route + row.id" class="icon-btn">
                   <i class="{{ action.icon }} icon" [title]="action.name"></i>
                 </a>
               }
 
-              @if (
-                action.isDelete &&
-                (permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.Delete') > -1 || action.allowAll)
-              ) {
+              @if (action.isDelete && (permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.Delete') > -1 || action.allowAll)) {
                 <a class="icon-btn" (click)="delete(row.id)">
                   <i class="{{ action.icon }} icon" [title]="action.name"></i>
                 </a>
               }
 
-              @if (
-                action.isView &&
-                (permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.View') > -1 || action.allowAll)
-              ) {
+              @if (action.isView && (permissions().listOfPermissions.indexOf('Permission.' + permissions().componentName + '.View') > -1 || action.allowAll)) {
                 <a [routerLink]="action.route + row.id" class="icon-btn">
                   <i class="{{ action.icon }} icon {{ action.color }}" [title]="action.name"></i>
                 </a>

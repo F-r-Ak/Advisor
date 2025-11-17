@@ -24,7 +24,7 @@ export class AddEditJobTitlesComponent extends BaseEditComponent implements OnIn
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.dialogService.dialogComponentRefMap.forEach(element => {
+    this.dialogService.dialogComponentRefMap.forEach((element) => {
       this.pageType = element.instance.ddconfig.data.pageType;
       if (this.pageType === 'edit') {
         this.id.set(element.instance.ddconfig.data.row.rowData.id as string);
@@ -64,7 +64,7 @@ export class AddEditJobTitlesComponent extends BaseEditComponent implements OnIn
   }
 
   closeDialog() {
-    this.dialogService.dialogComponentRefMap.forEach(dialog => {
+    this.dialogService.dialogComponentRefMap.forEach((dialog) => {
       dialog.destroy();
     });
   }

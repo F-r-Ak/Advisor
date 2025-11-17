@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-error',
-  imports: [RouterModule ],
+  imports: [RouterModule],
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })
@@ -14,7 +14,7 @@ export class ErrorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(data => {
+    this.activatedRoute.params.subscribe((data) => {
       this.errorNumber = data['errorNumber'];
     });
   }

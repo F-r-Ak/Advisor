@@ -10,7 +10,7 @@ import { ToolbarModule } from 'primeng/toolbar';
   styleUrls: ['./p-title-toolbar.component.scss']
 })
 export class PrimeTitleToolBarComponent {
-  @Input() pageTitle: string ='';
+  @Input() pageTitle: string = '';
   constructor() {}
 
   ngOnInit(): void {}

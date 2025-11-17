@@ -3,12 +3,7 @@
 
   <div class="dataBox">
     <a class="addLink">
-      <button
-        class="px-2 py-1 mt-2 main-btn align-self-center font-14 main border-radius-2 mt-sm-0"
-        (click)="openAdd()"
-        type="button"
-        pButton
-        pRipple>
+      <button class="px-2 py-1 mt-2 main-btn align-self-center font-14 main border-radius-2 mt-sm-0" (click)="openAdd()" type="button" pButton pRipple>
         <div class="d-flex align-items-center">
           <i class="bx bx-plus m-inline-end-1 font-18"></i>
           <span class="p-inline-end-1">{{ 'ACTIONS.ADD' | translate }}</span>
@@ -18,13 +13,7 @@
 
     @if (tableOptions()) {
       <div class="mt-4">
-        <app-prime-data-table
-          (event)="handleEvent($event)"
-          [tableOptions]="tableOptions"
-          [data]="data()"
-          [totalCount]="totalCount()"
-          [pageSize]="dataTableService.opt.pageSize">
-        </app-prime-data-table>
+        <app-prime-data-table (event)="handleEvent($event)" [tableOptions]="tableOptions" [data]="data()" [totalCount]="totalCount()" [pageSize]="dataTableService.opt.pageSize"> </app-prime-data-table>
       </div>
     }
   </div>

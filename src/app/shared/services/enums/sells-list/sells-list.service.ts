@@ -14,4 +14,3 @@ export class SellsListService extends HttpService {
     return this.get<EnumDto[]>({ apiName: 'getAll' });
   }
 }
-

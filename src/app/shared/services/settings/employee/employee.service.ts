@@ -4,38 +4,38 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../../../../core/services';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class EmployeeService extends HttpService{
-    protected get baseUrl(): string {
-        return 'v1/employee/';
-    }
+export class EmployeeService extends HttpService {
+  protected get baseUrl(): string {
+    return 'v1/employee/';
+  }
 
-    getEmployee(id: string) {
-        return this.get<Lookup>({ apiName: `get/${id}` });
-    }
+  getEmployee(id: string) {
+    return this.get<Lookup>({ apiName: `get/${id}` });
+  }
 
-    getEditEmployee(id: string) {
-        return this.get<Lookup>({ apiName: `getedit/${id}` });
-    }
+  getEditEmployee(id: string) {
+    return this.get<Lookup>({ apiName: `getedit/${id}` });
+  }
 
-    get Employees() {
-        return this.get<Lookup[]>({ apiName: 'getall' });
-    }
+  get Employees() {
+    return this.get<Lookup[]>({ apiName: 'getall' });
+  }
 
-    getPaged(body: GetPagedBody<any>): Observable<any> {
-        return this.post<any, any>({ apiName: `getpaged`, showAlert: true }, body);
-    }
+  getPaged(body: GetPagedBody<any>): Observable<any> {
+    return this.post<any, any>({ apiName: `getpaged`, showAlert: true }, body);
+  }
 
-    add(body: Lookup) {
-        return this.post<Lookup, Lookup>({ apiName: 'add', showAlert: true }, body);
-    }
+  add(body: Lookup) {
+    return this.post<Lookup, Lookup>({ apiName: 'add', showAlert: true }, body);
+  }
 
-    update(body: Lookup) {
-        return this.put({ apiName: 'update', showAlert: true }, body);
-    }
+  update(body: Lookup) {
+    return this.put({ apiName: 'update', showAlert: true }, body);
+  }
 
-    remove(id: string) {
-        return this.delete({ apiName: `delete/`, showAlert: true }, id);
-    }
+  remove(id: string) {
+    return this.delete({ apiName: `delete/`, showAlert: true }, id);
+  }
 }

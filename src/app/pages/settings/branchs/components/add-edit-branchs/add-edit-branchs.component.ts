@@ -8,65 +8,65 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'app-add-edit-branchs',
-    standalone: true,
-    imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
-    templateUrl: './add-edit-branchs.component.html',
-    styleUrl: './add-edit-branchs.component.scss'
+  selector: 'app-add-edit-branchs',
+  standalone: true,
+  imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent],
+  templateUrl: './add-edit-branchs.component.html',
+  styleUrl: './add-edit-branchs.component.scss'
 })
 export class AddEditBranchsComponent extends BaseEditComponent implements OnInit {
-    branchsService: BranchsService = inject(BranchsService);
-    dialogService: DialogService = inject(DialogService);
+  branchsService: BranchsService = inject(BranchsService);
+  dialogService: DialogService = inject(DialogService);
 
-    constructor(override activatedRoute: ActivatedRoute) {
-        super(activatedRoute);
+  constructor(override activatedRoute: ActivatedRoute) {
+    super(activatedRoute);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.dialogService.dialogComponentRefMap.forEach((element) => {
+      this.pageType = element.instance.ddconfig.data.pageType;
+      if (this.pageType === 'edit') {
+        this.id = element.instance.ddconfig.data.row.rowData.id;
+      }
+    });
+    if (this.pageType === 'edit') {
+      this.getEditBranchs();
+    } else {
+      this.initFormGroup();
     }
+  }
 
-    override ngOnInit(): void {
-        super.ngOnInit();
-        this.dialogService.dialogComponentRefMap.forEach((element) => {
-            this.pageType = element.instance.ddconfig.data.pageType;
-            if (this.pageType === 'edit') {
-                this.id = element.instance.ddconfig.data.row.rowData.id;
-            }
-        });
-        if (this.pageType === 'edit') {
-            this.getEditBranchs();
-        } else {
-            this.initFormGroup();
-        }
-    }
+  initFormGroup() {
+    this.form = this.fb.group({
+      id: [''],
+      code: ['', Validators.required],
+      nameAr: ['', Validators.required],
+      nameEn: ['']
+    });
+  }
 
-    initFormGroup() {
-        this.form = this.fb.group({
-            id: [''],
-            code: ['', Validators.required],
-            nameAr: ['', Validators.required],
-            nameEn: ['']
-        });
-    }
+  getEditBranchs = () => {
+    this.branchsService.getEditBranchs(this.id()).subscribe((branch: any) => {
+      this.initFormGroup();
+      this.form.patchValue(branch);
+    });
+  };
 
-    getEditBranchs = () => {
-        this.branchsService.getEditBranchs(this.id()).subscribe((branch: any) => {
-            this.initFormGroup();
-            this.form.patchValue(branch);
-        });
-    };
+  submit() {
+    if (this.pageType === 'add')
+      this.branchsService.add(this.form.value).subscribe(() => {
+        this.closeDialog();
+      });
+    if (this.pageType === 'edit')
+      this.branchsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+        this.closeDialog();
+      });
+  }
 
-    submit() {
-        if (this.pageType === 'add')
-            this.branchsService.add(this.form.value).subscribe(() => {
-                this.closeDialog();
-            });
-        if (this.pageType === 'edit')
-            this.branchsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
-                this.closeDialog();
-            });
-    }
-
-    closeDialog() {
-        this.dialogService.dialogComponentRefMap.forEach((dialog) => {
-            dialog.destroy();
-        });
-    }
+  closeDialog() {
+    this.dialogService.dialogComponentRefMap.forEach((dialog) => {
+      dialog.destroy();
+    });
+  }
 }

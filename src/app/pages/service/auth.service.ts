@@ -11,7 +11,10 @@ export class AuthService {
   private apiUrl = 'https://your-api.com/auth'; // Replace with your API URL
   private jwtHelper = new JwtHelperService();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials);

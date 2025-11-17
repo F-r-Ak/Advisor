@@ -3,16 +3,7 @@ import { BaseEditComponent } from '../../../../../base/components/base-edit-comp
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  PrimeInputTextComponent,
-  SubmitButtonsComponent,
-  PrimeDatepickerComponent,
-  PrimeAutoCompleteComponent,
-  UsersService,
-  DepartmentsService,
-  BranchsService,
-  OrgStructuresService
-} from '../../../../../shared';
+import { PrimeInputTextComponent, SubmitButtonsComponent, PrimeDatepickerComponent, PrimeAutoCompleteComponent, UsersService, DepartmentsService, BranchsService, OrgStructuresService } from '../../../../../shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../../../../../shared/services/settings/employee/employee.service';
@@ -20,16 +11,7 @@ import { JobTitlesService } from '../../../../../shared/services/settings/job-ti
 
 @Component({
   selector: 'app-add-edit-employee',
-  imports: [
-    TranslateModule,
-    CardModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SubmitButtonsComponent,
-    PrimeInputTextComponent,
-    PrimeDatepickerComponent,
-    PrimeAutoCompleteComponent
-  ],
+  imports: [TranslateModule, CardModule, FormsModule, ReactiveFormsModule, SubmitButtonsComponent, PrimeInputTextComponent, PrimeDatepickerComponent, PrimeAutoCompleteComponent],
   templateUrl: './add-edit-employee.component.html',
   styleUrl: './add-edit-employee.component.scss'
 })
@@ -59,7 +41,7 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.dialogService.dialogComponentRefMap.forEach(element => {
+    this.dialogService.dialogComponentRefMap.forEach((element) => {
       this.pageType = element.instance.ddconfig.data.pageType;
       if (this.pageType === 'edit') {
         this.id = element.instance.ddconfig.data.row.rowData.id;
@@ -99,11 +81,9 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
     const query = event.query.toLowerCase();
     this.usersService.users.subscribe({
       next: (res: any) => {
-        this.filteredUser = res.filter(
-          (user: any) => user.name.toLowerCase().includes(query) || user.userName.toLowerCase().includes(query)
-        );
+        this.filteredUser = res.filter((user: any) => user.name.toLowerCase().includes(query) || user.userName.toLowerCase().includes(query));
       },
-      error: err => {
+      error: (err) => {
         this.alert.error('خطأ فى جلب بيانات المستخدمين');
       }
     });
@@ -127,11 +107,9 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
     const query = event.query.toLowerCase();
     this.departmentService.departments.subscribe({
       next: (res: any) => {
-        this.filteredDepartment = res.filter(
-          (department: any) => department.name.toLowerCase().includes(query) || department.name.toLowerCase().includes(query)
-        );
+        this.filteredDepartment = res.filter((department: any) => department.name.toLowerCase().includes(query) || department.name.toLowerCase().includes(query));
       },
-      error: err => {
+      error: (err) => {
         this.alert.error('خطأ فى جلب بيانات القسم');
       }
     });
@@ -155,11 +133,9 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
     const query = event.query.toLowerCase();
     this.branchService.branchs.subscribe({
       next: (res: any) => {
-        this.filteredBranch = res.filter(
-          (branch: any) => branch.nameAr.toLowerCase().includes(query) || branch.nameEn.toLowerCase().includes(query)
-        );
+        this.filteredBranch = res.filter((branch: any) => branch.nameAr.toLowerCase().includes(query) || branch.nameEn.toLowerCase().includes(query));
       },
-      error: err => {
+      error: (err) => {
         this.alert.error('خطأ فى جلب بيانات الفرع');
       }
     });
@@ -183,11 +159,9 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
     const query = event.query.toLowerCase();
     this.jobTitleService.jobTitles.subscribe({
       next: (res: any) => {
-        this.filteredJobTitle = res.filter(
-          (jobTitle: any) => jobTitle.name.toLowerCase().includes(query) || jobTitle.nameEn.toLowerCase().includes(query)
-        );
+        this.filteredJobTitle = res.filter((jobTitle: any) => jobTitle.name.toLowerCase().includes(query) || jobTitle.nameEn.toLowerCase().includes(query));
       },
-      error: err => {
+      error: (err) => {
         this.alert.error('خطأ فى جلب بيانات المسميات الوظيفية');
       }
     });
@@ -211,11 +185,9 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
     const query = event.query.toLowerCase();
     this.orgStructureService.orgStructures.subscribe({
       next: (res: any) => {
-        this.filteredOrgStructure = res.filter(
-          (orgStructure: any) => orgStructure.name.toLowerCase().includes(query) || orgStructure.name.toLowerCase().includes(query)
-        );
+        this.filteredOrgStructure = res.filter((orgStructure: any) => orgStructure.name.toLowerCase().includes(query) || orgStructure.name.toLowerCase().includes(query));
       },
-      error: err => {
+      error: (err) => {
         this.alert.error('خطأ فى جلب بيانات مسميات الهياكل التنظيمية');
       }
     });
@@ -261,7 +233,7 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
   }
 
   closeDialog() {
-    this.dialogService.dialogComponentRefMap.forEach(dialog => {
+    this.dialogService.dialogComponentRefMap.forEach((dialog) => {
       dialog.destroy();
     });
   }

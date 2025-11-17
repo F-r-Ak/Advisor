@@ -1,37 +1,29 @@
 <p-card class="p-2 m-0">
-    @if (form) {
-        <form method="post" class="row" [formGroup]="form">
-            <div class="col-lg-6">
-                <app-prime-input-text [formGroup]="form" controlName="name" validatorLanguageType="ar" [label]="'مسمي القسم'"> </app-prime-input-text>
-            </div>
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'الفرع' }}</label>
-                <app-prime-autocomplete
-                    [field]="'nameAr'"
-                    [selectedOption]="selectedBranch"
-                    [suggestions]="filteredBranchs"
-                    [formGroup]="form"
-                    (onSelect)="onBranchSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getBranchs($event)"
-                ></app-prime-autocomplete>
-            </div>
+  @if (form) {
+    <form method="post" class="row" [formGroup]="form">
+      <div class="col-lg-6">
+        <app-prime-input-text [formGroup]="form" controlName="name" validatorLanguageType="ar" [label]="'مسمي القسم'"> </app-prime-input-text>
+      </div>
+      <div class="col-lg-6">
+        <label class="mb-2">{{ 'الفرع' }}</label>
+        <app-prime-autocomplete [field]="'nameAr'" [selectedOption]="selectedBranch" [suggestions]="filteredBranchs" [formGroup]="form" (onSelect)="onBranchSelect($event)" [lazy]="false" (handleMethod)="getBranchs($event)"></app-prime-autocomplete>
+      </div>
 
-            <div class="col-lg-6">
-                <label class="mb-2">{{ 'قسم رئيسي' }}</label>
-                <app-prime-autocomplete
-                    [field]="'name'"
-                    [selectedOption]="selectedDepartment"
-                    [suggestions]="filteredDepartments"
-                    [formGroup]="form"
-                    (onSelect)="onParentDepartmentSelect($event)"
-                    [lazy]="false"
-                    (handleMethod)="getParentDepartments($event)"
-                ></app-prime-autocomplete>
-            </div>
-        </form>
-    }
+      <div class="col-lg-6">
+        <label class="mb-2">{{ 'قسم رئيسي' }}</label>
+        <app-prime-autocomplete
+          [field]="'name'"
+          [selectedOption]="selectedDepartment"
+          [suggestions]="filteredDepartments"
+          [formGroup]="form"
+          (onSelect)="onParentDepartmentSelect($event)"
+          [lazy]="false"
+          (handleMethod)="getParentDepartments($event)"
+        ></app-prime-autocomplete>
+      </div>
+    </form>
+  }
 </p-card>
 @if (form) {
-    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+  <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
 }

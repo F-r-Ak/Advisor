@@ -1,37 +1,37 @@
 <div [formGroup]="formGroup">
-    <p-autoComplete
-        [(ngModel)]="selectedOption"
-        [ngModelOptions]="{ standalone: true }"
-        [optionLabel]="getBindLabel"
-        placeholder="اختر"
-        [suggestions]="suggestions"
-        [dropdown]="dropdown"
-        [forceSelection]="forceSelection"
-        (completeMethod)="handleCompleteMethod($event)"
-        (onSelect)="handleSelect($event)"
-        (onClear)="handleClear()"
-        [showClear]="showClear"
-        [virtualScroll]="virtualScroll"
-        virtualScrollItemSize="38"
-        [scrollHeight]="'150px'"
-        [lazy]="lazy"
-        [disabled]="disabled"
-        (onLazyLoad)="onLazyLoad($event)"
-        [multiple]="multiple"
-        [optionDisabled]="optionDisabled"
-        appendTo="body"
-        [emptyMessage]="'لا توجد نتائج بحث'"
-    >
-        <ng-template let-item pTemplate="item">
-            <div [class.disabled-option]="optionDisabled && item[optionDisabled]">
-                {{ item[getBindLabel] }}
-            </div>
-        </ng-template>
-    </p-autoComplete>
+  <p-autoComplete
+    [(ngModel)]="selectedOption"
+    [ngModelOptions]="{ standalone: true }"
+    [optionLabel]="getBindLabel"
+    placeholder="اختر"
+    [suggestions]="suggestions"
+    [dropdown]="dropdown"
+    [forceSelection]="forceSelection"
+    (completeMethod)="handleCompleteMethod($event)"
+    (onSelect)="handleSelect($event)"
+    (onClear)="handleClear()"
+    [showClear]="showClear"
+    [virtualScroll]="virtualScroll"
+    virtualScrollItemSize="38"
+    [scrollHeight]="'150px'"
+    [lazy]="lazy"
+    [disabled]="disabled"
+    (onLazyLoad)="onLazyLoad($event)"
+    [multiple]="multiple"
+    [optionDisabled]="optionDisabled"
+    appendTo="body"
+    [emptyMessage]="'لا توجد نتائج بحث'"
+  >
+    <ng-template let-item pTemplate="item">
+      <div [class.disabled-option]="optionDisabled && item[optionDisabled]">
+        {{ item[getBindLabel] }}
+      </div>
+    </ng-template>
+  </p-autoComplete>
 
-    @if (formGroup.get(controlName)?.errors) {
-        <small>
-            <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
-        </small>
-    }
+  @if (formGroup.get(controlName)?.errors) {
+    <small>
+      <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
+    </small>
+  }
 </div>
