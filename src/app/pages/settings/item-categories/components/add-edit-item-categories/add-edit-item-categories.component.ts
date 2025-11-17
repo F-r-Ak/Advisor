@@ -40,7 +40,7 @@ export class AddEditItemCategoriesComponent extends BaseEditComponent implements
     this.dialogService.dialogComponentRefMap.forEach((element) => {
       this.pageType = element.instance.ddconfig.data.pageType;
       if (this.pageType === 'edit') {
-        this.id = element.instance.ddconfig.data.row.rowData.id;
+        this.id.set(element.instance.ddconfig.data.row.rowData.id as string);
         console.log('element ::', element);
       }
     });
@@ -167,7 +167,7 @@ export class AddEditItemCategoriesComponent extends BaseEditComponent implements
         this.closeDialog();
       });
     if (this.pageType === 'edit')
-      this.itemCategoriesService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+      this.itemCategoriesService.update({ id: this.id(), ...this.form.value }).subscribe(() => {
         this.closeDialog();
       });
   }

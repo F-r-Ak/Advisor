@@ -213,7 +213,7 @@ export class AddEditItemComponent extends BaseEditComponent implements OnInit {
           this.router.navigate(['/pages/items/edit/', res]);
         });
       } else if (this.pageType === 'edit') {
-        this.itemsService.update({ id: this.id, ...this.itemForm.value }).subscribe(() => {
+        this.itemsService.update({ id: this.id(), ...this.itemForm.value }).subscribe(() => {
           this.redirect();
         });
       }

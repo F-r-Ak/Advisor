@@ -30,7 +30,7 @@ export class AddEditItemItemUnitComponent extends BaseEditComponent implements O
       this.pageType = element.instance.ddconfig.data.pageType;
       this.touristMarinaId = element.instance.ddconfig.data.row.touristMarinaId;
       if (this.pageType === 'edit') {
-        this.id = element.instance.ddconfig.data.row.rowData.id;
+        this.id.set(element.instance.ddconfig.data.row.rowData.id as string);
       }
     });
     if (this.pageType === 'edit') {
@@ -90,7 +90,7 @@ export class AddEditItemItemUnitComponent extends BaseEditComponent implements O
         this.closeDialog();
       });
     if (this.pageType === 'edit')
-      this.itemItemUnitsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+      this.itemItemUnitsService.update({ id: this.id(), ...this.form.value }).subscribe(() => {
         this.closeDialog();
       });
   }

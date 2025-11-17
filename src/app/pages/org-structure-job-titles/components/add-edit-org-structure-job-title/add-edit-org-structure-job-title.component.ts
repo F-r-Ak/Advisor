@@ -35,7 +35,7 @@ export class AddEditOrgStructureJobTitleComponent extends BaseEditComponent impl
     this.dialogService.dialogComponentRefMap.forEach((element) => {
       this.pageType = element.instance.ddconfig.data.pageType;
       if (this.pageType === 'edit') {
-        this.id = element.instance.ddconfig.data.row.rowData.id;
+        this.id.set(element.instance.ddconfig.data.row.rowData.id as string);
       }
     });
     if (this.pageType === 'edit') {
@@ -117,7 +117,7 @@ export class AddEditOrgStructureJobTitleComponent extends BaseEditComponent impl
         this.closeDialog();
       });
     if (this.pageType === 'edit')
-      this.orgStructureJobTitlesService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+      this.orgStructureJobTitlesService.update({ id: this.id(), ...this.form.value }).subscribe(() => {
         this.closeDialog();
       });
   }

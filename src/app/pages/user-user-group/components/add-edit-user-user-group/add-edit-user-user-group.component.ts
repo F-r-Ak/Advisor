@@ -35,7 +35,7 @@ export class AddEditUserUserGroupComponent extends BaseEditComponent implements 
     this.dialogService.dialogComponentRefMap.forEach((element) => {
       this.pageType = element.instance.ddconfig.data.pageType;
       if (this.pageType === 'edit') {
-        this.id = element.instance.ddconfig.data.row.rowData.id;
+        this.id.set(element.instance.ddconfig.data.row.rowData.id as string);
       }
     });
     if (this.pageType === 'edit') {
@@ -123,7 +123,7 @@ export class AddEditUserUserGroupComponent extends BaseEditComponent implements 
         console.log(this.form.value);
       });
     if (this.pageType === 'edit')
-      this.userUserGroupService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+      this.userUserGroupService.update({ id: this.id(), ...this.form.value }).subscribe(() => {
         this.closeDialog();
       });
   }

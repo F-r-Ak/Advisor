@@ -44,7 +44,7 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
     this.dialogService.dialogComponentRefMap.forEach((element) => {
       this.pageType = element.instance.ddconfig.data.pageType;
       if (this.pageType === 'edit') {
-        this.id = element.instance.ddconfig.data.row.rowData.id;
+        this.id.set(element.instance.ddconfig.data.row.rowData.id as string);
       }
     });
     // this.id = this.activatedRoute.snapshot.paramMap.get('id') as string;
@@ -227,7 +227,7 @@ export class AddEditEmployeeComponent extends BaseEditComponent implements OnIni
         this.closeDialog();
       });
     if (this.pageType === 'edit')
-      this.employeeService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+      this.employeeService.update({ id: this.id(), ...this.form.value }).subscribe(() => {
         this.closeDialog();
       });
   }

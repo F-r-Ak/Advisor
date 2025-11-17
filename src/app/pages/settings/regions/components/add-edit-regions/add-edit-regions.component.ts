@@ -30,7 +30,7 @@ export class AddEditRegionsComponent extends BaseEditComponent implements OnInit
     this.dialogService.dialogComponentRefMap.forEach((element) => {
       this.pageType = element.instance.ddconfig.data.pageType;
       if (this.pageType === 'edit') {
-        this.id = element.instance.ddconfig.data.row.rowData.id;
+        this.id.set(element.instance.ddconfig.data.row.rowData.id as string);
       }
     });
     if (this.pageType === 'edit') {
@@ -89,7 +89,7 @@ export class AddEditRegionsComponent extends BaseEditComponent implements OnInit
         this.closeDialog();
       });
     if (this.pageType === 'edit')
-      this.regionsService.update({ id: this.id, ...this.form.value }).subscribe(() => {
+      this.regionsService.update({ id: this.id(), ...this.form.value }).subscribe(() => {
         this.closeDialog();
       });
   }
