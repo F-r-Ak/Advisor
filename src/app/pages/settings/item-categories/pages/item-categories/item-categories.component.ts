@@ -17,41 +17,43 @@ import { AddEditItemCategoriesComponent } from '../../components/add-edit-item-c
 export class ItemCategoriesComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
-    tableOptions!: WritableSignal<TableOptions>;
     service = inject(ItemCategoriesService);
+
+    // ✅ Signal initialized at class level with static configuration
+    tableOptions: WritableSignal<TableOptions> = signal<TableOptions>({
+        inputUrl: {
+            getAll: 'v1/itemcategory/getPaged',
+            getAllMethod: 'POST',
+            delete: 'v1/itemcategory/deletesoft'
+        },
+        inputCols: [],
+        inputActions: [],
+        permissions: {
+            componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
+            allowAll: true,
+            listOfPermissions: []
+        },
+        bodyOptions: {
+            filter: {}
+        },
+        responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
+    });
+
+    // ✅ Effect at class level (not in ngOnInit)
+    langEffect = effect(() => {
+        const lang = this.localize.currentLanguage();
+        this.language.set(lang);
+
+        // Update only dynamic parts using .update()
+        this.tableOptions.update(options => ({
+            ...options,
+            inputCols: this.initializeTableColumns(),
+            inputActions: this.initializeTableActions()
+        }));
+    });
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
-    }
-
-    override ngOnInit(): void {
-        effect(() => {
-            const lang = this.localize.currentLanguage(); // <-- Signal usage
-
-            this.language.set(lang);
-            this.initializeTableOptions();
-        });
-    }
-
-    initializeTableOptions() {
-        this.tableOptions = signal({
-            inputUrl: {
-                getAll: 'v1/itemcategory/getPaged',
-                getAllMethod: 'POST',
-                delete: 'v1/itemcategory/deletesoft'
-            },
-            inputCols: this.initializeTableColumns(),
-            inputActions: this.initializeTableActions(),
-            permissions: {
-                componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
-                allowAll: true,
-                listOfPermissions: []
-            },
-            bodyOptions: {
-                filter: {}
-            },
-            responsiveDisplayedProperties: ['code', 'nameAr', 'nameEn']
-        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {

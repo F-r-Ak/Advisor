@@ -17,41 +17,43 @@ import { AddEditOrgStructureJobTitleComponent } from '../../components/add-edit-
 export class OrgStructureJobTitlesComponent extends BaseListComponent {
     @Input() employeeId: string = '';
     isEnglish = false;
-    tableOptions!: WritableSignal<TableOptions>;
     service = inject(OrgStructureJobTitlesService);
+
+    // ✅ Signal initialized at class level with static configuration
+    tableOptions: WritableSignal<TableOptions> = signal<TableOptions>({
+        inputUrl: {
+            getAll: 'v1/orgstructurejobtitles/getPaged',
+            getAllMethod: 'POST',
+            delete: 'v1/orgstructurejobtitles/deletesoft'
+        },
+        inputCols: [],
+        inputActions: [],
+        permissions: {
+            componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
+            allowAll: true,
+            listOfPermissions: []
+        },
+        bodyOptions: {
+            filter: {}
+        },
+        responsiveDisplayedProperties: ['orgStructureName', 'jobTitleName']
+    });
+
+    // ✅ Effect at class level (not in ngOnInit)
+    langEffect = effect(() => {
+        const lang = this.localize.currentLanguage();
+        this.language.set(lang);
+
+        // Update only dynamic parts using .update()
+        this.tableOptions.update(options => ({
+            ...options,
+            inputCols: this.initializeTableColumns(),
+            inputActions: this.initializeTableActions()
+        }));
+    });
 
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
-    }
-
-    override ngOnInit(): void {
-        effect(() => {
-            const lang = this.localize.currentLanguage(); // <-- Signal usage
-
-            this.language.set(lang);
-            this.initializeTableOptions();
-        });
-    }
-
-    initializeTableOptions() {
-        this.tableOptions = signal({
-            inputUrl: {
-                getAll: 'v1/orgstructurejobtitles/getPaged',
-                getAllMethod: 'POST',
-                delete: 'v1/orgstructurejobtitles/deletesoft'
-            },
-            inputCols: this.initializeTableColumns(),
-            inputActions: this.initializeTableActions(),
-            permissions: {
-                componentName: 'ADVISOR-SYSTEM-EXPERIENCES',
-                allowAll: true,
-                listOfPermissions: []
-            },
-            bodyOptions: {
-                filter: {}
-            },
-            responsiveDisplayedProperties: ['orgStructureName', 'jobTitleName']
-        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {

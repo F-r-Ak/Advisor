@@ -16,39 +16,36 @@ import { AddEditItemItemUnitComponent } from '../add-edit-item-item-unit/add-edi
 export class ItemItemUnitsComponent extends BaseListComponent {
   @Input() itemId: string = '';
   isEnglish = false;
-  tableOptions!: WritableSignal<TableOptions>;
   service = inject(ItemItemUnitsService);
+
+  // ✅ Signal initialized at class level with static configuration
+  tableOptions: WritableSignal<TableOptions> = signal<TableOptions>({
+    inputUrl: {
+      getAll: 'marinaorganization/getpaged',
+      getAllMethod: 'POST',
+      delete: 'marinaorganization/deletesoft'
+    },
+    inputCols: this.initializeTableColumns(),
+    inputActions: this.initializeTableActions(),
+    permissions: {
+      componentName: 'SONO-TRACKER-Marina-ORGANIZATION',
+      allowAll: true,
+      listOfPermissions: []
+    },
+    bodyOptions: {
+      filter: {
+        "itemId": this.itemId
+      }
+    },
+    responsiveDisplayedProperties: ['identity', 'idType', 'name', 'nationalityNameAr', 'job', 'mobile', 'email']
+  });
 
   constructor(activatedRoute: ActivatedRoute) {
     super(activatedRoute);
   }
 
   override ngOnInit(): void {
-    this.initializeTableOptions();
     super.ngOnInit();
-  }
-
-  initializeTableOptions() {
-    this.tableOptions = signal({
-      inputUrl: {
-        getAll: 'marinaorganization/getpaged',
-        getAllMethod: 'POST',
-        delete: 'marinaorganization/deletesoft'
-      },
-      inputCols: this.initializeTableColumns(),
-      inputActions: this.initializeTableActions(),
-      permissions: {
-        componentName: 'SONO-TRACKER-Marina-ORGANIZATION',
-        allowAll: true,
-        listOfPermissions: []
-      },
-      bodyOptions: {
-        filter: {
-          "itemId": this.itemId
-        }
-      },
-      responsiveDisplayedProperties: ['identity', 'idType', 'name', 'nationalityNameAr', 'job', 'mobile', 'email']
-    });
   }
 
   initializeTableColumns(): TableOptions['inputCols'] {

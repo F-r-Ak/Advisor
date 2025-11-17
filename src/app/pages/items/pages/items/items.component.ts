@@ -14,37 +14,35 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrl: './items.component.scss'
 })
 export class ItemsComponent extends BaseListComponent {
-    tableOptions!: WritableSignal<TableOptions>;
     service = inject(ItemsService);
     formBuilder: FormBuilder = inject(FormBuilder);
+
+    // ✅ Signal initialized at class level with static configuration
+    tableOptions: WritableSignal<TableOptions> = signal<TableOptions>({
+        inputUrl: {
+            getAll: 'v1/item/getpaged',
+            getAllMethod: 'POST',
+            delete: 'v1/item/delete'
+        },
+        inputCols: this.initializeTableColumns(),
+        inputActions: this.initializeTableActions(),
+        permissions: {
+            componentName: 'ADVISOR-SYSTEM-ITEMS',
+            allowAll: true,
+            listOfPermissions: []
+        },
+        bodyOptions: {
+            filter: {}
+        },
+        responsiveDisplayedProperties: ['code', 'itemVendorNameAr','itemVendorNameEn','itemCategoryNameAr','itemCategoryNameEn','checkRest','stopSell','expireDays','orderLimit','idleLimit','maxSellDiscount','sellsList','isActive'],
+    });
+
     constructor(activatedRoute: ActivatedRoute) {
         super(activatedRoute);
     }
 
     override ngOnInit(): void {
         super.ngOnInit();
-        this.initializeTableOptions();
-    }
-
-    initializeTableOptions() {
-        this.tableOptions = signal({
-            inputUrl: {
-                getAll: 'v1/item/getpaged',
-                getAllMethod: 'POST',
-                delete: 'v1/item/delete'
-            },
-            inputCols: this.initializeTableColumns(),
-            inputActions: this.initializeTableActions(),
-            permissions: {
-                componentName: 'ADVISOR-SYSTEM-ITEMS',
-                allowAll: true,
-                listOfPermissions: []
-            },
-            bodyOptions: {
-                filter: {}
-            },
-            responsiveDisplayedProperties: ['code', 'itemVendorNameAr','itemVendorNameEn','itemCategoryNameAr','itemCategoryNameEn','checkRest','stopSell','expireDays','orderLimit','idleLimit','maxSellDiscount','sellsList','isActive'],
-        });
     }
 
     initializeTableColumns(): TableOptions['inputCols'] {
