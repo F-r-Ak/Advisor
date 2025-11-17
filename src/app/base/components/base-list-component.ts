@@ -134,7 +134,7 @@ export abstract class BaseListComponent extends BaseComponent implements OnInit 
       )
       .subscribe({
         next: (res) => {
-          this.data.set(res.data);
+          this.data.set(res.data.data);
           this.totalCount.set(res.totalCount ?? 0);
         }
       });

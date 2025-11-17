@@ -1,7 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
+
 @import url('./assets/layout/layout.scss');
 @import url('./assets/demo/demo.scss');
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('/assets/fonts/Cairo-VariableFont_slnt,wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* مهم لتجنب التحذيرات */
+}
 
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
@@ -39,11 +48,4 @@
     margin-inline: auto;
     padding-inline: 2rem;
   }
-}
-
-@font-face {
-  font-family: 'Cairo';
-  src: url('../src/assets/fonts/Cairo-VariableFont_slnt\,wght.ttf') format('woff2');
-  font-weight: normal;
-  font-style: normal;
 }
