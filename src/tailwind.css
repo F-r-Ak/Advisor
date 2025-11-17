@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import url("./assets/layout/layout.scss");
-@import url("./assets/demo/demo.scss");
+@import url('./assets/layout/layout.scss');
+@import url('./assets/demo/demo.scss');
 
-@import "tailwindcss";
-@import "tailwindcss-primeui";
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
 
 /* @source './index.html'; */
 @source './**/*.{html,ts,scss,css}';
@@ -24,7 +24,7 @@
   --breakpoint-2xl: 1536px;
 
   --font-rubic: Rubik, serif;
-  --font-lato: "Lato", sans-serif;
+  --font-lato: 'Lato', sans-serif;
 }
 
 @layer utilities {

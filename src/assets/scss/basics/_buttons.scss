@@ -1,235 +1,235 @@
 @import '_variables';
 
 .p-dialog-header-icons {
-    border-radius: 8px !important;
-    background-color: #ef4444;
-    border: 2px solid #ef4444 !important;
-    &:disabled,
-    &:hover {
-        background-color: #f22012 !important;
-    }
-    button {
-        color: $white !important;
-    }
+  border-radius: 8px !important;
+  background-color: #ef4444;
+  border: 2px solid #ef4444 !important;
+  &:disabled,
+  &:hover {
+    background-color: #f22012 !important;
+  }
+  button {
+    color: $white !important;
+  }
 }
 
 .p-dialog-close-button {
-    background: #f22012 !important;
-    color: #fff !important;
-    border-radius: 5px !important;
+  background: #f22012 !important;
+  color: #fff !important;
+  border-radius: 5px !important;
 }
 
 .main-btn {
-    border-radius: 0.5rem !important;
-    min-height: 30px;
-    height: 30px;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    // background-color: var(--primary-color) !important;
-    // color: var(--white-color) !important;
-    transition: all 0.3s;
-    &:disabled {
-        color: $white !important;
-        background-color: #e3e5ee !important;
-        // border: 1.5px solid #e3e5ee !important;
-    }
-    &.white {
-        background-color: $white !important;
-        color: $primary;
-    }
+  border-radius: 0.5rem !important;
+  min-height: 30px;
+  height: 30px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  // background-color: var(--primary-color) !important;
+  // color: var(--white-color) !important;
+  transition: all 0.3s;
+  &:disabled {
+    color: $white !important;
+    background-color: #e3e5ee !important;
+    // border: 1.5px solid #e3e5ee !important;
+  }
+  &.white {
+    background-color: $white !important;
+    color: $primary;
+  }
 
+  &:hover {
+    background-color: $primary !important;
+    color: $white !important;
+    box-shadow: 5px 5px 20px rgba(253, 193, 31, 1);
+  }
+
+  &.cancel {
+    border-radius: 8px !important;
+    background-color: #f22012;
+    border: 2px solid #ea1b0d !important;
+    color: #fff;
+    &:disabled,
     &:hover {
-        background-color: $primary !important;
-        color: $white !important;
-        box-shadow: 5px 5px 20px rgba(253, 193, 31, 1);
+      background-color: #f0f0f0 !important;
+      border: 2px solid #f22012 !important;
+      color: #f22012 !important;
+    }
+  }
+
+  &.main {
+    border-radius: 8px !important;
+    border: 2px solid $primary !important;
+    background-color: var(--primary-color) !important;
+    color: var(--white-color) !important;
+
+    &:disabled {
+      background-color: #eee7e3 !important;
+      color: $primary !important;
+      border-color: #eee7e3 !important;
+      cursor: not-allowed !important;
     }
 
-    &.cancel {
-        border-radius: 8px !important;
-        background-color: #f22012;
-        border: 2px solid #ea1b0d !important;
-        color: #fff;
-        &:disabled,
-        &:hover{
-            background-color: #f0f0f0 !important;
-            border: 2px solid #f22012 !important;
-            color: #f22012 !important;
-        }
+    &:not(:disabled):hover {
+      background-color: $primary !important;
+      color: $white !important;
+    }
+  }
+
+  &.light {
+    background-color: $primary-light !important;
+    color: $white !important;
+  }
+
+  &.secondary {
+    background-color: $secondary !important;
+    color: $white;
+
+    &:disabled {
+      background-color: #e3e5ee !important;
+      color: #ccc !important;
+    }
+  }
+
+  &.rounded {
+    border-radius: 50px !important;
+  }
+
+  &.dark {
+    background-color: $dark !important;
+    color: $white !important;
+  }
+
+  &.flat {
+    border: none !important;
+    color: $primary !important;
+  }
+
+  &.strock {
+    border: 1.5px solid $dark !important;
+    color: $black !important;
+    background-color: transparent !important;
+
+    &.active {
+      background-color: $primary !important;
+      color: $white !important;
+    }
+  }
+
+  &.strock-bg {
+    background-color: $white !important;
+    border-color: $primary !important;
+    color: $primary !important;
+
+    &.active {
+      background-color: $primary !important;
+      color: $white !important;
     }
 
-    &.main {
-        border-radius: 8px !important;
-        border: 2px solid $primary !important;
-        background-color: var(--primary-color) !important;
-        color: var(--white-color) !important;
-
-        &:disabled {
-            background-color: #eee7e3 !important;
-            color: $primary !important;
-            border-color: #eee7e3 !important;
-            cursor: not-allowed !important;
-        }
-
-        &:not(:disabled):hover {
-            background-color: $primary !important;
-            color: $white !important;
-        }
+    &.danger {
+      background-color: $white !important;
+      border-color: $error !important;
+      color: $error !important;
     }
+  }
 
-    &.light {
-        background-color: $primary-light !important;
-        color: $white !important;
-    }
+  &.w-max {
+    min-width: max-content !important;
+  }
 
-    &.secondary {
-        background-color: $secondary !important;
-        color: $white;
-
-        &:disabled {
-            background-color: #e3e5ee !important;
-            color: #ccc !important;
-        }
-    }
-
-    &.rounded {
-        border-radius: 50px !important;
-    }
-
-    &.dark {
-        background-color: $dark !important;
-        color: $white !important;
-    }
-
-    &.flat {
-        border: none !important;
-        color: $primary !important;
-    }
-
-    &.strock {
-        border: 1.5px solid $dark !important;
-        color: $black !important;
-        background-color: transparent !important;
-
-        &.active {
-            background-color: $primary !important;
-            color: $white !important;
-        }
-    }
-
-    &.strock-bg {
-        background-color: $white !important;
-        border-color: $primary !important;
-        color: $primary !important;
-
-        &.active {
-            background-color: $primary !important;
-            color: $white !important;
-        }
-
-        &.danger {
-            background-color: $white !important;
-            border-color: $error !important;
-            color: $error !important;
-        }
-    }
-
-    &.w-max {
-        min-width: max-content !important;
-    }
-
-    &.bg-transparent {
-        border: 1.5px solid transparent !important;
-    }
+  &.bg-transparent {
+    border: 1.5px solid transparent !important;
+  }
 }
 .icon-btn {
+  &:hover {
+    cursor: pointer;
+  }
+  &:active,
+  &:first-child:active,
+  &.active,
+  &.show {
+    border: none !important;
+  }
+  .pi {
+    border-radius: 0.25rem;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    padding: 5px;
+  }
+  .pi-trash {
+    // background-color: #f22012;
+    color: red;
     &:hover {
-        cursor: pointer;
+      background-color: red !important;
+      color: var(--white-color) !important;
     }
-    &:active,
-    &:first-child:active,
-    &.active,
-    &.show {
-        border: none !important;
+  }
+  .pi-print,
+  .pi-file-edit,
+  .pi-sitemap {
+    // background-color: #748892;
+    color: var(--primary-color);
+    &:hover {
+      background-color: var(--primary-color);
+      color: var(--white-color) !important;
+      // border-color: #5d6e76;
     }
-    .pi {
-        border-radius: 0.25rem;
-        font-size: 14px;
-        transition: all 0.3s ease-in-out;
-        color: #fff;
-        padding: 5px;
+  }
+  .pi-envelope,
+  .pi-window-maximize {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #fff;
+    &:hover {
+      background-color: #d9a712;
+      border-color: #d9a712;
     }
-    .pi-trash {
-        // background-color: #f22012;
-        color: red;
-        &:hover {
-            background-color: red !important;
-            color: var(--white-color) !important;
-        }
+  }
+  .pi-eye {
+    background-color: $primary;
+    border-color: $primary;
+    color: $white !important;
+    &:hover {
+      background-color: $white;
+      border-color: $white;
+      color: $primary !important;
     }
-    .pi-print,
-    .pi-file-edit,
-    .pi-sitemap {
-        // background-color: #748892;
-        color: var(--primary-color);
-        &:hover {
-            background-color: var(--primary-color);
-            color: var(--white-color) !important;
-            // border-color: #5d6e76;
-        }
-    }
-    .pi-envelope,
-    .pi-window-maximize {
-        background-color: #ffc107;
-        border-color: #ffc107;
-        color: #fff;
-        &:hover {
-            background-color: #d9a712;
-            border-color: #d9a712;
-        }
-    }
-    .pi-eye {
-        background-color: $primary;
-        border-color: $primary;
-        color: $white !important;
-        &:hover {
-            background-color: $white;
-            border-color: $white;
-            color: $primary !important;
-        }
-    }
+  }
 
-    .pi-pencil {
-        background-color: $primary;
-        border-color: $primary;
-        color: $white;
-        &:hover {
-            background-color: $white;
-            border-color: $primary;
-            color: $primary;
-        }
+  .pi-pencil {
+    background-color: $primary;
+    border-color: $primary;
+    color: $white;
+    &:hover {
+      background-color: $white;
+      border-color: $primary;
+      color: $primary;
     }
+  }
 }
 
 .routes {
-    border-bottom: 1px solid#cbd5e1;
+  border-bottom: 1px solid#cbd5e1;
+  .link {
+    padding: 1rem 1.25rem;
+    border: 0 !important;
+    font-weight: 600;
+    background: transparent;
+    &:hover,
+    &:active {
+      background-color: #f0f0f0;
+      color: #f9a825 !important;
+      border-bottom: 2px solid#F9A825 !important;
+    }
+  }
+  .active-link {
     .link {
-        padding: 1rem 1.25rem;
-        border: 0 !important;
-        font-weight: 600;
-        background: transparent;
-        &:hover,
-        &:active {
-            background-color: #f0f0f0;
-            color: #f9a825 !important;
-            border-bottom: 2px solid#F9A825 !important;
-        }
+      background-color: #f0f0f0; // Or any other style
+      color: #f9a825 !important;
+      border-bottom: 2px solid #f9a825 !important;
     }
-    .active-link {
-        .link {
-            background-color: #f0f0f0; // Or any other style
-            color: #f9a825 !important;
-            border-bottom: 2px solid #f9a825 !important;
-        }
-    }
+  }
 }

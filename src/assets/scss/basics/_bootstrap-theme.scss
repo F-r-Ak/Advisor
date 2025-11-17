@@ -1,9 +1,9 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
-@import "bootstrap/scss/maps";
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/utilities";
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
 
 $font-size-base: $db-font-size;
 $font-family-base: $db-font-regular;
@@ -22,7 +22,7 @@ $spacers: (
   7: $spacer * 3,
   8: $spacer * 3.5,
   9: $spacer * 4,
-  10: $spacer * 5,
+  10: $spacer * 5
 );
 
 $grid-breakpoints: (
@@ -31,7 +31,7 @@ $grid-breakpoints: (
   md: $min-medium,
   lg: $min-normal,
   xl: $min-large,
-  xxl: $min-xLarge,
+  xxl: $min-xLarge
 );
 
 // override theme colors
@@ -69,7 +69,7 @@ $my-theme-colors: (
 
   box-shadow: $box-shadow,
   btn-disable: #e3e5ee,
-  border-default: #a1a1a5,
+  border-default: #a1a1a5
 );
 
 // Merge the maps
@@ -78,41 +78,37 @@ $theme-colors: map-merge($theme-colors, $my-theme-colors);
 $utilities: map-merge(
   $utilities,
   (
-    "margin-start":
-      map-merge(
-        map-get($utilities, "margin-start"),
+    'margin-start': map-merge(
+        map-get($utilities, 'margin-start'),
         (
-          property: margin-inline-start,
+          property: margin-inline-start
         )
       ),
-    "margin-end":
-      map-merge(
-        map-get($utilities, "margin-end"),
+    'margin-end': map-merge(
+        map-get($utilities, 'margin-end'),
         (
-          property: margin-inline-end,
+          property: margin-inline-end
         )
       ),
-    "padding-start":
-      map-merge(
-        map-get($utilities, "padding-start"),
+    'padding-start': map-merge(
+        map-get($utilities, 'padding-start'),
         (
-          property: padding-inline-start,
+          property: padding-inline-start
         )
       ),
-    "padding-end":
-      map-merge(
-        map-get($utilities, "padding-end"),
+    'padding-end': map-merge(
+        map-get($utilities, 'padding-end'),
         (
-          property: padding-inline-end,
+          property: padding-inline-end
         )
       ),
-    "cursor": (
+    'cursor': (
       property: cursor,
       class: cursor,
       responsive: true,
-      values: auto pointer grab,
+      values: auto pointer grab
     ),
-    "z-index": (
+    'z-index': (
       property: z-index,
       class: zi,
       responsive: true,
@@ -122,10 +118,10 @@ $utilities: map-merge(
         2: 2,
         3: 3,
         4: 4,
-        5: 5,
-      ),
+        5: 5
+      )
     ),
-    "border-radius": (
+    'border-radius': (
       property: border-radius,
       class: border-radius,
       responsive: true,
@@ -136,93 +132,88 @@ $utilities: map-merge(
         16: 1rem,
         24: 1.5rem,
         32: 2rem,
-        50: 50%,
-      ),
+        50: 50%
+      )
     ),
-    "box-shadow": (
+    'box-shadow': (
       property: box-shadow,
       class: box,
       responsive: true,
       values: (
-        "shadow": 0 2px 20px 0 $box-shadow,
-        "shadow-card": 0 0 10px rgba(0, 0, 0, 0.1),
-      ),
+        'shadow': 0 2px 20px 0 $box-shadow,
+        'shadow-card': 0 0 10px rgba(0, 0, 0, 0.1)
+      )
     ),
-    "text-align": (
+    'text-align': (
       responsive: true,
       property: text-align,
       class: text,
       values: (
         start: start,
         end: end,
-        center: center,
-      ),
+        center: center
+      )
     ),
-    "min-height": (
+    'min-height': (
       property: min-height,
       class: h,
       responsive: true,
       values: (
         30: 30px,
         40: 40px,
-        48: 48px,
-      ),
+        48: 48px
+      )
     ),
-    "height":
-      map-merge(
-        map-get($utilities, "height"),
+    'height': map-merge(
+        map-get($utilities, 'height'),
         (
           responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "height"), "values"),
+          values: map-merge(
+              map-get(map-get($utilities, 'height'), 'values'),
               (
                 2: 2px,
                 30: 30px,
                 35: 35px,
                 40: 40px,
                 48: 48px,
-                60: 60px,
+                60: 60px
               )
-            ),
+            )
         )
       ),
-    "min-width": (
+    'min-width': (
       property: min-width,
       class: w,
       responsive: true,
       values: (
         70: 70px,
-        max: max-content,
-      ),
+        max: max-content
+      )
     ),
-    "width":
-      map-merge(
-        map-get($utilities, "width"),
+    'width': map-merge(
+        map-get($utilities, 'width'),
         (
           responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "width"), "values"),
+          values: map-merge(
+              map-get(map-get($utilities, 'width'), 'values'),
               (
                 80: 80%,
                 70: 70px,
                 20: 20%,
-                max: max-content,
+                max: max-content
               )
-            ),
+            )
         )
       ),
-    "display":
-      map-merge(
-        map-get($utilities, "display"),
+    'display': map-merge(
+        map-get($utilities, 'display'),
         (
           responsive: true,
-          values: inline inline-block block grid inline-grid table table-row table-cell flex inline-flex none list-item,
+          values: inline inline-block block grid inline-grid table table-row table-cell flex inline-flex none list-item
         )
-      ),
+      )
   )
 );
 
 /* Importing Bootstrap SCSS file. */
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';

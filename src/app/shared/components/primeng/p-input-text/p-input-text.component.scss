@@ -1,4 +1,4 @@
-input{
+input {
   padding-bottom: 24px;
   padding-top: 14px;
 }
@@ -6,10 +6,9 @@ input{
   border-color: #f44336;
 }
 
-.p-inputtext:enabled:hover{
+.p-inputtext:enabled:hover {
   border-color: var(--primary-color);
 }
 // .p-inputtext:enabled:focus{
 //   border-color: var(--primary-color) !important;
 // }
-

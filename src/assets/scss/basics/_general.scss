@@ -2,9 +2,9 @@
 $menu-item-height: 40px;
 
 a {
-    text-decoration: none !important;
-    color: inherit;
-    outline: none;
+  text-decoration: none !important;
+  color: inherit;
+  outline: none;
 }
 
 h1,
@@ -13,121 +13,121 @@ h3,
 h4,
 h5,
 h6 {
-    line-height: 1.5 !important;
+  line-height: 1.5 !important;
 }
 
 body {
-    text-align: start;
+  text-align: start;
 
-    .cdk-global-overlay-wrapper {
-        direction: ltr !important;
-    }
-    .p-overlay.p-component {
-        right: auto;
-    }
+  .cdk-global-overlay-wrapper {
+    direction: ltr !important;
+  }
+  .p-overlay.p-component {
+    right: auto;
+  }
 }
 
 [dir='rtl'] * {
-    direction: rtl;
+  direction: rtl;
 }
 
 .rtl {
-    .p-datepicker {
-        .p-datepicker-header {
-            .p-datepicker-title {
-                margin: 0 0 0 auto;
-            }
-        }
+  .p-datepicker {
+    .p-datepicker-header {
+      .p-datepicker-title {
+        margin: 0 0 0 auto;
+      }
     }
+  }
 
-    .dropdown-toggle::after {
-        margin-left: unset;
-        margin-right: 0.255em;
-    }
+  .dropdown-toggle::after {
+    margin-left: unset;
+    margin-right: 0.255em;
+  }
 
-    .p-virtualscroller {
-        .p-autocomplete-list,
-        .p-virtualscroller-content {
-            right: 0 !important;
-            left: unset !important;
-        }
+  .p-virtualscroller {
+    .p-autocomplete-list,
+    .p-virtualscroller-content {
+      right: 0 !important;
+      left: unset !important;
     }
+  }
 }
 
 /**MG**/
 /**this one fix the padding that make the drop down option in drop down has extra white space on left or right **/
 ol,
 ul {
-    padding-left: unset !important;
+  padding-left: unset !important;
 }
 
-.p-overlay-mask{
-    background-color: rgba(255, 255, 255, 0.3) !important;
+.p-overlay-mask {
+  background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 /** dialog **/
 .p-dialog {
-    direction: rtl !important;
-    background-color: var(--primary-color) !important;
-    color: var(--white-color) !important;
-    border: none !important;
-    .p-dialog-header {
-        padding: 0.3rem 1rem;
-    }
+  direction: rtl !important;
+  background-color: var(--primary-color) !important;
+  color: var(--white-color) !important;
+  border: none !important;
+  .p-dialog-header {
+    padding: 0.3rem 1rem;
+  }
 
-    .p-button-text.p-button-secondary {
-        color: var(--white-color) !important;
-        border-radius: 0.5rem !important;
-    }
-    .p-button-text.p-button-secondary:hover {
-        background-color: var(--white-color) !important;
-        color: red !important;
-        border-radius: 0.5rem !important;
-    }
+  .p-button-text.p-button-secondary {
+    color: var(--white-color) !important;
+    border-radius: 0.5rem !important;
+  }
+  .p-button-text.p-button-secondary:hover {
+    background-color: var(--white-color) !important;
+    color: red !important;
+    border-radius: 0.5rem !important;
+  }
 }
 
 .p-dialog-content {
-    padding: unset !important;
+  padding: unset !important;
 }
 
 .cdk-overlay-pane {
-    .mat-mdc-dialog-actions {
-        padding: 0.3rem 1rem;
-    }
+  .mat-mdc-dialog-actions {
+    padding: 0.3rem 1rem;
+  }
 }
 
 .mainHeader {
-    font-size: 22px;
-    font-weight: 600;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .subTitle {
-    font-size: 19px;
-    font-weight: 600;
+  font-size: 19px;
+  font-weight: 600;
 
-    img {
-        width: 35px;
-        height: 35px;
-    }
+  img {
+    width: 35px;
+    height: 35px;
+  }
 }
 
 .systemBackground {
-    background-color: var(--primary-color) !important;
+  background-color: var(--primary-color) !important;
 }
 .systemBackgroundDialog {
-    // background-color: var(--dialog-color) !important;
-    background-color: var(--primary-color) !important;
+  // background-color: var(--dialog-color) !important;
+  background-color: var(--primary-color) !important;
 }
 
 .systemBackgroundSecondary {
-    background-color: var(--secondary-color) !important;
+  background-color: var(--secondary-color) !important;
 }
 
 .p-autocomplete-option {
-    direction: rtl !important;
+  direction: rtl !important;
 
-    &.p-autocomplete-option-selected {
-        background-color: var(--secondary-color) !important;
-        color: var(--datatable-header-color) !important;
-    }
+  &.p-autocomplete-option-selected {
+    background-color: var(--secondary-color) !important;
+    color: var(--datatable-header-color) !important;
+  }
 }

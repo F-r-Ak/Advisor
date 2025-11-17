@@ -1,59 +1,59 @@
 .dataBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0 auto;
-    width: 95%;
-    margin-top: 20px;
-    .addLink {
-        align-self: end;
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  width: 95%;
+  margin-top: 20px;
+  .addLink {
+    align-self: end;
+  }
 }
 .advancedSearch {
-    display: flex;
-    margin: 0 auto;
-    width: 76%;
-    flex-direction: column;
+  display: flex;
+  margin: 0 auto;
+  width: 76%;
+  flex-direction: column;
 }
 
 .linearGradient {
-    color: var(--white-color);
-    background: linear-gradient(135deg, rgba(6, 6, 15, 1) 10%, rgba(58, 54, 145, 1) 60%, rgba(253, 193, 31, 0.8) 100%);
+  color: var(--white-color);
+  background: linear-gradient(135deg, rgba(6, 6, 15, 1) 10%, rgba(58, 54, 145, 1) 60%, rgba(253, 193, 31, 0.8) 100%);
 
-    border-radius: 1rem;
-    width: 1200vw;
-    height: 75vh;
+  border-radius: 1rem;
+  width: 1200vw;
+  height: 75vh;
 }
 .dashboardInfo {
-    width: 40%;
-    padding: 1rem;
-    text-align: center;
-    align-items: center;
+  width: 40%;
+  padding: 1rem;
+  text-align: center;
+  align-items: center;
 }
 
 .dashboardCarosuel {
-    width: 50vw;
+  width: 50vw;
 }
 .p-button-text.p-button-secondary {
-    color: var(--white-color) !important;
-    border-radius: 0.5rem !important;
+  color: var(--white-color) !important;
+  border-radius: 0.5rem !important;
 }
 .p-button-text.p-button-secondary:hover {
-    background-color: var(--secondary-color) !important;
-    color: var(--white-color) !important;
-    border-radius: 0.5rem !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--white-color) !important;
+  border-radius: 0.5rem !important;
 }
 
 .p-button-icon-only.p-button-rounded {
-    border-radius: 1rem !important;
-    height: 1.5rem !important;
+  border-radius: 1rem !important;
+  height: 1.5rem !important;
 }
 
 .p-formgrid.grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 .p-formgrid .field.col {
-    flex: 1 1 0;
+  flex: 1 1 0;
 }

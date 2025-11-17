@@ -1,58 +1,58 @@
 @import '_variables';
 .title-toolbar {
-    .title-container {
-        margin: 2rem 0;
-        // background-color: $white;
-        display: inline-block;
+  .title-container {
+    margin: 2rem 0;
+    // background-color: $white;
+    display: inline-block;
 
-        .main-header {
-            font-size: 1.5rem;
-            font-weight: 900;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        i {
-            color: var(--secondary-color);
-        }
-
-        label {
-            color: var(--primary-color);
-        }
-
-        .header-line {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            position: relative;
-
-            .decorated-header-line {
-                flex-grow: 1;
-                height: 5px;
-                background-color: $primary;
-                border-radius: 0.25rem;
-                margin-right: 2.75rem;
-            }
-
-            .rectangle-header-line {
-                width: 14px;
-                height: 14px;
-                background-color: $primary;
-                margin-left: -0.5rem;
-                transform: rotate(45deg);
-            }
-        }
+    .main-header {
+      font-size: 1.5rem;
+      font-weight: 900;
+      display: block;
+      margin-bottom: 0.5rem;
     }
+
+    i {
+      color: var(--secondary-color);
+    }
+
+    label {
+      color: var(--primary-color);
+    }
+
+    .header-line {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+
+      .decorated-header-line {
+        flex-grow: 1;
+        height: 5px;
+        background-color: $primary;
+        border-radius: 0.25rem;
+        margin-right: 2.75rem;
+      }
+
+      .rectangle-header-line {
+        width: 14px;
+        height: 14px;
+        background-color: $primary;
+        margin-left: -0.5rem;
+        transform: rotate(45deg);
+      }
+    }
+  }
 }
 
 // Support for RTL
 .rtl {
-    .title-toolbar .header-line {
-        flex-direction: row-reverse;
+  .title-toolbar .header-line {
+    flex-direction: row-reverse;
 
-        .rectangle-header-line {
-            margin-left: 0;
-            margin-right: -0.5rem;
-        }
+    .rectangle-header-line {
+      margin-left: 0;
+      margin-right: -0.5rem;
     }
+  }
 }
